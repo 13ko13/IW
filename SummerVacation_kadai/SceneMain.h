@@ -1,4 +1,5 @@
 #pragma once
+#include "Bg.h"
 class SceneMain
 {
 public:
@@ -11,6 +12,10 @@ public:
 	void Draw();
 
 private:
+	int m_tileGraphHandle;	//マップチップのグラフィック
+	int m_bgGraphHandle;	//背景のグラフィック
 
+	//背景
+	Bg m_bg;
 };
 

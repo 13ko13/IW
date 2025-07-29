@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "Game.h"
+#include "SceneMain.h"
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -17,6 +18,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//描画先を裏画面に設定
 	SetDrawScreen(DX_SCREEN_BACK);
+	SceneMain mainScene;
+	mainScene.Init();
 
 	while (ProcessMessage() == 0)
 	{
@@ -30,12 +33,17 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 
 		//ここにゲームの処理などを書く
+		mainScene.Update();
 		
+		//描画
+		mainScene.Draw();
 
 		//裏画面の内容を表画面に反映
 		ScreenFlip();
 
 	}
+	//メモリ上のグラフィックを開放
+	mainScene.End();
 
 	DxLib_End();				// ＤＸライブラリ使用の終了処理
 

@@ -135,10 +135,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bg.cpp" />
     <ClCompile Include="DrawPixel.cpp" />
     <ClCompile Include="SceneMain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bg.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="SceneMain.h" />
   </ItemGroup>
