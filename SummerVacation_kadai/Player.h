@@ -1,11 +1,11 @@
 #pragma once
 #include "Vec2.h"
 
-class player
+class Player
 {
 public:
-	player();
-	~player();
+	Player();
+	~Player();
 
 	void Init(int handle);
 	void End();
@@ -16,5 +16,10 @@ private:
 	int m_handle;	//プレイヤーのグラフィックハンドル
 
 	Vec2 m_pos;
+
+	bool m_isTurn;//左右反転するか
+
+	//アニメーション関連
+	int m_animFrame;	//アニメーションのフレーム数
 };
 
