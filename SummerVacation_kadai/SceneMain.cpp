@@ -1,6 +1,7 @@
 #include "SceneMain.h"
 #include "DxLib.h"
 #include "Bg.h"
+#include "player.h"
 
 SceneMain::SceneMain() :
 	m_tileGraphHandle(-1),
