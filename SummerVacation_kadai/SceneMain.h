@@ -15,7 +15,8 @@ public:
 
 private:
 	//使用するグラフィック
-	int m_playerGraphHandle;	//プレイヤーのグラフィック
+	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
+	int m_playerWalkGraphHandle;	//プレイヤーの歩きグラフィック
 	int m_tileGraphHandle;	//マップチップのグラフィック
 	int m_bgGraphHandle;	//背景のグラフィック
 
