@@ -136,15 +136,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Bg.cpp" />
+    <ClCompile Include="Character.cpp" />
     <ClCompile Include="DrawPixel.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="Trap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bg.h" />
+    <ClInclude Include="Character.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Rect.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="Trap.h" />
     <ClInclude Include="Vec2.h" />

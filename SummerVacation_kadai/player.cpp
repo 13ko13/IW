@@ -25,7 +25,8 @@ Player::Player() :
 	m_handleWalk(-1),
 	m_isTurn(false),
 	m_isInput(false),
-	m_animFrame(0)
+	m_animFrame(0),
+	m_state(PlayerState::Idle)
 {
 }
 
