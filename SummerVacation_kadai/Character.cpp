@@ -1,10 +1,11 @@
 #include "Character.h"
 #include "Vec2.h"
 #include "Player.h"
+#include "DxLib.h"
 
 namespace
 {
-	constexpr float kCharaSize = 64.0f;	//キャラクターサイズ
+	constexpr float kCharaSize = 50.0f;	//キャラクターサイズ
 }
 
 Character::Character()

@@ -6,11 +6,11 @@ class Character
 {
 public:
 	Character();
-	~Character();
+	virtual ~Character();
 
-	void Init();
-	void Update();
-	void Draw();
+	virtual void Init();
+	virtual  void Update();
+	virtual void Draw();
 
 protected:
 	Vec2 m_pos;		//ç¿ïW

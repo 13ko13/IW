@@ -1,7 +1,8 @@
 #pragma once
 #include "Vec2.h"
+#include "Character.h"
 
-class Player
+class Player : public Character
 {
 public:
 	Player();
@@ -21,6 +22,9 @@ private:
 	};
 
 private:
+	//移動
+	void Move();
+
 	//プレイヤーの基盤グラフィックハンドル
 	int m_handle;
 	//プレイヤーの入力待機中のグラフィックハンドル

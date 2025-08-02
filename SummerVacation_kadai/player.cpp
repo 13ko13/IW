@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "DxLib.h"
+#include "Character.h"
 
 //定数定義
 namespace
@@ -53,31 +54,11 @@ void Player::End()
 
 void Player::Update()
 {
-	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_UP) != 0)	//&演算:ビット単位の演算
-	{
-		m_isInput = true;
-		m_pos.y -= kSpeed;
-	}
-	if((pad & PAD_INPUT_DOWN) != 0)	//&演算:ビット単位の演算
-	{
-		m_isInput = true;
-		m_pos.y += kSpeed;
-	}
-	if((pad & PAD_INPUT_RIGHT) != 0)	//&演算:ビット単位の演算
-	{
-		m_isInput = true;
-		m_state = PlayerState::Walk;
-		m_pos.x += kSpeed;
-		m_isTurn = false;
-	}
-	if ((pad & PAD_INPUT_LEFT) != 0)	//&演算:ビット単位の演算
-	{
-		m_isInput = true;
-		m_state = PlayerState::Walk;
-		m_pos.x -= kSpeed;
-		m_isTurn = true;
-	}
+	Character::Update();
+
+	Move();
+
+	Character::m_pos += m_move;
 
 	if (m_isInput == false)
 	{
@@ -107,8 +88,40 @@ void Player::Update()
 	m_isInput = false;
 }
 
+void Player::Move()
+{
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((pad & PAD_INPUT_RIGHT) != 0)	//&演算:ビット単位の演算
+	{
+		m_move.x = kSpeed;
+		m_isInput = true;
+		m_state = PlayerState::Walk;
+		m_pos.x += kSpeed;
+		m_isTurn = false;
+	}
+	else if ((pad & PAD_INPUT_LEFT) != 0)	//&演算:ビット単位の演算
+	{
+		m_move.x = -kSpeed;
+		m_isInput = true;
+		m_state = PlayerState::Walk;
+		m_pos.x -= kSpeed;
+		m_isTurn = true;
+	}
+	else
+	{
+		m_move.x = 0.0f;
+	}
+}
+
 void Player::Draw()
 {
+	Character::Draw();
+
+#ifdef _DEBUG
+	//当たり判定を表示
+	m_colRect.Draw(0x0000ff, false);
+#endif
+
 	//アニメーションのフレーム数から表示したいコマ番号を計算で求める
 	int animNo = m_animFrame / kAnimWaitFrame;
 
