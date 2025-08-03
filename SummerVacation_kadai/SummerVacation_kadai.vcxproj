@@ -141,6 +141,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Trap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +151,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="Shot.h" />
     <ClInclude Include="Trap.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>

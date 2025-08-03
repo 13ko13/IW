@@ -7,7 +7,7 @@ namespace
 {
 	//プレイヤーの開始位置
 	constexpr int kPlayerStartX = 70;
-	constexpr int kPlayerStartY = 123;
+	constexpr int kPlayerStartY = 130;
 
 	//グラフィックのサイズ
 	constexpr int kGraphWidth = 32;
@@ -17,17 +17,15 @@ namespace
 	constexpr int kIdleAnimNum = 6;
 	constexpr int kAnimWaitFrame = 17; //アニメ1コマ当たりのフレーム数
 
-	constexpr int kSpeed = 2;
+	constexpr float kSpeed = 0.5f;		//移動速度
+	constexpr float kJumpPower = 4.0f;	//ジャンプ力
+
+	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
 }
 
 Player::Player() :
-	m_handle(-1),
-	m_handleIdle(-1),
-	m_handleWalk(-1),
-	m_isTurn(false),
 	m_isInput(false),
-	m_animFrame(0),
-	m_state(PlayerState::Idle)
+	m_animFrame(0)
 {
 }
 
@@ -35,7 +33,7 @@ Player::~Player()
 {
 }
 
-void Player::Init(int handle,int handleIdle, int handleWalk)
+void Player::Init(int handle, int handleIdle, int handleWalk)
 {
 	m_handle = handle;
 	m_handleIdle = handleIdle;
@@ -57,6 +55,7 @@ void Player::Update()
 	Character::Update();
 
 	Move();
+	Jump();
 
 	Character::m_pos += m_move;
 
@@ -88,6 +87,35 @@ void Player::Update()
 	m_isInput = false;
 }
 
+void Player::Draw()
+{
+	Character::Draw();
+
+#ifdef _DEBUG
+	//当たり判定を表示
+	m_colRect.Draw(0x0000ff, false);
+#endif
+
+	//アニメーションのフレーム数から表示したいコマ番号を計算で求める
+	int animNo = m_animFrame / kAnimWaitFrame;
+
+	//アニメーションの進行に合わせてグラフィックの切り取り位置を変更する
+	int srcX = kGraphWidth * animNo;
+	int srcY = 0;
+
+	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f ,
+		static_cast<int>(m_pos.y) - kCharaSize * 0.7f,
+		srcX, srcY,
+		kGraphWidth, kGraphHeight,
+		m_handle, true, m_isTurn
+	);
+}
+
+Shot* Player::CreateShot()
+{
+	
+}
+
 void Player::Move()
 {
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
@@ -113,27 +141,15 @@ void Player::Move()
 	}
 }
 
-void Player::Draw()
+void Player::Jump()
 {
-	Character::Draw();
+	//ジャンプ中は飛ばす
+	if (!m_isGround) return;
 
-#ifdef _DEBUG
-	//当たり判定を表示
-	m_colRect.Draw(0x0000ff, false);
-#endif
-
-	//アニメーションのフレーム数から表示したいコマ番号を計算で求める
-	int animNo = m_animFrame / kAnimWaitFrame;
-
-	//アニメーションの進行に合わせてグラフィックの切り取り位置を変更する
-	int srcX = kGraphWidth * animNo;
-	int srcY = 0;
-
-	DrawRectGraph(static_cast<int>(m_pos.x),
-		static_cast<int>(m_pos.y) ,
-		srcX, srcY,
-		kGraphWidth, kGraphHeight,
-		m_handle, true, m_isTurn
-	);
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((pad & PAD_INPUT_1))
+	{
+		m_move.y = -kJumpPower;
+		m_isGround = false;
+	}
 }
-

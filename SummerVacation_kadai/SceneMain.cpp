@@ -3,12 +3,14 @@
 #include "Bg.h"
 #include "player.h"
 #include "Trap.h"
+#include "Shot.h"
 
 SceneMain::SceneMain() :
 	m_playerIdleGraphHandle(-1),
 	m_playerWalkGraphHandle(-1),
 	m_tileGraphHandle(-1),
-	m_bgGraphHandle(-1)
+	m_bgGraphHandle(-1),
+	m_shotGraphHandle(-1)
 {
 }
 
@@ -23,8 +25,10 @@ void SceneMain::Init()
 	m_playerWalkGraphHandle = LoadGraph("data/Run.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
+	m_shotGraphHandle = LoadGraph("data/Shot.png");
 	m_player.Init(m_playerIdleGraphHandle,m_playerIdleGraphHandle,m_playerWalkGraphHandle);
 	m_bg.Init(m_tileGraphHandle,m_bgGraphHandle);
+	m_shot.Init(m_shotGraphHandle);
 }
 
 void SceneMain::End()
@@ -36,15 +40,18 @@ void SceneMain::End()
 	DeleteGraph(m_playerWalkGraphHandle);
 	DeleteGraph(m_tileGraphHandle);
 	DeleteGraph(m_bgGraphHandle);
+	DeleteGraph(m_shotGraphHandle);
 }
 
 void SceneMain::Update()
 {
 	m_player.Update();
+	m_shot.Update();
 }
 
 void SceneMain::Draw()
 {
 	m_bg.Draw();
 	m_player.Draw();
+	m_shot.Draw();
 }
