@@ -15,10 +15,10 @@ namespace
 
 	//アニメーション情報
 	constexpr int kIdleAnimNum = 6;
-	constexpr int kAnimWaitFrame = 17; //アニメ1コマ当たりのフレーム数
+	constexpr int kAnimWaitFrame = 9; //アニメ1コマ当たりのフレーム数
 
-	constexpr float kSpeed = 0.5f;		//移動速度
-	constexpr float kJumpPower = 4.0f;	//ジャンプ力
+	constexpr float kSpeed = 1.0f;		//移動速度
+	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
 }
@@ -103,7 +103,7 @@ void Player::Draw()
 	int srcX = kGraphWidth * animNo;
 	int srcY = 0;
 
-	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f ,
+	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f,
 		static_cast<int>(m_pos.y) - kCharaSize * 0.7f,
 		srcX, srcY,
 		kGraphWidth, kGraphHeight,
@@ -113,7 +113,16 @@ void Player::Draw()
 
 Shot* Player::CreateShot()
 {
-	
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((pad & PAD_INPUT_2) != 0)	//&演算:ビット単位の演算
+	{
+		printfDx("a");
+		Shot* pShot = new Shot();
+		pShot->SetInfo(m_pos, !m_isTurn);
+		return pShot;
+	}
+
+	return nullptr;
 }
 
 void Player::Move()

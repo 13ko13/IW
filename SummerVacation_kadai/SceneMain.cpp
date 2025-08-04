@@ -10,8 +10,10 @@ SceneMain::SceneMain() :
 	m_playerWalkGraphHandle(-1),
 	m_tileGraphHandle(-1),
 	m_bgGraphHandle(-1),
-	m_shotGraphHandle(-1)
+	m_shotGraphHandle(-1),
+	m_pShot(nullptr)
 {
+	m_pPlayer = new Player;
 }
 
 SceneMain::~SceneMain()
@@ -25,15 +27,15 @@ void SceneMain::Init()
 	m_playerWalkGraphHandle = LoadGraph("data/Run.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
-	m_shotGraphHandle = LoadGraph("data/Shot.png");
-	m_player.Init(m_playerIdleGraphHandle,m_playerIdleGraphHandle,m_playerWalkGraphHandle);
+	m_shotGraphHandle = LoadGraph("data/Shot.gif");
+	m_pPlayer->Init(m_playerIdleGraphHandle,m_playerIdleGraphHandle,m_playerWalkGraphHandle);
 	m_bg.Init(m_tileGraphHandle,m_bgGraphHandle);
 	m_shot.Init(m_shotGraphHandle);
 }
 
 void SceneMain::End()
 {
-	m_player.End();
+	m_pPlayer->End();
 	m_bg.End();
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
@@ -45,13 +47,30 @@ void SceneMain::End()
 
 void SceneMain::Update()
 {
-	m_player.Update();
+
+	m_pPlayer->Update();
 	m_shot.Update();
+	UpdateShot();
 }
 
 void SceneMain::Draw()
 {
 	m_bg.Draw();
-	m_player.Draw();
+	m_pPlayer->Draw();
 	m_shot.Draw();
+
+	if (!m_pShot) return;
+	m_pShot->Draw();
+}
+
+void SceneMain::UpdateShot()
+{
+	Shot* newShot = m_pPlayer->CreateShot();
+	if (newShot != nullptr)
+	{
+		m_pShot = newShot;	//弾を保持
+	}
+
+	if (!m_pShot) return;
+	m_pShot->Update();
 }

@@ -3,6 +3,9 @@
 #include "Player.h"
 #include "Shot.h"
 
+class Player;
+class Shot;
+
 class SceneMain
 {
 public:
@@ -14,6 +17,8 @@ public:
 	void Update();
 	void Draw();
 
+	void UpdateShot();
+
 private:
 	//使用するグラフィック
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
@@ -23,10 +28,12 @@ private:
 	int m_shotGraphHandle;	//弾のグラフィック
 
 	//プレイヤー
-	Player m_player;
+	Player* m_pPlayer;
 	//背景
 	Bg m_bg;
 	//弾
 	Shot m_shot;
+
+	Shot* m_pShot;
 };
 
