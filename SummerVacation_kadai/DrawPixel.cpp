@@ -18,6 +18,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	//描画先を裏画面に設定
 	SetDrawScreen(DX_SCREEN_BACK);
+
 	SceneMain* m_pScene = new SceneMain;
 	m_pScene->Init();
 
@@ -28,12 +29,6 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		//画面をクリア
 		ClearDrawScreen();
-
-		//ESCキーが押されたらウィンドウを閉じる
-		if (CheckHitKey(KEY_INPUT_ESCAPE))
-		{
-			break;
-		}
 
 		//ここにゲームの処理などを書く
 		m_pScene->Update();
@@ -50,6 +45,11 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 		}
 
+		//ESCキーが押されたらウィンドウを閉じる
+		if (CheckHitKey(KEY_INPUT_ESCAPE))
+		{
+			break;
+		}
 	}
 	//メモリ上のグラフィックを開放
 	m_pScene->End();

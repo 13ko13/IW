@@ -17,6 +17,7 @@ public:
 	void Update();
 	void Draw();
 
+private:
 	void UpdateShot();
 
 private:
@@ -32,8 +33,6 @@ private:
 	//îwåi
 	Bg m_bg;
 	//íe
-	Shot m_shot;
-
 	Shot* m_pShot;
 };
 

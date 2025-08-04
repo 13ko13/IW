@@ -3,13 +3,15 @@
 #include "Character.h"
 #include "Shot.h"
 
+class Shot;
+
 class Player : public Character
 {
 public:
 	Player();
 	virtual ~Player();
 
-	virtual void Init(int handle,int handleRun, int handleWalk);
+	virtual void Init(int handle,int handleRun, int handleWalk) ;
 	void End();
 	virtual void Update() override;
 	virtual void Draw()override;

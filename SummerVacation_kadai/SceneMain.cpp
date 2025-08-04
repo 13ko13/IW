@@ -10,8 +10,7 @@ SceneMain::SceneMain() :
 	m_playerWalkGraphHandle(-1),
 	m_tileGraphHandle(-1),
 	m_bgGraphHandle(-1),
-	m_shotGraphHandle(-1),
-	m_pShot(nullptr)
+	m_shotGraphHandle(-1)
 {
 	m_pPlayer = new Player;
 }
@@ -27,10 +26,9 @@ void SceneMain::Init()
 	m_playerWalkGraphHandle = LoadGraph("data/Run.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
-	m_shotGraphHandle = LoadGraph("data/Shot.gif");
 	m_pPlayer->Init(m_playerIdleGraphHandle,m_playerIdleGraphHandle,m_playerWalkGraphHandle);
 	m_bg.Init(m_tileGraphHandle,m_bgGraphHandle);
-	m_shot.Init(m_shotGraphHandle);
+	m_pShot->Init();
 }
 
 void SceneMain::End()
@@ -49,7 +47,7 @@ void SceneMain::Update()
 {
 
 	m_pPlayer->Update();
-	m_shot.Update();
+	m_pShot->Update();
 	UpdateShot();
 }
 
@@ -57,7 +55,7 @@ void SceneMain::Draw()
 {
 	m_bg.Draw();
 	m_pPlayer->Draw();
-	m_shot.Draw();
+	m_pShot->Draw();
 
 	if (!m_pShot) return;
 	m_pShot->Draw();

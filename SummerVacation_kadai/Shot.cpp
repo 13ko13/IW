@@ -11,16 +11,16 @@ Shot::Shot() :
 	m_handle(-1),
 	m_move({ kSpeed,0 })
 {
+	m_handle = LoadGraph("data/Shot.gif");
 }
 
 Shot::~Shot()
 {
-	
+	DeleteGraph(m_handle);
 }
 
-void Shot::Init(int handle)
+void Shot::Init()
 {
-	m_handle = handle;
 }
 
 void Shot::Update()

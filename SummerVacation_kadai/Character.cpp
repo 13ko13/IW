@@ -22,6 +22,7 @@ Character::Character() :
 
 Character::~Character()
 {
+	DeleteGraph(m_handle);
 }
 
 void Character::Init()
