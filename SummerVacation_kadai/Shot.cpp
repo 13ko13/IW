@@ -13,7 +13,7 @@ Shot::Shot() :
 	m_handle(-1),
 	m_move({ kSpeed,0 })
 {
-	m_handle = LoadGraph("data/Shot.gif");
+	m_handle = LoadGraph("data/Bullet.gif");
 }
 
 Shot::~Shot()

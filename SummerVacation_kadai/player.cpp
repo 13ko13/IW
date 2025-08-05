@@ -17,16 +17,23 @@ namespace
 	//アニメーション情報
 	constexpr int kIdleAnimNum = 6;
 	constexpr int kAnimWaitFrame = 6; //アニメ1コマ当たりのフレーム数
+	constexpr int kShotAnimDuration = 100; //Shot状態を維持するフレーム数
 
 	constexpr float kSpeed = 1.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
+
+	//弾の情報
+	constexpr int kShotCoolTime = 50;	//弾のクールタイム
 }
 
 Player::Player() :
 	m_isInput(false),
-	m_animFrame(0)
+	m_isShotInput(false),
+	m_animFrame(0),
+	m_shotAnimTime(0),
+	m_time(0)
 {
 }
 
@@ -34,16 +41,19 @@ Player::~Player()
 {
 }
 
-void Player::Init(int handle, int handleIdle, int handleWalk)
+void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot)
 {
 	m_handle = handle;
 	m_handleIdle = handleIdle;
 	m_handleWalk = handleWalk;
+	m_handleShot = handleShot;
 	m_pos.x = kPlayerStartX;
 	m_pos.y = kPlayerStartY;
 	m_isTurn = false;
 	m_isInput = false;
 	m_animFrame = 0;
+	m_shotAnimTime = 0;
+	m_time = 0;
 }
 
 void Player::End()
@@ -53,6 +63,9 @@ void Player::End()
 
 void Player::Update()
 {
+	m_time++;
+	ShotCT();
+
 	Character::Update();
 
 	Move();
@@ -60,10 +73,36 @@ void Player::Update()
 
 	Character::m_pos += m_move;
 
-	if (m_isInput == false)
+	if (!m_isInput)
 	{
 		m_state = PlayerState::Idle;
 	}
+
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((pad & PAD_INPUT_2) != 0)//&演算:ビット単位の演算
+	{
+		if (!m_isShotInput)
+		{
+			m_state = PlayerState::Shot;
+			m_animFrame = 0;
+		}
+	}
+
+	////Shot状態の維持処理
+	//if (m_state == PlayerState::Shot)
+	//{
+	//	m_shotAnimTime++;
+	//	if (m_shotAnimTime >= kShotAnimDuration)
+	//	{
+	//		m_state = PlayerState::Idle;
+	//		m_shotAnimTime = 0;
+	//	}
+	//}
+	//else if (!m_isInput)
+	//{
+	//	m_state = PlayerState::Idle;
+	//	m_shotAnimTime = 0;
+	//}
 	//アニメ更新
 	m_animFrame++;
 
@@ -76,6 +115,10 @@ void Player::Update()
 		break;
 	case PlayerState::Walk:
 		m_handle = m_handleWalk;
+		animMax = 6;
+		break;
+	case PlayerState::Shot:
+		m_handle = m_handleShot;
 		animMax = 6;
 		break;
 	}
@@ -104,6 +147,11 @@ void Player::Draw()
 	int srcX = kGraphWidth * animNo;
 	int srcY = 0;
 
+	if (m_state == PlayerState::Shot)
+	{
+		srcX = 3;
+	}
+
 	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f,
 		static_cast<int>(m_pos.y) - kCharaSize * 0.7f,
 		srcX, srcY,
@@ -115,13 +163,16 @@ void Player::Draw()
 Shot* Player::CreateShot()
 {
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_2) != 0)	//&演算:ビット単位の演算
+	if ((pad & PAD_INPUT_2) != 0)//&演算:ビット単位の演算
 	{
-		Shot* pShot = new Shot();
-		pShot->SetInfo(m_pos, !m_isTurn);
-		return pShot;
+		if (!m_isShotInput)
+		{
+			m_isShotInput = true;
+			Shot* pShot = new Shot();
+			pShot->SetInfo(m_pos, !m_isTurn);
+			return pShot;
+		}
 	}
-
 	return nullptr;
 }
 
@@ -160,5 +211,14 @@ void Player::Jump()
 	{
 		m_move.y = -kJumpPower;
 		m_isGround = false;
+	}
+}
+
+void Player::ShotCT()
+{
+	if (m_time >= kShotCoolTime)
+	{
+		m_isShotInput = false;
+		m_time = 0;
 	}
 }

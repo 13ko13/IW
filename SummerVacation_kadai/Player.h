@@ -11,7 +11,7 @@ public:
 	Player();
 	virtual ~Player();
 
-	virtual void Init(int handle,int handleRun, int handleWalk) ;
+	virtual void Init(int handle,int handleRun, int handleWalk,int handleShot) ;
 	void End();
 	virtual void Update() override;
 	virtual void Draw()override;
@@ -22,15 +22,21 @@ private:
 	void Move();
 	//ジャンプ
 	void Jump();
+	//弾のクールタイム
+	void ShotCT(); 
 
-	//Vec2 m_pos;
+private:
 	
 	//プレイヤーが入力状態かどうかのフラグ
 	bool m_isInput;
+	//プレイヤーが弾を発射している状態かどうかのフラグ
+	bool m_isShotInput;
 
 	//アニメーション関連
 	int m_animFrame;	//アニメーションのフレーム数
+	int m_shotAnimTime; //SHおｔ状態を維持するための時間カウント
 
-
+	//時間関連
+	int m_time;	//時間を計測
 };
 

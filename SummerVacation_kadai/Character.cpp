@@ -15,6 +15,7 @@ Character::Character() :
 	m_handle(-1),
 	m_handleIdle(-1),
 	m_handleWalk(-1),
+	m_handleShot(-1),
 	m_isTurn(true),
 	m_isGround(true)
 {

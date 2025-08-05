@@ -16,7 +16,8 @@ public:
 	enum class PlayerState
 	{
 		Idle,
-		Walk
+		Walk,
+		Shot
 	};
 
 	PlayerState m_state;
@@ -30,6 +31,8 @@ protected:
 	int m_handleIdle;
 	//プレイヤーの歩き入力中のグラフィックハンドル
 	int m_handleWalk;
+	//プレイヤーの弾撃ち入力中のグラフィックハンドル
+	int m_handleShot;
 
 	//左右反転するか
 	bool m_isTurn;

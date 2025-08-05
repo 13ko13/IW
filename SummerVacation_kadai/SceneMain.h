@@ -19,22 +19,22 @@ public:
 
 private:
 	void UpdateShot(); //弾更新
+	void DeleteShot(int index); //弾削除
 
 private:
 	//使用するグラフィック
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
 	int m_playerWalkGraphHandle;	//プレイヤーの歩きグラフィック
-	int m_tileGraphHandle;	//マップチップのグラフィック
-	int m_bgGraphHandle;	//背景のグラフィック
-	int m_shotGraphHandle;	//弾のグラフィック
-
-	bool m_isTurn;	//弾を反転させるかのフラグ
+	int m_playerShotGraphHnadle;	//プレイヤーの弾撃ちグラフィック
+	int m_tileGraphHandle;			//マップチップのグラフィック
+	int m_bgGraphHandle;			//背景のグラフィック
+	int m_bulletGraphHandle;			//弾のグラフィック
 
 	//プレイヤー
 	Player* m_pPlayer;
 	//背景
 	Bg m_bg;
 	//弾
-	Shot* m_pShot;
+	Shot* m_pShot[5];
 };
 
