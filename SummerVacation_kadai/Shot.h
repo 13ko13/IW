@@ -1,5 +1,6 @@
 #pragma once
 #include "Vec2.h"
+#include "Player.h"
 
 class Shot
 {

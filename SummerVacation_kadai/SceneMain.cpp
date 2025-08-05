@@ -10,7 +10,8 @@ SceneMain::SceneMain() :
 	m_playerWalkGraphHandle(-1),
 	m_tileGraphHandle(-1),
 	m_bgGraphHandle(-1),
-	m_shotGraphHandle(-1)
+	m_shotGraphHandle(-1),
+	m_pShot(nullptr)
 {
 	m_pPlayer = new Player;
 }
@@ -41,13 +42,21 @@ void SceneMain::End()
 	DeleteGraph(m_tileGraphHandle);
 	DeleteGraph(m_bgGraphHandle);
 	DeleteGraph(m_shotGraphHandle);
+	if (m_pShot)
+	{
+		delete m_pShot;
+		m_pShot = nullptr;
+	}
 }
 
 void SceneMain::Update()
 {
 
 	m_pPlayer->Update();
-	m_pShot->Update();
+	if (m_pShot)
+	{
+		m_pShot->Update();
+	}
 	UpdateShot();
 }
 
@@ -55,8 +64,6 @@ void SceneMain::Draw()
 {
 	m_bg.Draw();
 	m_pPlayer->Draw();
-	m_pShot->Draw();
-
 	if (!m_pShot) return;
 	m_pShot->Draw();
 }

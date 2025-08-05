@@ -11,8 +11,48 @@
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Shot.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Rect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Shot.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Character.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Trap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Trap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\DrawPixel.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -23,52 +63,12 @@
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Bg.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:SceneMain.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Player.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Character.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Character.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Bg.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Trap.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Rect.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Rect.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Game.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Vec2.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:Trap.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -86,15 +86,15 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Bg.cpp",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.cpp",
-              "RelativeDocumentMoniker": "Bg.cpp",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.cpp",
-              "RelativeToolTip": "Bg.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Character.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp",
+              "RelativeDocumentMoniker": "Character.cpp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp",
+              "RelativeToolTip": "Character.cpp",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAD0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-29T01:57:55.634Z",
+              "WhenOpened": "2025-08-01T10:49:24.76Z",
               "EditorCaption": ""
             },
             {
@@ -103,67 +103,41 @@
               "Title": "SceneMain.cpp",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.cpp",
               "RelativeDocumentMoniker": "SceneMain.cpp",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.cpp*",
-              "RelativeToolTip": "SceneMain.cpp*",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAwAAAAWAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.cpp",
+              "RelativeToolTip": "SceneMain.cpp",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAwEAAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-28T11:57:36.911Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 3,
               "Title": "Player.cpp",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\player.cpp",
               "RelativeDocumentMoniker": "player.cpp",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\player.cpp",
               "RelativeToolTip": "player.cpp",
-              "ViewState": "AgIAAGMAAAAAAAAAAAAAAHcAAAAbAAAAAAAAAA==",
+              "ViewState": "AgIAAHwAAAAAAAAAAAAAwKMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-08-04T05:28:14.963Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Character.cpp",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp",
-              "RelativeDocumentMoniker": "Character.cpp",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.cpp",
-              "RelativeToolTip": "Character.cpp",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABgAAAAXAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-01T10:49:24.76Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 13,
               "Title": "DrawPixel.cpp",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\DrawPixel.cpp",
               "RelativeDocumentMoniker": "DrawPixel.cpp",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\DrawPixel.cpp",
               "RelativeToolTip": "DrawPixel.cpp",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAA0AAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAAwDsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-27T02:55:00.629Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-27T02:55:00.629Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Rect.cpp",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp",
-              "RelativeDocumentMoniker": "Rect.cpp",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp",
-              "RelativeToolTip": "Rect.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-01T10:02:00.582Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 9,
               "Title": "Trap.cpp",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.cpp",
               "RelativeDocumentMoniker": "Trap.cpp",
@@ -171,75 +145,33 @@
               "RelativeToolTip": "Trap.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-30T11:06:38.466Z"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "640050fd-1dcf-4f3d-8c63-7ddc08fc672f",
-        "Display": 0,
-        "X": 973,
-        "Y": 113,
-        "Width": 770,
-        "Height": 773,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
+              "WhenOpened": "2025-07-30T11:06:38.466Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Rect.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp",
+              "RelativeDocumentMoniker": "Rect.cpp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.cpp",
+              "RelativeToolTip": "Rect.cpp",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAwEQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-08-01T10:02:00.582Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 14,
-              "Title": "Game.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h",
-              "RelativeDocumentMoniker": "Game.h",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h",
-              "RelativeToolTip": "Game.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-27T02:56:42.753Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "cb04e392-8e08-4c2d-89a3-84d99f3e55bd",
-        "Display": 0,
-        "X": 955,
-        "Y": 0,
-        "Width": 970,
-        "Height": 1037,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SceneMain.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
-              "RelativeDocumentMoniker": "SceneMain.h",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
-              "RelativeToolTip": "SceneMain.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAPAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-28T11:55:00.871Z",
-              "EditorCaption": ""
+              "Title": "Bg.cpp",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.cpp",
+              "RelativeDocumentMoniker": "Bg.cpp",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.cpp",
+              "RelativeToolTip": "Bg.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAA4AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-29T01:57:55.634Z"
             }
           ]
         }
@@ -264,13 +196,13 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "Player.h",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.h",
               "RelativeDocumentMoniker": "Player.h",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Player.h",
               "RelativeToolTip": "Player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-08-02T04:27:58.976Z",
               "EditorCaption": ""
@@ -285,8 +217,8 @@
       "FloatingWindowState": {
         "Id": "025cfc49-389b-4c4e-a586-a509173d1218",
         "Display": 0,
-        "X": 867,
-        "Y": 450,
+        "X": 24,
+        "Y": 195,
         "Width": 745,
         "Height": 686,
         "WindowState": 0
@@ -304,43 +236,9 @@
               "RelativeDocumentMoniker": "Shot.cpp",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.cpp",
               "RelativeToolTip": "Shot.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAARAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAACgAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-08-03T11:52:39.518Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "da3ffc46-ab9a-4f39-8aae-c592c49755f7",
-        "Display": 0,
-        "X": 565,
-        "Y": 389,
-        "Width": 706,
-        "Height": 773,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Shot.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.h",
-              "RelativeDocumentMoniker": "Shot.h",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.h",
-              "RelativeToolTip": "Shot.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAANAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-03T11:51:33.453Z",
               "EditorCaption": ""
             }
           ]
@@ -366,7 +264,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 8,
               "Title": "Trap.h",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Trap.h",
               "RelativeDocumentMoniker": "Trap.h",
@@ -375,40 +273,6 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-07-30T11:05:23.992Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "77c93b08-c216-452b-9dd7-14246469a4b2",
-        "Display": 0,
-        "X": 955,
-        "Y": 0,
-        "Width": 970,
-        "Height": 1037,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "Bg.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.h",
-              "RelativeDocumentMoniker": "Bg.h",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.h",
-              "RelativeToolTip": "Bg.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-29T01:56:28.935Z",
               "EditorCaption": ""
             }
           ]
@@ -434,7 +298,7 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Vec2.h",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Vec2.h",
               "RelativeDocumentMoniker": "Vec2.h",
@@ -443,40 +307,6 @@
               "ViewState": "AgIAAC0AAAAAAAAAAAAAADcAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-07-30T04:44:54.461Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Orientation": 0,
-      "VerticalTabListWidth": 256,
-      "FloatingWindowState": {
-        "Id": "7c584bc6-1514-450c-905b-9f7c2abf3b68",
-        "Display": 0,
-        "X": 174,
-        "Y": 111,
-        "Width": 745,
-        "Height": 773,
-        "WindowState": 0
-      },
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Rect.h",
-              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h",
-              "RelativeDocumentMoniker": "Rect.h",
-              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h",
-              "RelativeToolTip": "Rect.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-01T09:49:57.15Z",
               "EditorCaption": ""
             }
           ]
@@ -502,15 +332,164 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 6,
               "Title": "Character.h",
               "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.h",
               "RelativeDocumentMoniker": "Character.h",
               "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Character.h",
               "RelativeToolTip": "Character.h",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAASAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-08-01T10:48:35.87Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "da3ffc46-ab9a-4f39-8aae-c592c49755f7",
+        "Display": 0,
+        "X": 162,
+        "Y": 173,
+        "Width": 706,
+        "Height": 762,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Shot.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.h",
+              "RelativeDocumentMoniker": "Shot.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Shot.h",
+              "RelativeToolTip": "Shot.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-08-03T11:51:33.453Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SceneMain.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
+              "RelativeDocumentMoniker": "SceneMain.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
+              "RelativeToolTip": "SceneMain.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-07-28T11:55:00.871Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "77c93b08-c216-452b-9dd7-14246469a4b2",
+        "Display": 0,
+        "X": 955,
+        "Y": 0,
+        "Width": 970,
+        "Height": 1037,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Bg.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.h",
+              "RelativeDocumentMoniker": "Bg.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Bg.h",
+              "RelativeToolTip": "Bg.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-07-29T01:56:28.935Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "7c584bc6-1514-450c-905b-9f7c2abf3b68",
+        "Display": 0,
+        "X": 174,
+        "Y": 111,
+        "Width": 745,
+        "Height": 773,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Rect.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h",
+              "RelativeDocumentMoniker": "Rect.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Rect.h",
+              "RelativeToolTip": "Rect.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-08-01T09:49:57.15Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "FloatingWindowState": {
+        "Id": "640050fd-1dcf-4f3d-8c63-7ddc08fc672f",
+        "Display": 0,
+        "X": 973,
+        "Y": 113,
+        "Width": 770,
+        "Height": 773,
+        "WindowState": 0
+      },
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Game.h",
+              "DocumentMoniker": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h",
+              "RelativeDocumentMoniker": "Game.h",
+              "ToolTip": "C:\\Users\\Admin\\Documents\\GitHub\\IW\\SummerVacation_kadai\\Game.h",
+              "RelativeToolTip": "Game.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-07-27T02:56:42.753Z",
               "EditorCaption": ""
             }
           ]

@@ -18,7 +18,7 @@ public:
 	void Draw();
 
 private:
-	void UpdateShot();
+	void UpdateShot(); //弾更新
 
 private:
 	//使用するグラフィック
@@ -27,6 +27,8 @@ private:
 	int m_tileGraphHandle;	//マップチップのグラフィック
 	int m_bgGraphHandle;	//背景のグラフィック
 	int m_shotGraphHandle;	//弾のグラフィック
+
+	bool m_isTurn;	//弾を反転させるかのフラグ
 
 	//プレイヤー
 	Player* m_pPlayer;
