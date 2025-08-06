@@ -17,7 +17,7 @@ namespace
 	//アニメーション情報
 	constexpr int kIdleAnimNum = 6;
 	constexpr int kAnimWaitFrame = 6; //アニメ1コマ当たりのフレーム数
-	constexpr int kShotAnimDuration = 100; //Shot状態を維持するフレーム数
+	constexpr int kShotAnimFrame = 10;//弾を撃ってるときのグラフィック表示時間
 
 	constexpr float kSpeed = 1.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
@@ -29,6 +29,7 @@ namespace
 }
 
 Player::Player() :
+	prevInput(0),
 	m_isInput(false),
 	m_isShotInput(false),
 	m_animFrame(0),
@@ -49,6 +50,7 @@ void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot)
 	m_handleShot = handleShot;
 	m_pos.x = kPlayerStartX;
 	m_pos.y = kPlayerStartY;
+	prevInput = 0;
 	m_isTurn = false;
 	m_isInput = false;
 	m_animFrame = 0;
@@ -64,6 +66,7 @@ void Player::End()
 void Player::Update()
 {
 	m_time++;
+	m_shotAnimTime++;
 	ShotCT();
 
 	Character::Update();
@@ -73,37 +76,22 @@ void Player::Update()
 
 	Character::m_pos += m_move;
 
-	if (!m_isInput)
-	{
-		m_state = PlayerState::Idle;
-	}
-
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	if ((pad & PAD_INPUT_2) != 0)//&演算:ビット単位の演算
 	{
 		if (!m_isShotInput)
 		{
+			m_isInput = true;
 			m_state = PlayerState::Shot;
 			m_animFrame = 0;
 		}
 	}
 
-	////Shot状態の維持処理
-	//if (m_state == PlayerState::Shot)
-	//{
-	//	m_shotAnimTime++;
-	//	if (m_shotAnimTime >= kShotAnimDuration)
-	//	{
-	//		m_state = PlayerState::Idle;
-	//		m_shotAnimTime = 0;
-	//	}
-	//}
-	//else if (!m_isInput)
-	//{
-	//	m_state = PlayerState::Idle;
-	//	m_shotAnimTime = 0;
-	//}
-	//アニメ更新
+	if (!m_isInput)
+	{
+		m_state = PlayerState::Idle;
+	}
+
 	m_animFrame++;
 
 	int animMax = 0;
@@ -119,7 +107,7 @@ void Player::Update()
 		break;
 	case PlayerState::Shot:
 		m_handle = m_handleShot;
-		animMax = 6;
+		animMax = 3;
 		break;
 	}
 
@@ -128,7 +116,15 @@ void Player::Update()
 		m_animFrame = 0;
 	}
 
-	m_isInput = false;
+	if (m_isInput && m_shotAnimTime <= kShotAnimFrame)
+	{
+		return;
+	}
+	else
+	{
+		m_isInput = false;
+		m_shotAnimTime = 0;
+	}
 }
 
 void Player::Draw()
@@ -147,9 +143,13 @@ void Player::Draw()
 	int srcX = kGraphWidth * animNo;
 	int srcY = 0;
 
-	if (m_state == PlayerState::Shot)
+	if (m_state == PlayerState::Shot && m_shotAnimTime <= kShotAnimFrame)
 	{
-		srcX = 3;
+		srcX = kGraphWidth * 2;
+	}
+	else
+	{
+		srcX = kGraphWidth * animNo;
 	}
 
 	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f,
@@ -206,12 +206,15 @@ void Player::Jump()
 	//ジャンプ中は飛ばす
 	if (!m_isGround) return;
 
-	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_1))
+	int currentPadInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((currentPadInput & PAD_INPUT_1) && !(prevInput & PAD_INPUT_1))
 	{
 		m_move.y = -kJumpPower;
 		m_isGround = false;
 	}
+
+	//状態を更新
+	prevInput = currentPadInput;
 }
 
 void Player::ShotCT()

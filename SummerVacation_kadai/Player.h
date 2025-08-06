@@ -26,7 +26,9 @@ private:
 	void ShotCT(); 
 
 private:
-	
+	//押された瞬間だけをとるための前回の入力状態
+	int prevInput = 0;
+
 	//プレイヤーが入力状態かどうかのフラグ
 	bool m_isInput;
 	//プレイヤーが弾を発射している状態かどうかのフラグ
@@ -34,9 +36,8 @@ private:
 
 	//アニメーション関連
 	int m_animFrame;	//アニメーションのフレーム数
-	int m_shotAnimTime; //SHおｔ状態を維持するための時間カウント
+	int m_shotAnimTime; //Shot状態を維持するための時間カウント
 
 	//時間関連
 	int m_time;	//時間を計測
 };
-

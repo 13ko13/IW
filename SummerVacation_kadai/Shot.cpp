@@ -35,12 +35,12 @@ void Shot::Draw()
 	if (m_move.x > 0)
 	{
 		//‰EŒü‚«:’Êí•`‰æ
-		DrawGraph(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y), m_handle, true);
+		DrawGraph(static_cast<int>(m_pos.x), static_cast<int>(m_pos.y) - 7, m_handle, true);
 	}
 	else
 	{
 		//¶Œü‚«:¶‰E”½“]•`‰æ
-		DrawTurnGraph(static_cast<int>(m_pos.x) - 14, static_cast<int>(m_pos.y), m_handle, true);
+		DrawTurnGraph(static_cast<int>(m_pos.x) - 14, static_cast<int>(m_pos.y) - 7, m_handle, true);
 	}
 }
 
