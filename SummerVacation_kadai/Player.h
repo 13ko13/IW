@@ -2,6 +2,7 @@
 #include "Vec2.h"
 #include "Character.h"
 #include "Shot.h"
+#include "Bg.h"
 
 class Shot;
 
@@ -11,7 +12,8 @@ public:
 	Player();
 	virtual ~Player();
 
-	virtual void Init(int handle,int handleRun, int handleWalk,int handleShot) ;
+	virtual void Init(int handle,int handleRun, int handleWalk,int handleShot,
+					  int handleJump, int handleDJump) ;
 	void End();
 	virtual void Update() override;
 	virtual void Draw()override;
@@ -24,15 +26,22 @@ private:
 	void Jump();
 	//弾のクールタイム
 	void ShotCT(); 
+	//ジャンプの描画
+	void DrawJump();
 
 private:
+	//プレイヤー関連
 	//押された瞬間だけをとるための前回の入力状態
-	int prevInput = 0;
+	int m_prevInput = 0;
+	//現在のジャンプした回数(二段ジャンプ用)
+	int m_jumpNum;
 
 	//プレイヤーが入力状態かどうかのフラグ
 	bool m_isInput;
 	//プレイヤーが弾を発射している状態かどうかのフラグ
 	bool m_isShotInput;
+	//プレイヤーが二段ジャンプをしているかのフラグ
+	bool m_isDoubleJump;
 
 	//アニメーション関連
 	int m_animFrame;	//アニメーションのフレーム数

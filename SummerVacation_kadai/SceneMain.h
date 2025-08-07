@@ -5,6 +5,7 @@
 
 class Player;
 class Shot;
+class Bg;
 
 class SceneMain
 {
@@ -26,6 +27,8 @@ private:
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
 	int m_playerWalkGraphHandle;	//プレイヤーの歩きグラフィック
 	int m_playerShotGraphHnadle;	//プレイヤーの弾撃ちグラフィック
+	int m_playerJumpGraphHandle;	//プレイヤーのジャンプグラフィック
+	int m_playerDJumpGraphHandle;	//プレイヤーの二段ジャンプグラフィック
 	int m_tileGraphHandle;			//マップチップのグラフィック
 	int m_bgGraphHandle;			//背景のグラフィック
 	int m_bulletGraphHandle;			//弾のグラフィック
@@ -33,7 +36,7 @@ private:
 	//プレイヤー
 	Player* m_pPlayer;
 	//背景
-	Bg m_bg;
+	Bg* m_pBg;
 	//弾
 	Shot* m_pShot[5];
 };

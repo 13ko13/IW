@@ -2,13 +2,12 @@
 #include "DxLib.h"
 #include "Character.h"
 #include "Shot.h"
+#include "Bg.h"
 
 //定数定義
 namespace
 {
-	//プレイヤーの開始位置
-	constexpr int kPlayerStartX = 70;
-	constexpr int kPlayerStartY = 130;
+	const Vec2 kInitPos = { 110.0f,200.0f };	//初期位置
 
 	//グラフィックのサイズ
 	constexpr int kGraphWidth = 32;
@@ -18,8 +17,9 @@ namespace
 	constexpr int kIdleAnimNum = 6;
 	constexpr int kAnimWaitFrame = 6; //アニメ1コマ当たりのフレーム数
 	constexpr int kShotAnimFrame = 10;//弾を撃ってるときのグラフィック表示時間
+	constexpr int kJumpAnimNum = 2;
 
-	constexpr float kSpeed = 1.0f;		//移動速度
+	constexpr float kSpeed = 2.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
@@ -29,30 +29,38 @@ namespace
 }
 
 Player::Player() :
-	prevInput(0),
+	m_prevInput(0),
+	m_jumpNum(0),
 	m_isInput(false),
 	m_isShotInput(false),
+	m_isDoubleJump(false),
 	m_animFrame(0),
 	m_shotAnimTime(0),
 	m_time(0)
 {
+	m_pos = kInitPos;
 }
 
 Player::~Player()
 {
 }
 
-void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot)
+void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot,
+				  int handleJump, int handleDJump)
 {
 	m_handle = handle;
 	m_handleIdle = handleIdle;
 	m_handleWalk = handleWalk;
 	m_handleShot = handleShot;
-	m_pos.x = kPlayerStartX;
-	m_pos.y = kPlayerStartY;
-	prevInput = 0;
+	m_handleJump = handleJump;
+	m_handleDJump = handleDJump;
+	m_pos.x = kInitPos.x;
+	m_pos.y = kInitPos.y;
+	m_prevInput = 0;
+	m_jumpNum = 0;
 	m_isTurn = false;
 	m_isInput = false;
+	m_isDoubleJump = false;
 	m_animFrame = 0;
 	m_shotAnimTime = 0;
 	m_time = 0;
@@ -74,8 +82,6 @@ void Player::Update()
 	Move();
 	Jump();
 
-	Character::m_pos += m_move;
-
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	if ((pad & PAD_INPUT_2) != 0)//&演算:ビット単位の演算
 	{
@@ -87,9 +93,13 @@ void Player::Update()
 		}
 	}
 
-	if (!m_isInput)
+	if (!m_isInput && m_isGround)
 	{
 		m_state = PlayerState::Idle;
+	}
+	else if (!m_isGround)
+	{
+		m_state = PlayerState::Jump;
 	}
 
 	m_animFrame++;
@@ -99,7 +109,7 @@ void Player::Update()
 	{
 	case PlayerState::Idle:
 		m_handle = m_handleIdle;
-		animMax = 11;
+		animMax = 6;
 		break;
 	case PlayerState::Walk:
 		m_handle = m_handleWalk;
@@ -109,9 +119,17 @@ void Player::Update()
 		m_handle = m_handleShot;
 		animMax = 3;
 		break;
+	case PlayerState::Jump:
+		m_handle = m_handleJump;
+		animMax = 2;
+		break;
+	case PlayerState::DoubleJump:
+		m_handle = m_handleDJump;
+		animMax = 2;
+		break;
 	}
 
-	if (m_animFrame >= kIdleAnimNum * kAnimWaitFrame)
+	if (m_animFrame >= animMax * kAnimWaitFrame)
 	{
 		m_animFrame = 0;
 	}
@@ -137,10 +155,10 @@ void Player::Draw()
 #endif
 
 	//アニメーションのフレーム数から表示したいコマ番号を計算で求める
-	int animNo = m_animFrame / kAnimWaitFrame;
+	int AnimNo = m_animFrame / kAnimWaitFrame;
 
 	//アニメーションの進行に合わせてグラフィックの切り取り位置を変更する
-	int srcX = kGraphWidth * animNo;
+	int srcX = 0;
 	int srcY = 0;
 
 	if (m_state == PlayerState::Shot && m_shotAnimTime <= kShotAnimFrame)
@@ -149,7 +167,7 @@ void Player::Draw()
 	}
 	else
 	{
-		srcX = kGraphWidth * animNo;
+		srcX = kGraphWidth * AnimNo;
 	}
 
 	DrawRectGraph(static_cast<int>(m_pos.x) - kCharaSize * 0.5f,
@@ -184,7 +202,7 @@ void Player::Move()
 		m_move.x = kSpeed;
 		m_isInput = true;
 		m_state = PlayerState::Walk;
-		m_pos.x += kSpeed;
+		//m_pos.x += kSpeed;
 		m_isTurn = false;
 	}
 	else if ((pad & PAD_INPUT_LEFT) != 0)	//&演算:ビット単位の演算
@@ -192,7 +210,7 @@ void Player::Move()
 		m_move.x = -kSpeed;
 		m_isInput = true;
 		m_state = PlayerState::Walk;
-		m_pos.x -= kSpeed;
+		//m_pos.x -= kSpeed;
 		m_isTurn = true;
 	}
 	else
@@ -203,18 +221,43 @@ void Player::Move()
 
 void Player::Jump()
 {
+	//足元の当たり判定で地面にいるか判定
+	Rect footRect;
+	footRect.m_left = m_pos.x - kCharaSize * 0.4f;
+	footRect.m_right = m_pos.x + kCharaSize * 0.4f;
+	footRect.m_top = m_pos.y + kCharaSize * 0.5f;
+	footRect.m_bottom = m_pos.y + kCharaSize * 0.5f + 2.0f;
+
+	Rect chipRect;
+	//プレイヤーが地面についたら二段ジャンプを可能にする。
+	//& 地面についている判定をtrueにする
+	if (m_pBg->IsCollision(footRect,chipRect))	//ここは当たり判定が実装されたら変える
+	{
+		m_isDoubleJump = false;
+		m_isGround = true;
+		m_jumpNum = 0; //残りのジャンプ数を0にする
+	}
+
 	//ジャンプ中は飛ばす
-	if (!m_isGround) return;
+	if (m_isDoubleJump) return;
 
 	int currentPadInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((currentPadInput & PAD_INPUT_1) && !(prevInput & PAD_INPUT_1))
+	if ((currentPadInput & PAD_INPUT_1) && !(m_prevInput & PAD_INPUT_1) && m_jumpNum <= 2)
 	{
+		m_state = PlayerState::Jump;
+		m_jumpNum++;
 		m_move.y = -kJumpPower;
 		m_isGround = false;
 	}
+	if (m_jumpNum == 2)
+	{
+		m_state = PlayerState::DoubleJump;
+		m_isDoubleJump = true;
+		m_jumpNum = 0;
+	}
 
 	//状態を更新
-	prevInput = currentPadInput;
+	m_prevInput = currentPadInput;
 }
 
 void Player::ShotCT()

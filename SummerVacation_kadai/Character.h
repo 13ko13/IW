@@ -2,6 +2,9 @@
 #include "Rect.h"
 #include "Vec2.h"
 
+class Rect;
+class Bg;
+
 class Character
 {
 public:
@@ -17,13 +20,19 @@ public:
 	{
 		Idle,
 		Walk,
-		Shot
+		Shot,
+		Jump,
+		DoubleJump,
+		Fall
 	};
 
 	PlayerState m_state;
+	Bg* m_pBg;
 
 protected:	
 	void Gravity();
+	//マップチップとの当たり判定処理
+	void CheckHitMap(Rect& chipRect);
 
 protected:
 	int m_handle;
@@ -33,6 +42,10 @@ protected:
 	int m_handleWalk;
 	//プレイヤーの弾撃ち入力中のグラフィックハンドル
 	int m_handleShot;
+	//プレイヤーのジャンプ中のグラフィックハンドル
+	int m_handleJump;
+	//プレイヤーの二段ジャンプ中のグラフィックハンドル
+	int m_handleDJump;
 
 	//左右反転するか
 	bool m_isTurn;

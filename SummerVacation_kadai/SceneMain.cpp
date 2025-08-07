@@ -15,6 +15,8 @@ SceneMain::SceneMain() :
 	m_playerIdleGraphHandle(-1),
 	m_playerWalkGraphHandle(-1),
 	m_playerShotGraphHnadle(-1),
+	m_playerJumpGraphHandle(-1),
+	m_playerDJumpGraphHandle(-1),
 	m_tileGraphHandle(-1),
 	m_bgGraphHandle(-1),
 	m_bulletGraphHandle(-1)
@@ -25,6 +27,8 @@ SceneMain::SceneMain() :
 	{
 		m_pShot[i] = nullptr;
 	}
+
+	m_pBg = new Bg;
 }
 
 SceneMain::~SceneMain()
@@ -37,10 +41,12 @@ void SceneMain::Init()
 	m_playerIdleGraphHandle = LoadGraph("data/idle.png");
 	m_playerWalkGraphHandle = LoadGraph("data/Run.png");
 	m_playerShotGraphHnadle = LoadGraph("data/Shoot.png");
+	m_playerJumpGraphHandle = LoadGraph("data/Jump.png");
+	m_playerDJumpGraphHandle = LoadGraph("data/Jump.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
-	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle,m_playerShotGraphHnadle);
-	m_bg.Init(m_tileGraphHandle, m_bgGraphHandle);
+	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle,m_playerJumpGraphHandle,m_playerDJumpGraphHandle);
+	m_pBg->Init();
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
@@ -50,11 +56,13 @@ void SceneMain::Init()
 void SceneMain::End()
 {
 	m_pPlayer->End();
-	m_bg.End();
+	m_pBg->End();
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
 	DeleteGraph(m_playerWalkGraphHandle);
 	DeleteGraph(m_playerShotGraphHnadle);
+	DeleteGraph(m_playerJumpGraphHandle);
+	DeleteGraph(m_playerDJumpGraphHandle);
 	DeleteGraph(m_tileGraphHandle);
 	DeleteGraph(m_bgGraphHandle);
 	DeleteGraph(m_bulletGraphHandle);
@@ -85,7 +93,7 @@ void SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	m_bg.Draw();
+	m_pBg->Draw();
 	m_pPlayer->Draw();
 	if (!m_pShot) return;
 	for (int i = 0; i < kShotMax; i++)
