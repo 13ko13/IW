@@ -2,6 +2,7 @@
 #include "Bg.h"
 #include "Player.h"
 #include "Shot.h"
+#include "TrapManager.h"
 
 class Player;
 class Shot;
@@ -32,6 +33,10 @@ private:
 	int m_tileGraphHandle;			//マップチップのグラフィック
 	int m_bgGraphHandle;			//背景のグラフィック
 	int m_bulletGraphHandle;			//弾のグラフィック
+	int m_trapGraphHandle;			//トラップのグラフィック
+
+	//トゲ発射済みフラグ
+	bool m_isTrapFired = false;
 
 	//プレイヤー
 	Player* m_pPlayer;
@@ -39,5 +44,7 @@ private:
 	Bg* m_pBg;
 	//弾
 	Shot* m_pShot[5];
+	//トラップマネージャー
+	TrapManager m_trapManager;
 };
 

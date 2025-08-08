@@ -143,6 +143,7 @@
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Trap.cpp" />
+    <ClCompile Include="TrapManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bg.h" />
@@ -153,6 +154,7 @@
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="Shot.h" />
     <ClInclude Include="Trap.h" />
+    <ClInclude Include="TrapManager.h" />
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,7 @@
 #include "Trap.h"
 #include "Shot.h"
 #include "Game.h"
+#include "TrapManager.h"
 
 namespace
 {
@@ -45,8 +46,10 @@ void SceneMain::Init()
 	m_playerDJumpGraphHandle = LoadGraph("data/Jump.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
+	m_trapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle,m_playerJumpGraphHandle,m_playerDJumpGraphHandle);
 	m_pBg->Init();
+	m_trapManager.Init(m_trapGraphHandle);
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
@@ -66,27 +69,30 @@ void SceneMain::End()
 	DeleteGraph(m_tileGraphHandle);
 	DeleteGraph(m_bgGraphHandle);
 	DeleteGraph(m_bulletGraphHandle);
-	/*for(int i = 0; i < kShotMax; i ++)
-	{
-		if (m_pShot[i])
-		{
-			delete m_pShot[i];
-			m_pShot[i] = nullptr;
-		}
-	}*/
+	DeleteGraph(m_trapGraphHandle);
 }
 
 void SceneMain::Update()
 {
 
 	m_pPlayer->Update();
+	m_trapManager.Update();
+
+	//トゲ発射イベント(X:1000,Y:300を越えたら)
+	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 300.0f && !m_isTrapFired)
+	{
+		m_trapManager.SpawnTrap({ 0.0f, 300.0f }, { 40.0f, 0.0f }); //右に飛ぶトゲ
+		m_isTrapFired = true; // トゲを発射済みフラグを立てる
+	}
+
+	//プレイヤーとの当たり判定
+	if(m_trapManager.CheckCollision(m_pPlayer->GetColRect()))
+	{
+		//プレイヤーがトゲに当たった場合の処理
+		printfDx("トゲに当たった！\n");
+	}
 
 	if (!m_pShot) return;
-	//for (int i = 0; i < kShotMax; i++)
-	//{
-	//	if (!m_pShot) continue;
-	//	m_pShot[i]->Update();
-	//}
 
 	UpdateShot();
 }
@@ -101,6 +107,8 @@ void SceneMain::Draw()
 		if (!m_pShot[i]) continue;
 		m_pShot[i]->Draw();
 	}
+
+	m_trapManager.Draw();
 }
 
 void SceneMain::UpdateShot()

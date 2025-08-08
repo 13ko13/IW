@@ -15,6 +15,9 @@ public:
 	virtual void Update();
 	virtual void Draw();
 
+	Vec2 GetPos() const { return m_pos; }
+	Rect GetColRect() const { return m_colRect; }
+
 	//プレイヤーの現在の行動
 	enum class PlayerState
 	{

@@ -19,7 +19,7 @@ namespace
 	constexpr int kShotAnimFrame = 10;//弾を撃ってるときのグラフィック表示時間
 	constexpr int kJumpAnimNum = 2;
 
-	constexpr float kSpeed = 2.0f;		//移動速度
+	constexpr float kSpeed = 5.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
