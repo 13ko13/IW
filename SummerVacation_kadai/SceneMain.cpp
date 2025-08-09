@@ -79,7 +79,7 @@ void SceneMain::Update()
 	m_trapManager.Update();
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
-	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 300.0f && !m_isTrapFired)
+	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 200.0f && !m_isTrapFired)
 	{
 		m_trapManager.SpawnTrap({ 0.0f, 300.0f }, { 40.0f, 0.0f }); //右に飛ぶトゲ
 		m_isTrapFired = true; // トゲを発射済みフラグを立てる
