@@ -1,4 +1,5 @@
 #include "TrapManager.h"
+#include "PlatformManager.h"
 
 TrapManager::TrapManager() :
 	m_trapGraphHandle(-1)
