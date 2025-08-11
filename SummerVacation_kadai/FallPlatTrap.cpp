@@ -69,7 +69,7 @@ void FallPlatTrap::Draw()
 		m_pos.x - kPlatformWidth / 2,
 		m_pos.y - kPlatformHeight / 2,
 		m_pos.x + kPlatformWidth / 2,
-		m_pos.y + kPlatformHeight / 2,
+		m_pos.y + kPlatformHeight + 6,
 		GetColor(100,100,100),
 		true
 	);

@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Shot.h"
 #include "TrapManager.h"
+#include "PlatformManager.h"
 
 class Player;
 class Shot;
@@ -34,9 +35,12 @@ private:
 	int m_bgGraphHandle;			//背景のグラフィック
 	int m_bulletGraphHandle;			//弾のグラフィック
 	int m_trapGraphHandle;			//トラップのグラフィック
+	int m_platformGraphHandle;		//プラットフォームのグラフィック
 
 	//トゲ発射済みフラグ
-	bool m_isTrapFired = false;
+	bool m_isTrapFired;
+	//プラットフォームフラグ
+	bool m_isPlatformSpawned;	//一度だけ生成するフラグ
 
 	//プレイヤー
 	Player* m_pPlayer;
@@ -46,5 +50,6 @@ private:
 	Shot* m_pShot[5];
 	//トラップマネージャー
 	TrapManager m_trapManager;
+	//プラットフォームマネージャー
+	PlatformManager m_platformManager;
 };
-

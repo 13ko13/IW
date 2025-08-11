@@ -23,10 +23,11 @@ void PlatformManager::Update(const Rect& playerRect)
         platform.Update(playerRect);
     }
 
-
     m_platforms.erase(
         std::remove_if(m_platforms.begin(), m_platforms.end(),
-            []{ return !p.IsActive(); }),
+            [](const FallPlatTrap& platform) {
+                return !platform.IsActive(); // 非アクティブなら削除
+            }),
         m_platforms.end()
     );
 }

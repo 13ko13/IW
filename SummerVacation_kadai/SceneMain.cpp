@@ -20,7 +20,11 @@ SceneMain::SceneMain() :
 	m_playerDJumpGraphHandle(-1),
 	m_tileGraphHandle(-1),
 	m_bgGraphHandle(-1),
-	m_bulletGraphHandle(-1)
+	m_bulletGraphHandle(-1),
+	m_trapGraphHandle(-1),
+	m_platformGraphHandle(-1),
+	m_isTrapFired(false),
+	m_isPlatformSpawned(false)
 	//m_pShot(nullptr)
 {
 	m_pPlayer = new Player;
@@ -47,9 +51,12 @@ void SceneMain::Init()
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
 	m_trapGraphHandle = LoadGraph("data/SpikeTrap.png");
-	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle,m_playerJumpGraphHandle,m_playerDJumpGraphHandle);
+	m_platformGraphHandle = LoadGraph("data/FallPlatTrap.png");
+
+	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
 	m_trapManager.Init(m_trapGraphHandle);
+	m_platformManager.Init(m_platformGraphHandle);
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
@@ -70,6 +77,7 @@ void SceneMain::End()
 	DeleteGraph(m_bgGraphHandle);
 	DeleteGraph(m_bulletGraphHandle);
 	DeleteGraph(m_trapGraphHandle);
+	DeleteGraph(m_platformGraphHandle);
 }
 
 void SceneMain::Update()
@@ -77,6 +85,7 @@ void SceneMain::Update()
 
 	m_pPlayer->Update();
 	m_trapManager.Update();
+	m_platformManager.Update(m_pPlayer->GetColRect());
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 200.0f && !m_isTrapFired)
@@ -87,10 +96,24 @@ void SceneMain::Update()
 	}
 
 	//プレイヤーとの当たり判定
-	if(m_trapManager.CheckCollision(m_pPlayer->GetColRect()))
+	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()))
 	{
 		//プレイヤーがトゲに当たった場合の処理
 		printfDx("トゲに当たった！\n");
+	}
+
+	//プラットフォーム生成イベント(X:0を越えたら)
+	if (m_pPlayer->GetPos().x > 0.0f && !m_isPlatformSpawned)
+	{
+		//プラットフォームを生成
+		m_platformManager.SpawnPlatform({ 700.0f, 328.0f }, 60); // 60フレーム後に落下開始
+		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
+	}
+
+	//足場の当たり判定
+	if (m_platformManager.CheckCollision(m_pPlayer->GetColRect()))
+	{
+		printfDx("足場に乗った！\n");
 	}
 
 	if (!m_pShot) return;
@@ -110,6 +133,7 @@ void SceneMain::Draw()
 	}
 
 	m_trapManager.Draw();
+	m_platformManager.Draw();
 }
 
 void SceneMain::UpdateShot()
