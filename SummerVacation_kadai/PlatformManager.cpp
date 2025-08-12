@@ -35,7 +35,8 @@ void PlatformManager::Update(const Rect& playerRect)
 
 void PlatformManager::Draw()
 {
-    for (auto& platform : m_platforms) {
+    for (auto& platform : m_platforms)
+    {
         platform.Draw();
     }
 }

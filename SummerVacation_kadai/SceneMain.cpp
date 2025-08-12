@@ -51,7 +51,7 @@ void SceneMain::Init()
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
 	m_trapGraphHandle = LoadGraph("data/SpikeTrap.png");
-	m_platformGraphHandle = LoadGraph("data/FallPlatTrap.png");
+	m_platformGraphHandle = LoadGraph("data/ileset.png");
 
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
@@ -106,7 +106,7 @@ void SceneMain::Update()
 	if (m_pPlayer->GetPos().x > 0.0f && !m_isPlatformSpawned)
 	{
 		//プラットフォームを生成
-		m_platformManager.SpawnPlatform({ 700.0f, 328.0f }, 60); // 60フレーム後に落下開始
+		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 0.01f); // 60フレーム後に落下開始
 		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
 	}
 

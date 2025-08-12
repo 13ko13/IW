@@ -15,6 +15,9 @@ public:
 	Rect GetRect() const;
 
 private:
+	void DrawFallPlat(int posX, int posY);
+
+private:
 	Vec2 m_pos;        // トラップの位置
 	int m_delayFrames; // トラップが落下するまでのフレーム数
 	int m_currentFrames; // 現在のフレーム数

@@ -6,6 +6,16 @@ namespace
 {
 	constexpr float kPlatformWidth = 64.0f; // プラットフォームの幅
 	constexpr float kPlatformHeight = 16.0f; // プラットフォームの高さ
+	//プラットフォームの拡大率
+	constexpr float kChipScale = 1.0f;
+	//チップ一つの大きさ
+	constexpr int kChipWidth = 32;
+	constexpr int kChipHeight = 32;
+	constexpr int kChipSize = 32;
+
+	//チップを何個置くかの情報
+	constexpr int kChipNumX = 2; // 横に置くチップの数
+	constexpr int kChipNumY = 1; // 縦に置くチップの数
 }
 
 FallPlatTrap::FallPlatTrap() :
@@ -65,14 +75,12 @@ void FallPlatTrap::Draw()
 	if (!m_isActive) return; // トラップがアクティブでない場合は描画しない
 
 	// プラットフォームの描画
-	DrawBox(
-		m_pos.x - kPlatformWidth / 2,
-		m_pos.y - kPlatformHeight / 2,
-		m_pos.x + kPlatformWidth / 2,
-		m_pos.y + kPlatformHeight + 6,
-		GetColor(100,100,100),
-		true
-	);
+	//マップチップのとこを表示するか
+	//描画
+	DrawFallPlat(m_pos.x,m_pos.y);
+	DrawFallPlat(m_pos.x + 32, m_pos.y);
+	DrawFallPlat(m_pos.x + 64, m_pos.y);
+	DrawFallPlat(m_pos.x + 96, m_pos.y);
 }
 
 bool FallPlatTrap::IsActive() const
@@ -83,4 +91,26 @@ bool FallPlatTrap::IsActive() const
 Rect FallPlatTrap::GetRect() const
 {
 	return m_colRect;
+}
+
+void FallPlatTrap::DrawFallPlat(int posX, int posY)
+{
+	// プラットフォームの描画
+	DrawRectRotaGraph(
+		posX - kPlatformWidth,
+		posY - kPlatformHeight,
+		0, 0,
+		kChipSize, kChipSize,
+		kChipScale, 0.0f,
+		m_handle, true);
+
+#ifdef _DEBUG
+	//当たり判定
+	DrawBox(posX - kPlatformWidth * 0.5f,
+		posY - kPlatformHeight * 0.5f,
+		posX ,
+		posY + kPlatformHeight + 7,
+		GetColor(255,0,0),
+		false);
+#endif // DEBUG
 }

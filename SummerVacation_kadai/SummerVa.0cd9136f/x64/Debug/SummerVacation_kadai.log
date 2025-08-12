@@ -1,2 +1,15 @@
-﻿  SceneMain.cpp
+﻿  FallPlatTrap.cpp
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(80,28): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(80,20): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(81,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(81,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(82,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(82,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(83,34): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(83,23): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(101,8): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(100,8): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(112,26): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(110,8): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\FallPlatTrap.cpp(109,15): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   SummerVacation_kadai.vcxproj -> C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\x64\Debug\SummerVacation_kadai.exe
