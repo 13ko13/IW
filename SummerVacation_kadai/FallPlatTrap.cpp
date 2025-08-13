@@ -4,7 +4,7 @@
 
 namespace
 {
-	constexpr float kPlatformWidth = 64.0f; // プラットフォームの幅
+	constexpr float kPlatformWidth = 128.0f; // プラットフォームの幅
 	constexpr float kPlatformHeight = 16.0f; // プラットフォームの高さ
 	//プラットフォームの拡大率
 	constexpr float kChipScale = 1.0f;
@@ -42,7 +42,7 @@ void FallPlatTrap::Init(const Vec2& pos, int delayFrames, int graphHandle)
 	m_isActive = true;
 
 	// 当たり判定用の矩形を設定
-	m_colRect.SetCenter(m_pos.x, m_pos.y, kPlatformWidth, kPlatformHeight);
+	m_colRect.SetCenter(m_pos.x + kPlatformWidth * 0.5f, m_pos.y, kPlatformWidth, kPlatformHeight);
 }
 
 void FallPlatTrap::Update(const Rect& playerRect)
@@ -67,20 +67,23 @@ void FallPlatTrap::Update(const Rect& playerRect)
 		m_currentFrames = 0; // プレイヤーがいない場合はカウントをリセット
 	}
 	// 当たり判定用の矩形を更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y, kPlatformWidth, kPlatformHeight);
+	m_colRect.SetCenter(m_pos.x + kPlatformWidth * 0.5f, m_pos.y, kPlatformWidth, kPlatformHeight);
 }
 
 void FallPlatTrap::Draw()
 {
 	if (!m_isActive) return; // トラップがアクティブでない場合は描画しない
 
+	int DrawPosX = 1000; // 描画位置X
+	int DrawPosY = 300; // 描画位置Y
+
 	// プラットフォームの描画
 	//マップチップのとこを表示するか
 	//描画
-	DrawFallPlat(m_pos.x,m_pos.y);
-	DrawFallPlat(m_pos.x + 32, m_pos.y);
-	DrawFallPlat(m_pos.x + 64, m_pos.y);
-	DrawFallPlat(m_pos.x + 96, m_pos.y);
+	DrawFallPlat(DrawPosX, DrawPosY, m_pos.x, m_pos.y);
+	DrawFallPlat(DrawPosX + 32, DrawPosY, m_pos.x + 32, m_pos.y);
+	DrawFallPlat(DrawPosX + 64, DrawPosY, m_pos.x + 64, m_pos.y);
+	DrawFallPlat(DrawPosX + 96, DrawPosY, m_pos.x + 96, m_pos.y);
 }
 
 bool FallPlatTrap::IsActive() const
@@ -93,12 +96,12 @@ Rect FallPlatTrap::GetRect() const
 	return m_colRect;
 }
 
-void FallPlatTrap::DrawFallPlat(int posX, int posY)
+void FallPlatTrap::DrawFallPlat(int DrawPosX, int DrawPosY, int posX, int posY)
 {
 	// プラットフォームの描画
 	DrawRectRotaGraph(
-		posX - kPlatformWidth,
-		posY - kPlatformHeight,
+		posX - kChipSize * 0.5f,
+		posY + kPlatformHeight * 0.5f ,
 		0, 0,
 		kChipSize, kChipSize,
 		kChipScale, 0.0f,
@@ -106,11 +109,12 @@ void FallPlatTrap::DrawFallPlat(int posX, int posY)
 
 #ifdef _DEBUG
 	//当たり判定
-	DrawBox(posX - kPlatformWidth * 0.5f,
+	DrawBox(
+		posX - kPlatformWidth * 0.5f,
 		posY - kPlatformHeight * 0.5f,
-		posX ,
+		posX,
 		posY + kPlatformHeight + 7,
-		GetColor(255,0,0),
+		GetColor(255, 0, 0),
 		false);
 #endif // DEBUG
 }

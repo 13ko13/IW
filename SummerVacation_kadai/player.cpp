@@ -19,7 +19,7 @@ namespace
 	constexpr int kShotAnimFrame = 10;//弾を撃ってるときのグラフィック表示時間
 	constexpr int kJumpAnimNum = 2;
 
-	constexpr float kSpeed = 4.0f;		//移動速度
+	constexpr float kSpeed = 1.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
@@ -202,7 +202,6 @@ void Player::Move()
 		m_move.x = kSpeed;
 		m_isInput = true;
 		m_state = PlayerState::Walk;
-		//m_pos.x += kSpeed;
 		m_isTurn = false;
 	}
 	else if ((pad & PAD_INPUT_LEFT) != 0)	//&演算:ビット単位の演算
@@ -210,7 +209,6 @@ void Player::Move()
 		m_move.x = -kSpeed;
 		m_isInput = true;
 		m_state = PlayerState::Walk;
-		//m_pos.x -= kSpeed;
 		m_isTurn = true;
 	}
 	else
@@ -229,6 +227,13 @@ void Player::Jump()
 	footRect.m_bottom = m_pos.y + kCharaSize * 0.5f + 2.0f;
 
 	Rect chipRect;
+
+	////通常地面との判定
+	//bool onGround = m_pBg->IsCollision(footRect, chipRect);
+
+	////消えるブロックとの判定
+	//if()
+
 	//プレイヤーが地面についたら二段ジャンプを可能にする。
 	//& 地面についている判定をtrueにする
 	if (m_pBg->IsCollision(footRect,chipRect))	//ここは当たり判定が実装されたら変える

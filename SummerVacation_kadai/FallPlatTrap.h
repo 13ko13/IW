@@ -15,7 +15,7 @@ public:
 	Rect GetRect() const;
 
 private:
-	void DrawFallPlat(int posX, int posY);
+	void DrawFallPlat(int DrawPosX, int DrawPosY, int posX, int posY);
 
 private:
 	Vec2 m_pos;        // トラップの位置
@@ -24,6 +24,7 @@ private:
 	int m_handle;      // トラップのグラフィックハンドル
 	bool m_isActive;   // トラップがアクティブかどうか
 	bool m_playerOnPlatform; // プレイヤーがプラットフォーム上にいるかどうか
+	bool m_isVisible;  // トラップが表示されているかどうか
 	Rect m_colRect;    // 当たり判定用の矩形
 };
 

@@ -4,6 +4,7 @@
 
 class Rect;
 class Bg;
+class PlatformManager;
 
 class Character
 {
@@ -18,6 +19,13 @@ public:
 	Vec2 GetPos() const { return m_pos; }
 	Rect GetColRect() const { return m_colRect; }
 
+	//PlatformManagerを外部からセットできるようにする
+	void SetPlatformManager(PlatformManager* pPlatformManager) 
+	{ 
+		m_pPlatformMgr = pPlatformManager; 
+	}
+
+public:
 	//プレイヤーの現在の行動
 	enum class PlayerState
 	{
@@ -58,4 +66,6 @@ protected:
 	Vec2 m_pos;		//座標
 	Vec2 m_move;	//移動
 	Rect m_colRect;	//当たり判定用の矩形
+
+	PlatformManager* m_pPlatformMgr; // プラットフォームの状態管理
 };

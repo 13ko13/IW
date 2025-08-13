@@ -21,7 +21,8 @@ Character::Character() :
 	m_handleDJump(-1),
 	m_isTurn(true),
 	m_isGround(true),
-	m_pBg(nullptr)
+	m_pBg(nullptr),
+	m_pPlatformMgr(nullptr)
 {
 }
 
@@ -65,44 +66,51 @@ void Character::Gravity()
 
 void Character::CheckHitMap(Rect& chipRect)
 {
-	//横から当たったかチェックする
-	m_pos.x += m_move.x;
-	m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize - 1, kCharaSize - 1);
+    // 横方向の衝突
+    m_pos.x += m_move.x;
+    m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize - 1, kCharaSize - 1);
 
-	if (m_pBg->IsCollision(m_colRect, chipRect))
-	{
-		if (m_move.x > 0.0f)
-		{
-			m_pos.x = chipRect.GetLeft() - kCharaSize * 0.5f;
-		}
-		else if (m_move.x < 0.0f)
-		{
-			m_pos.x = chipRect.GetRight() + kCharaSize * 0.5f;
-		}
-		m_move.x = 0.0f;
-	}
+    if (m_pBg->IsCollision(m_colRect, chipRect))
+    {
+        if (m_move.x > 0.0f)
+            m_pos.x = chipRect.GetLeft() - kCharaSize * 0.5f;
+        else if (m_move.x < 0.0f)
+            m_pos.x = chipRect.GetRight() + kCharaSize * 0.5f;
 
-	//縦から当たったかチェックする
-	m_pos.y += m_move.y;
-	m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize - 1, kCharaSize - 1);
+        m_move.x = 0.0f;
+    }
 
-	if (m_pBg->IsCollision(m_colRect, chipRect))
-	{
-		if (m_move.y > 0.0f)
-		{
-			m_pos.y = chipRect.GetTop() - kCharaSize * 0.5f;
-			m_move.y = 0.0f;
-			m_isGround = true;
-		}
-		else if (m_move.y < 0.0f)
-		{
-			m_pos.y = chipRect.GetBottom() + kCharaSize * 0.5f;
-			m_move.y *= -0.1f;
-		}
-	}
+    // 縦方向の衝突
+    m_pos.y += m_move.y;
+    m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize - 1, kCharaSize - 1);
+
+    bool hitBg = m_pBg->IsCollision(m_colRect, chipRect);
+    Rect platRect;
+    bool hitPlat = false;
+
+    if (!hitBg && m_pPlatformMgr)
+    {
+        hitPlat = m_pPlatformMgr->CheckCollision(m_colRect, platRect);
+    }
+
+    if (hitBg || hitPlat)
+    {
+        const Rect& hitRect = hitBg ? chipRect : platRect;
+
+        if (m_move.y > 0.0f) // 下方向（落下）
+        {
+            m_pos.y = hitRect.GetTop() - kCharaSize * 0.5f;
+            m_move.y = 0.0f;
+            m_isGround = true;
+        }
+        else if (m_move.y < 0.0f) // 上方向（ジャンプ中）
+        {
+            m_pos.y = hitRect.GetBottom() + kCharaSize * 0.5f;
+            m_move.y *= -0.1f;
+        }
+    }
 
 #ifdef _DEBUG
-	//当たり判定更新
-	m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize, kCharaSize);
+    m_colRect.SetCenter(m_pos.x, m_pos.y, kCharaSize, kCharaSize);
 #endif
 }

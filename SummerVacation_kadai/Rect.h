@@ -17,7 +17,7 @@ public:
 	float GetTop() const { return m_top; }
 	float GetRight() const { return m_right; }
 	float GetBottom() const { return m_bottom; }
-	bool IsCollision(const Rect& rect);
+	bool IsCollision(const Rect& rect) const;
 	
 public:
 	float m_left;	//ç∂è„ÇÃXç¿ïW

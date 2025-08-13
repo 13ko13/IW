@@ -48,10 +48,16 @@ void PlatformManager::SpawnPlatform(const Vec2& pos, int delayFrames)
     m_platforms.push_back(platform);
 }
 
-bool PlatformManager::CheckCollision(const Rect& playerRect) const
+bool PlatformManager::CheckCollision(const Rect& colRect, Rect& outPlatRect) const
 {
-    for (const auto& platform : m_platforms) {
-        if (platform.IsActive() && platform.GetRect().IsCollision(playerRect)) {
+    for (const auto& plat : m_platforms)
+    {
+        if (!plat.IsActive()) continue;
+
+        Rect platRect = plat.GetRect();
+        if (colRect.IsCollision(platRect))
+        {
+            outPlatRect = platRect; // š“–‚½‚Á‚½‘«ê‚Ìî•ñ‚ğ•Ô‚·
             return true;
         }
     }

@@ -3,6 +3,7 @@
 #include "Character.h"
 #include "Shot.h"
 #include "Bg.h"
+#include "PlatformManager.h"
 
 class Shot;
 

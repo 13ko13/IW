@@ -51,12 +51,13 @@ void SceneMain::Init()
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
 	m_trapGraphHandle = LoadGraph("data/SpikeTrap.png");
-	m_platformGraphHandle = LoadGraph("data/ileset.png");
+	m_platformGraphHandle = LoadGraph("data/fakeTileset.png");
 
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
 	m_trapManager.Init(m_trapGraphHandle);
 	m_platformManager.Init(m_platformGraphHandle);
+	m_pPlayer->SetPlatformManager(&m_platformManager);
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
@@ -106,15 +107,10 @@ void SceneMain::Update()
 	if (m_pPlayer->GetPos().x > 0.0f && !m_isPlatformSpawned)
 	{
 		//プラットフォームを生成
-		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 0.01f); // 60フレーム後に落下開始
+		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 60.0f); // 60フレーム後に落下開始
 		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
 	}
 
-	//足場の当たり判定
-	if (m_platformManager.CheckCollision(m_pPlayer->GetColRect()))
-	{
-		printfDx("足場に乗った！\n");
-	}
 
 	if (!m_pShot) return;
 
