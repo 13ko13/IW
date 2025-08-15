@@ -34,13 +34,16 @@ private:
 	int m_tileGraphHandle;			//マップチップのグラフィック
 	int m_bgGraphHandle;			//背景のグラフィック
 	int m_bulletGraphHandle;			//弾のグラフィック
-	int m_trapGraphHandle;			//トラップのグラフィック
+	int m_RtrapGraphHandle;			//右向きトラップのグラフィック
+	int m_UtrapGraphHandle;		//上向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 
 	//トゲ発射済みフラグ
-	bool m_isTrapFired;
+	bool m_isRtrapFired;
 	//プラットフォームフラグ
 	bool m_isPlatformSpawned;	//一度だけ生成するフラグ
+	//トゲ設置済みフラグ
+	bool m_isUtrapSpawned;	//一度だけ生成するフラグ(下向きトゲ)
 
 	//プレイヤー
 	Player* m_pPlayer;

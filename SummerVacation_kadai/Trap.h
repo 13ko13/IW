@@ -9,7 +9,7 @@ public:
 	Trap();
 	~Trap();
 
-	void Init(const Vec2& pos, const Vec2& velocity, int graphHandle);
+	void Init(const Vec2& RtrapPos, const Vec2& UtrapPos, const Vec2& velocity, int RgraphHandle, int UgraphHnadle);
 	void End();
 	void Update();
 	void Draw();
@@ -18,10 +18,18 @@ public:
 	Rect GetRect() const;
 
 private:
-	Vec2 m_pos;        // トラップの位置
-	Vec2 m_velocity;  // トラップの移動速度
-	int m_handle;    // トラップのグラフィックハンドル
+	//ハンドル関係
+	int m_Rhandle;    // トラップの右向きグラフィックハンドル
+	int m_Uhandle;    // トラップの上向きグラフィックハンドル
+
+	//フラグ関係
 	bool m_isActive;  // トラップがアクティブかどうか
-	Rect m_colRect;  // 当たり判定用の矩形
+
+	Vec2 m_RtrapPos;        // 右向きトラップの位置
+	Vec2 m_UtrapPos;        // 上向きトラップの位置
+	Vec2 m_velocity;  // トラップの移動速度
+
+	Rect m_RtrapColRect;  // 右向きトラップ当たり判定用の矩形
+	Rect m_UtrapColRect;  // 上向きトラップ当たり判定用の矩形
 };
 

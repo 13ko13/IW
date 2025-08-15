@@ -42,7 +42,7 @@ void FallPlatTrap::Init(const Vec2& pos, int delayFrames, int graphHandle)
 	m_isActive = true;
 
 	// 当たり判定用の矩形を設定
-	m_colRect.SetCenter(m_pos.x + kPlatformWidth * 0.5f, m_pos.y, kPlatformWidth, kPlatformHeight);
+	m_colRect.SetCenter(m_pos.x + 32.0f , m_pos.y, kPlatformWidth, kPlatformHeight);
 }
 
 void FallPlatTrap::Update(const Rect& playerRect)
@@ -67,7 +67,7 @@ void FallPlatTrap::Update(const Rect& playerRect)
 		m_currentFrames = 0; // プレイヤーがいない場合はカウントをリセット
 	}
 	// 当たり判定用の矩形を更新
-	m_colRect.SetCenter(m_pos.x + kPlatformWidth * 0.5f, m_pos.y, kPlatformWidth, kPlatformHeight);
+	m_colRect.SetCenter(m_pos.x + 32.0f , m_pos.y, kPlatformWidth, kPlatformHeight);
 }
 
 void FallPlatTrap::Draw()
@@ -110,9 +110,9 @@ void FallPlatTrap::DrawFallPlat(int DrawPosX, int DrawPosY, int posX, int posY)
 #ifdef _DEBUG
 	//当たり判定
 	DrawBox(
-		posX - kPlatformWidth * 0.5f,
+		posX - kChipWidth ,
 		posY - kPlatformHeight * 0.5f,
-		posX,
+		posX ,
 		posY + kPlatformHeight + 7,
 		GetColor(255, 0, 0),
 		false);
