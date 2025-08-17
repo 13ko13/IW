@@ -103,7 +103,7 @@ void SceneMain::Update()
 	//トゲを設置
 	if (m_pPlayer->GetPos().x > 0.0f && !m_isUtrapSpawned)
 	{
-		m_trapManager.SpawnTrap({ -0.0f, -0.0f }, { 700.0f, 300.0f }, { 0.0f, 0.0f }); // 上向きトゲ
+		m_trapManager.SpawnTrap({ -10.0f, -0.0f }, { 848.0f, 304.0f }, { 0.0f, 0.0f }); // 上向きトゲ
 		m_isUtrapSpawned = true; // トゲを設置済みフラグを立てる
 	}
 

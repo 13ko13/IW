@@ -1,6 +1,7 @@
 #include "FallPlatTrap.h"
 #include "DxLib.h"
 #include "PlatformManager.h"
+#include "MoveSpike.h"
 
 namespace
 {

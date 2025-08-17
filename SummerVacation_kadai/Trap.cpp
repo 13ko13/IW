@@ -95,8 +95,12 @@ bool Trap::IsActive() const
 	return m_isActive;
 }
 
-Rect Trap::GetRect() const
+Rect Trap::GetRightRect() const
 {
 	return m_RtrapColRect;
+}
+
+Rect Trap::GetUpRect() const
+{
 	return m_UtrapColRect;
 }

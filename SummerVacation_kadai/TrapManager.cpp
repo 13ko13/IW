@@ -63,7 +63,7 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 {
 	for (auto& trap : m_Rtraps)
 	{
-		if (trap.IsActive() && trap.GetRect().IsCollision(playerRect))
+		if (trap.IsActive() && trap.GetRightRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}
@@ -71,11 +71,12 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 
 	for (auto& trap : m_Utraps)
 	{
-		if (trap.IsActive() && trap.GetRect().IsCollision(playerRect))
+		if (trap.IsActive() && trap.GetUpRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}
 	}
+
 	return false; // 衝突なし
 }
 
