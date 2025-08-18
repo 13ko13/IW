@@ -5,10 +5,13 @@
     {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|solutionrelative:SceneMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
 =======
@@ -19,7 +22,10 @@
     {
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 =======
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
       "AbsoluteMoniker": "D:0:0:{0CD9136F-CAD0-4D74-BE53-70FEE2B88478}|SummerVacation_kadai.vcxproj|C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -27,6 +33,9 @@
     },
     {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -172,7 +181,11 @@
               "$type": "Document",
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               "DocumentIndex": 0,
+=======
+              "DocumentIndex": 1,
+>>>>>>> Stashed changes
 =======
               "DocumentIndex": 1,
 >>>>>>> Stashed changes
@@ -186,7 +199,11 @@
               "RelativeToolTip": "SceneMain.cpp",
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               "ViewState": "AgIAACMAAAAAAAAAAAAAwEAAAAABAAAAAAAAAA==",
+=======
+              "ViewState": "AgIAACEAAAAAAAAAAAAAADgAAAA7AAAAAAAAAA==",
+>>>>>>> Stashed changes
 =======
               "ViewState": "AgIAACEAAAAAAAAAAAAAADgAAAA7AAAAAAAAAA==",
 >>>>>>> Stashed changes
@@ -500,6 +517,7 @@
               "$type": "Document",
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
               "DocumentIndex": 1,
               "Title": "SceneMain.h",
               "DocumentMoniker": "C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
@@ -507,6 +525,15 @@
               "ToolTip": "C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
               "RelativeToolTip": "SceneMain.h",
               "ViewState": "AgIAABIAAAAAAAAAAAAcwDoAAAANAAAAAAAAAA==",
+=======
+              "DocumentIndex": 0,
+              "Title": "SceneMain.h",
+              "DocumentMoniker": "C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h",
+              "RelativeDocumentMoniker": "SceneMain.h",
+              "ToolTip": "C:\\Users\\Sakamotokou\\Documents\\GitHub\\IW\\SummerVacation_kadai\\SceneMain.h*",
+              "RelativeToolTip": "SceneMain.h*",
+              "ViewState": "AgIAABIAAAAAAAAAAAAcwCcAAAAHAAAAAAAAAA==",
+>>>>>>> Stashed changes
 =======
               "DocumentIndex": 0,
               "Title": "SceneMain.h",
