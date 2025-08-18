@@ -38,7 +38,11 @@ private:
 	int m_UtrapGraphHandle;		//上向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	int m_moveSpikeGraphHandle;		//移動とげのグラフィック
+=======
+	int m_
+>>>>>>> Stashed changes
 =======
 	int m_
 >>>>>>> Stashed changes
