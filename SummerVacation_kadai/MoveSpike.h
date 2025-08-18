@@ -22,6 +22,7 @@ private:
 
 	//フラグ関係
 	bool m_isActive;	// トゲがアクティブかどうか
+	bool m_isTurn;		
 	
 	Vec2 m_pos;			// トゲの位置
 	Vec2 m_velocity;	// トゲの移動速度
