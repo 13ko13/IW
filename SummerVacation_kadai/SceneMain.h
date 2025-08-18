@@ -37,7 +37,11 @@ private:
 	int m_RtrapGraphHandle;			//右向きトラップのグラフィック
 	int m_UtrapGraphHandle;		//上向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
+<<<<<<< Updated upstream
 	int m_moveSpikeGraphHandle;		//移動とげのグラフィック
+=======
+	int m_
+>>>>>>> Stashed changes
 
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;
