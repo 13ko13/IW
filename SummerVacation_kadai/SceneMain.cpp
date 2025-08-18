@@ -55,12 +55,14 @@ void SceneMain::Init()
 	m_RtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_UtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_platformGraphHandle = LoadGraph("data/fakeTileset.png");
+	m_moveSpikeGraphHandle = LoadGraph("data/MoveSpike.png");
 
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
 	m_trapManager.Init(m_RtrapGraphHandle,m_UtrapGraphHandle);
 	m_platformManager.Init(m_platformGraphHandle);
 	m_pPlayer->SetPlatformManager(&m_platformManager);
+	
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
