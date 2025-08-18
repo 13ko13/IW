@@ -39,11 +39,7 @@ private:
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
-<<<<<<< Updated upstream
 	int m_moveSpikeGraphHandle;		//移動とげのグラフィック
-=======
-	int m_
->>>>>>> Stashed changes
 =======
 	int m_
 >>>>>>> Stashed changes
