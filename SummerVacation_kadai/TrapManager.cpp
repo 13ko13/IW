@@ -4,7 +4,8 @@
 
 TrapManager::TrapManager() :
 	m_RtrapGraphHandle(-1),
-	m_UtrapGraphHandle(-1)
+	m_UtrapGraphHandle(-1),
+	m_LtrapGraphHandle(-1)
 {
 }
 
@@ -13,10 +14,14 @@ TrapManager::~TrapManager()
 	//TrapのグラフィックはDxLibで管理されているため、ここでは削除しないo
 }
 
-void TrapManager::Init(int RtrapGraphHandle, int UtrapGraphHandle)
+void TrapManager::Init(
+	int RtrapGraphHandle,
+	int UtrapGraphHandle,
+	int LtrapGraphHandle)
 {
 	m_RtrapGraphHandle = RtrapGraphHandle;
 	m_UtrapGraphHandle = UtrapGraphHandle;
+	m_LtrapGraphHandle = LtrapGraphHandle;
 }
 
 void TrapManager::Update()
@@ -26,15 +31,20 @@ void TrapManager::Update()
 		trap.Update();
 	}
 
-	for(auto& Rtrap : m_Utraps)
+	for (auto& Rtrap : m_Utraps)
 	{
 		Rtrap.Update();
+	}
+
+	for (auto& Ltrap : m_Ltraps)
+	{
+		Ltrap.Update();
 	}
 
 	//非アクティブなトゲを削除
 	m_Rtraps.erase(
 		std::remove_if(m_Rtraps.begin(), m_Rtraps.end(),
-		[](const Trap& Rtrap) { return !Rtrap.IsActive(); }),
+			[](const Trap& Rtrap) { return !Rtrap.IsActive(); }),
 		m_Rtraps.end());
 }
 
@@ -45,18 +55,34 @@ void TrapManager::Draw()
 		Rtrap.Draw();
 	}
 
-	for(auto& Utrap : m_Utraps)
+	for (auto& Utrap : m_Utraps)
 	{
 		Utrap.Draw();
 	}
+
+	for (auto& Ltrap : m_Ltraps)
+	{
+		Ltrap.Draw();
+	}
 }
 
-void TrapManager::SpawnTrap(const Vec2& RtrapPos, const Vec2& UtrapPos, const Vec2& velocity)
+void TrapManager::SpawnTrap(
+	const Vec2& RtrapPos,
+	const Vec2& UtrapPos,
+	const Vec2& LtrapPos,
+	const Vec2& velocity)
 {
 	Trap newTrap;
-	newTrap.Init(RtrapPos,UtrapPos, velocity, m_RtrapGraphHandle,m_UtrapGraphHandle);
+	newTrap.Init(
+		RtrapPos,UtrapPos,
+		LtrapPos,velocity,
+		m_RtrapGraphHandle,
+		m_UtrapGraphHandle,
+		m_LtrapGraphHandle
+	);
 	m_Rtraps.push_back(newTrap); // トラップをリストに追加
 	m_Utraps.push_back(newTrap); // 上向きトラップも同様に追加
+	m_Ltraps.push_back(newTrap); // 左向きトラップも同様に追加
 }
 
 bool TrapManager::CheckCollision(const Rect& playerRect)
@@ -72,6 +98,14 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 	for (auto& trap : m_Utraps)
 	{
 		if (trap.IsActive() && trap.GetUpRect().IsCollision(playerRect))
+		{
+			return true; // プレイヤーとトラップが衝突
+		}
+	}
+
+	for (auto& trap : m_Ltraps)
+	{
+		if (trap.IsActive() && trap.GetLeftRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}

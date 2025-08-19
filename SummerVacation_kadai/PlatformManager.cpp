@@ -17,7 +17,6 @@ void PlatformManager::Init(int graphHandle)
     m_graphHandle = graphHandle;
 }
 
-
 void PlatformManager::Update(const Rect& playerRect)
 {
     for (auto& platform : m_platforms) {

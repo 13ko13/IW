@@ -37,15 +37,17 @@ private:
 	int m_bulletGraphHandle;		//弾のグラフィック
 	int m_RtrapGraphHandle;			//右向きトラップのグラフィック
 	int m_UtrapGraphHandle;			//上向きトラップのグラフィック
+	int m_LtrapGraphHandle;			//左向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 	int m_moveSpikeGraphHandle;		//移動トゲのグラフィック
 
 	//トゲ発射済みフラグ
-	bool m_isRtrapFired;
+	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ
 	bool m_isPlatformSpawned;		//一度だけ生成するフラグ
 	//トゲ設置済みフラグ
 	bool m_isUtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
+	bool m_isLtrapSpawned;			//一度だけ生成するフラグ(左向きトゲ)
 	//移動トゲフラグ
 	bool m_isMoveSpikeSpawned;		//一度だけ生成するフラグ
 

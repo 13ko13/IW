@@ -13,6 +13,7 @@ public:
 	void Update();
 	void Draw();
 
+	void IsReturn(); // トゲが戻るタイミングかどうかを判定する
 	bool IsActive() const;
 	Rect GetRect() const;
 
@@ -22,6 +23,8 @@ private:
 
 	//フラグ関係
 	bool m_isActive;	// トゲがアクティブかどうか
+	//移動トゲが上下に動くタイミングのフラグ
+	bool m_isReturn; // トゲが戻るタイミングかどうか
 
 	Vec2 m_pos;			// トゲの位置
 	Vec2 m_velocity;	// トゲの移動速度

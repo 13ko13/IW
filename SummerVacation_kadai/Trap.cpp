@@ -8,14 +8,18 @@ namespace
 	constexpr float kScale = 2.0f; // トラップの拡大率
 	constexpr int kRightSpikeIndex = 1; // 右向きトラップのインデックス
 	constexpr int kUpSpikeIndex = 0; // 上向きトラップのインデックス
+	constexpr int kLeftSpikeIndex = 3; // 左向きトラップのインデックス
+
 }
 
 Trap::Trap():
 	m_RtrapPos({ 0.0f, 0.0f }),
 	m_UtrapPos({ 0.0f, 0.0f }),
+	m_LtrapPos({ 0.0f, 0.0f }),
 	m_velocity({ 0.0f, 0.0f }),
 	m_Rhandle(-1),
 	m_Uhandle(-1),
+	m_Lhandle(-1),
 	m_isActive(false)
 {
 }
@@ -25,17 +29,24 @@ Trap::~Trap()
 	//グラフィック削除はTrapManagerで行う
 }
 
-void Trap::Init(const Vec2& RtrapPos, const Vec2& UtrapPos, const Vec2& velocity, int RgraphHandle, int UgraphHandle)
+void Trap::Init(
+	const Vec2& RtrapPos, const Vec2& UtrapPos,
+	const Vec2& LtrapPos,
+	const Vec2& velocity,
+	int RgraphHandle, int UgraphHandle, int LgraphHandle)
 {
 	m_RtrapPos = RtrapPos;
 	m_UtrapPos = UtrapPos;
+	m_LtrapPos = LtrapPos;
 	m_velocity = velocity;
 	m_Rhandle = RgraphHandle;
 	m_Uhandle = UgraphHandle;
+	m_Lhandle = LgraphHandle;
 	m_isActive = true;
 
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
+	m_LtrapColRect.SetCenter(m_LtrapPos.x, m_LtrapPos.y, kTrapSize, kTrapSize);
 }
 
 void Trap::End()
@@ -59,6 +70,7 @@ void Trap::Update()
 
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
+	m_LtrapColRect.SetCenter(m_LtrapPos.x, m_LtrapPos.y, kTrapSize, kTrapSize);
 }
 
 void Trap::Draw()
@@ -88,6 +100,18 @@ void Trap::Draw()
 		m_Uhandle,
 		true
 	);
+
+	int LtrapSrcX = kTrapSize * kLeftSpikeIndex; // 左向きトラップの切り取り位置
+	int LtrapSrcY = 0;
+
+	DrawRectRotaGraph(
+		m_LtrapPos.x, m_LtrapPos.y,
+		LtrapSrcX, LtrapSrcY,
+		kTrapSize, kTrapSize,
+		kScale, 0.0f,
+		m_Lhandle,
+		true
+	);
 }
 
 bool Trap::IsActive() const
@@ -103,4 +127,9 @@ Rect Trap::GetRightRect() const
 Rect Trap::GetUpRect() const
 {
 	return m_UtrapColRect;
+}
+
+Rect Trap::GetLeftRect() const
+{
+	return m_LtrapColRect;
 }

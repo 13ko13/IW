@@ -23,11 +23,14 @@ SceneMain::SceneMain() :
 	m_bulletGraphHandle(-1),
 	m_RtrapGraphHandle(-1),
 	m_UtrapGraphHandle(-1),
+	m_LtrapGraphHandle(-1),
 	m_platformGraphHandle(-1),
 	m_moveSpikeGraphHandle(-1),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
-	m_isUtrapSpawned(false)
+	m_isUtrapSpawned(false),
+	m_isLtrapSpawned(false),
+	m_isMoveSpikeSpawned(false)
 	//m_pShot(nullptr)
 {
 	m_pPlayer = new Player;
@@ -55,12 +58,13 @@ void SceneMain::Init()
 	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
 	m_RtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_UtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
+	m_LtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_platformGraphHandle = LoadGraph("data/fakeTileset.png");
 	m_moveSpikeGraphHandle = LoadGraph("data/MoveSpike.png");
 
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
-	m_trapManager.Init(m_RtrapGraphHandle,m_UtrapGraphHandle);
+	m_trapManager.Init(m_RtrapGraphHandle, m_UtrapGraphHandle, m_LtrapGraphHandle);
 	m_platformManager.Init(m_platformGraphHandle);
 	m_pPlayer->SetPlatformManager(&m_platformManager);
 	m_moveSpikeMgr.Init(m_moveSpikeGraphHandle);
@@ -85,6 +89,7 @@ void SceneMain::End()
 	DeleteGraph(m_bulletGraphHandle);
 	DeleteGraph(m_RtrapGraphHandle);
 	DeleteGraph(m_UtrapGraphHandle);
+	DeleteGraph(m_LtrapGraphHandle);
 	DeleteGraph(m_platformGraphHandle);
 	DeleteGraph(m_moveSpikeGraphHandle);
 }
@@ -97,29 +102,67 @@ void SceneMain::Update()
 	m_moveSpikeMgr.Update();
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
-	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 200.0f && !m_isRtrapFired)
+	if (m_pPlayer->GetPos().x > 1100.0f &&
+		m_pPlayer->GetPos().y > 200.0f &&
+
+		!m_isRtrapFired)
 	{
-		m_trapManager.SpawnTrap({ 0.0f, 300.0f }, { -60.0f,0.0f }, { 40.0f, 0.0f }); //右に飛ぶトゲ
-		m_trapManager.SpawnTrap({ 0.0f, 280.0f }, { -60.0f,0.0f }, { 40.0f, 0.0f }); //右に飛ぶトゲ
+		m_trapManager.SpawnTrap(
+			{ 0.0f, 300.0f }, { -15.0f,-15.0f },
+			{ -15.0f, -15.0f }, { 40.0f,0.0f }); //右に飛ぶトゲ
+
+		m_trapManager.SpawnTrap(
+			{ 0.0f, 280.0f }, { -15.0f,-15.0f },
+			{ -15.0f, -15.0f }, { 40.0f,0.0f }); //右に飛ぶトゲ
+
 		m_isRtrapFired = true; // トゲを発射済みフラグを立てる
 	}
 
-	//トゲを設置
-	if (m_pPlayer->GetPos().x > 0.0f && !m_isUtrapSpawned)
+	//上向きトゲを設置
+	if (!m_isUtrapSpawned)
 	{
-		m_trapManager.SpawnTrap({ -10.0f, -0.0f }, { 848.0f, 304.0f }, { 0.0f, 0.0f }); // 上向きトゲ
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 848.0f, 304.0f },
+			{ -15.0f, -15.0f }, { 0.0f,0.0f }); // 上向きトゲ
 		m_isUtrapSpawned = true; // トゲを設置済みフラグを立てる
 	}
 
+	//左向きトゲを設置
+	if (!m_isLtrapSpawned)
+	{
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 368.0f }, { 0.0f,0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 400.0f }, { 0.0f,0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 432.0f }, { 0.0f,0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 464.0f }, { 0.0f,0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 492.0f }, { 0.0f,0.0f }); // 左向きトゲ
+
+		m_isLtrapSpawned = true; // トゲを設置済みフラグを立てる
+	}
+
 	//プレイヤーとの当たり判定
-	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()))
+	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()) ||
+		m_moveSpikeMgr.CheckCollision(m_pPlayer->GetColRect()))
 	{
 		//プレイヤーがトゲに当たった場合の処理
 		printfDx("トゲに当たった！\n");
 	}
 
-	//プラットフォーム生成イベント(X:0を越えたら)
-	if (m_pPlayer->GetPos().x > 0.0f && !m_isPlatformSpawned)
+	//プラットフォーム生成
+	if (!m_isPlatformSpawned)
 	{
 		//プラットフォームを生成
 		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 10.0f); // 60フレーム後に落下開始
@@ -127,10 +170,10 @@ void SceneMain::Update()
 	}
 
 	//移動トゲ生成
-	if (m_pPlayer->GetPos().x > 0.0f && !m_isMoveSpikeSpawned)
+	if (!m_isMoveSpikeSpawned)
 	{
 		//移動トゲを生成
-		m_moveSpikeMgr.SpawnSpike({ 400.0f, 200.0f }, { 0.0f, 2.0f }); // 初期位置と速度
+		m_moveSpikeMgr.SpawnSpike({ 400.0f, 360.0f }, { 0.0f, 0.0f }); // 初期位置と速度
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 

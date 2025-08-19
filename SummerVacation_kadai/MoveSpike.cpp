@@ -9,11 +9,15 @@ namespace
 	constexpr float kSpikeWidth = 48.0f; // トゲの幅
 	constexpr float kSpikeHeight = 32.0f; // トゲの高さ
 	constexpr float kSpikeSpeed = 2.0f; // トゲの移動速度
+
+	constexpr float kSpikeReturnY = 460.0f; // トゲが戻る位置のY座標
+	constexpr float kSpikeMaxY = 360.0f; // トゲが上昇する最大Y座標
 }
 
 MoveSpike::MoveSpike() :
 	m_handle(-1),
 	m_isActive(false),
+	m_isReturn(false),
 	m_pos({ 0.0f, 0.0f }),
 	m_velocity({ 0.0f, 0.0f })
 {
@@ -27,6 +31,7 @@ void MoveSpike::Init(const Vec2& pos, const Vec2& velocity, int graphHandle)
 {
 	m_handle = graphHandle;
 	m_isActive = true;
+	m_isReturn = false;
 	m_pos = pos;
 	m_velocity = velocity;
 	m_colRect.SetCenter(m_pos.x, m_pos.y, kSpikeWidth, kSpikeHeight); // 当たり判定用の矩形を設定
@@ -37,17 +42,15 @@ void MoveSpike::Update()
 	//printfDx("%d", m_isActive);
 	if (!m_isActive) return; // トゲがアクティブでない場合は更新しない
 
-	if (m_pos.y < 250.0f ) // トゲの位置を更新
+	IsReturn();
+
+	if (m_pos.y <= kSpikeReturnY && !m_isReturn) // トゲの位置を更新
 	{
-		printfDx("a");
 		m_pos += m_velocity * kSpikeSpeed;
 	}
-	else if (m_pos.y > 250.0f )
+	else if (m_pos.y >= kSpikeMaxY && m_isReturn)
 	{
-		for (int y = 0; y < 250; y++)
-		{
-			m_pos.y -= m_velocity.y * kSpikeSpeed; // 位置を戻す
-		}		
+		m_pos.y -= m_velocity.y * kSpikeSpeed; // 位置を戻す
 	}
 
 	// 当たり判定用の矩形を更新
@@ -73,4 +76,16 @@ bool MoveSpike::IsActive() const
 Rect MoveSpike::GetRect() const
 {
 	return m_colRect; // 当たり判定用の矩形を返す
+}
+
+void MoveSpike::IsReturn()
+{
+	if(m_pos.y > kSpikeReturnY )
+	{
+		m_isReturn = true; 
+	}
+	else if (m_pos.y <= kSpikeMaxY)
+	{
+		m_isReturn = false; 
+	}
 }
