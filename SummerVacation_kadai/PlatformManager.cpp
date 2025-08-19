@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include <algorithm>
 #include "FallPlatTrap.h"
+#include "MoveSpikeMgr.h"
 
 PlatformManager::PlatformManager() : m_graphHandle(-1)
 {

@@ -4,6 +4,7 @@
 #include "Shot.h"
 #include "TrapManager.h"
 #include "PlatformManager.h"
+#include "MoveSpikeMgr.h"
 
 class Player;
 class Shot;
@@ -33,17 +34,20 @@ private:
 	int m_playerDJumpGraphHandle;	//プレイヤーの二段ジャンプグラフィック
 	int m_tileGraphHandle;			//マップチップのグラフィック
 	int m_bgGraphHandle;			//背景のグラフィック
-	int m_bulletGraphHandle;			//弾のグラフィック
+	int m_bulletGraphHandle;		//弾のグラフィック
 	int m_RtrapGraphHandle;			//右向きトラップのグラフィック
-	int m_UtrapGraphHandle;		//上向きトラップのグラフィック
+	int m_UtrapGraphHandle;			//上向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
+	int m_moveSpikeGraphHandle;		//移動トゲのグラフィック
 
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;
 	//プラットフォームフラグ
-	bool m_isPlatformSpawned;	//一度だけ生成するフラグ
+	bool m_isPlatformSpawned;		//一度だけ生成するフラグ
 	//トゲ設置済みフラグ
-	bool m_isUtrapSpawned;	//一度だけ生成するフラグ(下向きトゲ)
+	bool m_isUtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
+	//移動トゲフラグ
+	bool m_isMoveSpikeSpawned;		//一度だけ生成するフラグ
 
 	//プレイヤー
 	Player* m_pPlayer;
@@ -55,4 +59,6 @@ private:
 	TrapManager m_trapManager;
 	//プラットフォームマネージャー
 	PlatformManager m_platformManager;
+	//移動トゲマネージャー
+	MoveSpikeMgr m_moveSpikeMgr;
 };

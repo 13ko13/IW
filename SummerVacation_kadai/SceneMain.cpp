@@ -24,6 +24,7 @@ SceneMain::SceneMain() :
 	m_RtrapGraphHandle(-1),
 	m_UtrapGraphHandle(-1),
 	m_platformGraphHandle(-1),
+	m_moveSpikeGraphHandle(-1),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
 	m_isUtrapSpawned(false)
@@ -55,12 +56,14 @@ void SceneMain::Init()
 	m_RtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_UtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_platformGraphHandle = LoadGraph("data/fakeTileset.png");
+	m_moveSpikeGraphHandle = LoadGraph("data/MoveSpike.png");
 
 	m_pPlayer->Init(m_playerIdleGraphHandle, m_playerIdleGraphHandle, m_playerWalkGraphHandle, m_playerShotGraphHnadle, m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
 	m_pBg->Init();
 	m_trapManager.Init(m_RtrapGraphHandle,m_UtrapGraphHandle);
 	m_platformManager.Init(m_platformGraphHandle);
 	m_pPlayer->SetPlatformManager(&m_platformManager);
+	m_moveSpikeMgr.Init(m_moveSpikeGraphHandle);
 	/*for (int i = 0; i < kShotMax; i++)
 	{
 		m_pShot[i]->Init();
@@ -83,14 +86,15 @@ void SceneMain::End()
 	DeleteGraph(m_RtrapGraphHandle);
 	DeleteGraph(m_UtrapGraphHandle);
 	DeleteGraph(m_platformGraphHandle);
+	DeleteGraph(m_moveSpikeGraphHandle);
 }
 
 void SceneMain::Update()
 {
-
 	m_pPlayer->Update();
 	m_trapManager.Update();
 	m_platformManager.Update(m_pPlayer->GetColRect());
+	m_moveSpikeMgr.Update();
 
 	//ƒgƒQ”­ŽËƒCƒxƒ“ƒg(X:1000,Y:300‚ð‰z‚¦‚½‚ç)
 	if (m_pPlayer->GetPos().x > 1100.0f && m_pPlayer->GetPos().y > 200.0f && !m_isRtrapFired)
@@ -122,6 +126,13 @@ void SceneMain::Update()
 		m_isPlatformSpawned = true; // ƒvƒ‰ƒbƒgƒtƒH[ƒ€‚ð¶¬Ï‚Ýƒtƒ‰ƒO‚ð—§‚Ä‚é
 	}
 
+	//ˆÚ“®ƒgƒQ¶¬
+	if (m_pPlayer->GetPos().x > 0.0f && !m_isMoveSpikeSpawned)
+	{
+		//ˆÚ“®ƒgƒQ‚ð¶¬
+		m_moveSpikeMgr.SpawnSpike({ 400.0f, 200.0f }, { 2.0f, 0.0f }); // ‰ŠúˆÊ’u‚Æ‘¬“x
+		m_isMoveSpikeSpawned = true; // ˆÚ“®ƒgƒQ‚ð¶¬Ï‚Ýƒtƒ‰ƒO‚ð—§‚Ä‚é
+	}
 
 	if (!m_pShot) return;
 
@@ -130,8 +141,13 @@ void SceneMain::Update()
 
 void SceneMain::Draw()
 {
+	// ”wŒi‚Ì•`‰æ
 	m_pBg->Draw();
+
+	// ƒvƒŒƒCƒ„[‚Ì•`‰æ
 	m_pPlayer->Draw();
+
+	// ’e‚Ì•`‰æ
 	if (!m_pShot) return;
 	for (int i = 0; i < kShotMax; i++)
 	{
@@ -139,8 +155,10 @@ void SceneMain::Draw()
 		m_pShot[i]->Draw();
 	}
 
+	// ƒgƒ‰ƒbƒv‚Ì•`‰æ
 	m_trapManager.Draw();
 	m_platformManager.Draw();
+	m_moveSpikeMgr.Draw();
 }
 
 void SceneMain::UpdateShot()
