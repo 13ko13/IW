@@ -22,7 +22,6 @@ private:
 
 	//フラグ関係
 	bool m_isActive;	// トゲがアクティブかどうか
-	bool m_isReturn;	// トゲが戻るかどうか（上に戻る場合はtrue、下に戻る場合はfalse）
 
 	Vec2 m_pos;			// トゲの位置
 	Vec2 m_velocity;	// トゲの移動速度

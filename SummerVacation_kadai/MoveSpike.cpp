@@ -14,7 +14,6 @@ namespace
 MoveSpike::MoveSpike() :
 	m_handle(-1),
 	m_isActive(false),
-	m_isReturn(false),
 	m_pos({ 0.0f, 0.0f }),
 	m_velocity({ 0.0f, 0.0f })
 {
@@ -28,7 +27,6 @@ void MoveSpike::Init(const Vec2& pos, const Vec2& velocity, int graphHandle)
 {
 	m_handle = graphHandle;
 	m_isActive = true;
-	m_isReturn = false; 
 	m_pos = pos;
 	m_velocity = velocity;
 	m_colRect.SetCenter(m_pos.x, m_pos.y, kSpikeWidth, kSpikeHeight); // 当たり判定用の矩形を設定
@@ -36,17 +34,20 @@ void MoveSpike::Init(const Vec2& pos, const Vec2& velocity, int graphHandle)
 
 void MoveSpike::Update()
 {
+	//printfDx("%d", m_isActive);
 	if (!m_isActive) return; // トゲがアクティブでない場合は更新しない
 
-	if (m_pos.y < 350.0f && m_isReturn) // トゲの位置を更新
+	if (m_pos.y < 250.0f ) // トゲの位置を更新
 	{
-		m_isReturn = false; // 画面上に到達したら下に移動
-		m_pos.y += m_velocity.y * kSpikeSpeed;
+		printfDx("a");
+		m_pos += m_velocity * kSpikeSpeed;
 	}
-	else if (m_pos.y > 380.0f && !m_isReturn)
+	else if (m_pos.y > 250.0f )
 	{
-		m_isReturn = true; // 画面下に到達したら上に戻る
-		m_pos.y -= m_velocity.y * kSpikeSpeed; // 位置を戻す
+		for (int y = 0; y < 250; y++)
+		{
+			m_pos.y -= m_velocity.y * kSpikeSpeed; // 位置を戻す
+		}		
 	}
 
 	// 当たり判定用の矩形を更新

@@ -130,7 +130,7 @@ void SceneMain::Update()
 	if (m_pPlayer->GetPos().x > 0.0f && !m_isMoveSpikeSpawned)
 	{
 		//移動トゲを生成
-		m_moveSpikeMgr.SpawnSpike({ 400.0f, 200.0f }, { 2.0f, 0.0f }); // 初期位置と速度
+		m_moveSpikeMgr.SpawnSpike({ 400.0f, 200.0f }, { 0.0f, 2.0f }); // 初期位置と速度
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
