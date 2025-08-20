@@ -5,6 +5,7 @@
 #include "TrapManager.h"
 #include "PlatformManager.h"
 #include "MoveSpikeMgr.h"
+#include "Shuriken.h"
 
 class Player;
 class Shot;
@@ -38,8 +39,10 @@ private:
 	int m_RtrapGraphHandle;			//右向きトラップのグラフィック
 	int m_UtrapGraphHandle;			//上向きトラップのグラフィック
 	int m_LtrapGraphHandle;			//左向きトラップのグラフィック
+	int m_BtrapGraphHandle;			//下向きトラップのグラフィック
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 	int m_moveSpikeGraphHandle;		//移動トゲのグラフィック
+	int m_shurikenGraphHandle;		//手裏剣のグラフィック
 
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
@@ -48,6 +51,7 @@ private:
 	//トゲ設置済みフラグ
 	bool m_isUtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
 	bool m_isLtrapSpawned;			//一度だけ生成するフラグ(左向きトゲ)
+	bool m_isBtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
 	//移動トゲフラグ
 	bool m_isMoveSpikeSpawned;		//一度だけ生成するフラグ
 
@@ -57,6 +61,8 @@ private:
 	Bg* m_pBg;
 	//弾
 	Shot* m_pShot[5];
+	//手裏剣
+	Shuriken* m_pShuriken;
 	//トラップマネージャー
 	TrapManager m_trapManager;
 	//プラットフォームマネージャー

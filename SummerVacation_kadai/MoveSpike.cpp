@@ -8,10 +8,10 @@ namespace
 {
 	constexpr float kSpikeWidth = 48.0f; // トゲの幅
 	constexpr float kSpikeHeight = 32.0f; // トゲの高さ
-	constexpr float kSpikeSpeed = 2.0f; // トゲの移動速度
+	constexpr float kSpikeSpeed = 1.0f; // トゲの移動速度
 
-	constexpr float kSpikeReturnY = 460.0f; // トゲが戻る位置のY座標
-	constexpr float kSpikeMaxY = 360.0f; // トゲが上昇する最大Y座標
+	constexpr float kSpikeReturnY = 624.0f; // トゲが戻る位置のY座標
+	constexpr float kSpikeMaxY = 520.0f; // トゲが上昇する最大Y座標
 }
 
 MoveSpike::MoveSpike() :

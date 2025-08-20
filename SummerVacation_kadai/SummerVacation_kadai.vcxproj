@@ -146,6 +146,7 @@
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SceneMain.cpp" />
     <ClCompile Include="Shot.cpp" />
+    <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="Trap.cpp" />
     <ClCompile Include="TrapManager.cpp" />
   </ItemGroup>
@@ -161,6 +162,7 @@
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SceneMain.h" />
     <ClInclude Include="Shot.h" />
+    <ClInclude Include="Shuriken.h" />
     <ClInclude Include="Trap.h" />
     <ClInclude Include="TrapManager.h" />
     <ClInclude Include="Vec2.h" />

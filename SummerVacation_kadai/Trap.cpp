@@ -9,17 +9,19 @@ namespace
 	constexpr int kRightSpikeIndex = 1; // 右向きトラップのインデックス
 	constexpr int kUpSpikeIndex = 0; // 上向きトラップのインデックス
 	constexpr int kLeftSpikeIndex = 3; // 左向きトラップのインデックス
-
+	constexpr int kBottomSpikeIndex = 2; // 下向きトラップのインデックス
 }
 
 Trap::Trap():
 	m_RtrapPos({ 0.0f, 0.0f }),
 	m_UtrapPos({ 0.0f, 0.0f }),
 	m_LtrapPos({ 0.0f, 0.0f }),
+	m_BtrapPos({ 0.0f, 0.0f }),
 	m_velocity({ 0.0f, 0.0f }),
 	m_Rhandle(-1),
 	m_Uhandle(-1),
 	m_Lhandle(-1),
+	m_BtrapHandle(-1),
 	m_isActive(false)
 {
 }
@@ -31,22 +33,25 @@ Trap::~Trap()
 
 void Trap::Init(
 	const Vec2& RtrapPos, const Vec2& UtrapPos,
-	const Vec2& LtrapPos,
+	const Vec2& LtrapPos, const Vec2& BtrapPos,
 	const Vec2& velocity,
-	int RgraphHandle, int UgraphHandle, int LgraphHandle)
+	int RgraphHandle, int UgraphHandle, int LgraphHandle, int BgraphHandle)
 {
 	m_RtrapPos = RtrapPos;
 	m_UtrapPos = UtrapPos;
 	m_LtrapPos = LtrapPos;
+	m_BtrapPos = BtrapPos;
 	m_velocity = velocity;
 	m_Rhandle = RgraphHandle;
 	m_Uhandle = UgraphHandle;
 	m_Lhandle = LgraphHandle;
+	m_BtrapHandle = BgraphHandle;
 	m_isActive = true;
 
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
 	m_LtrapColRect.SetCenter(m_LtrapPos.x, m_LtrapPos.y, kTrapSize, kTrapSize);
+	m_BtrapColRect.SetCenter(m_BtrapPos.x, m_BtrapPos.y, kTrapSize, kTrapSize);
 }
 
 void Trap::End()
@@ -71,6 +76,7 @@ void Trap::Update()
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
 	m_LtrapColRect.SetCenter(m_LtrapPos.x, m_LtrapPos.y, kTrapSize, kTrapSize);
+	m_BtrapColRect.SetCenter(m_BtrapPos.x, m_BtrapPos.y, kTrapSize, kTrapSize);
 }
 
 void Trap::Draw()
@@ -112,6 +118,18 @@ void Trap::Draw()
 		m_Lhandle,
 		true
 	);
+
+	int BtrapSrcX = kTrapSize * kBottomSpikeIndex; // 下向きトラップの切り取り位置
+	int BtrapSrcY = 0;
+
+	DrawRectRotaGraph(
+		m_BtrapPos.x, m_BtrapPos.y,
+		BtrapSrcX, BtrapSrcY,
+		kTrapSize, kTrapSize,
+		kScale, 0.0f,
+		m_BtrapHandle,
+		true
+	);
 }
 
 bool Trap::IsActive() const
@@ -132,4 +150,9 @@ Rect Trap::GetUpRect() const
 Rect Trap::GetLeftRect() const
 {
 	return m_LtrapColRect;
+}
+
+Rect Trap::GetBottomRect() const
+{
+	return m_BtrapColRect;
 }
