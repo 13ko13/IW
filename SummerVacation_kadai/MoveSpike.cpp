@@ -10,8 +10,8 @@ namespace
 	constexpr float kSpikeHeight = 32.0f; // トゲの高さ
 	constexpr float kSpikeSpeed = 1.0f; // トゲの移動速度
 
-	constexpr float kSpikeReturnY = 624.0f; // トゲが戻る位置のY座標
-	constexpr float kSpikeMaxY = 520.0f; // トゲが上昇する最大Y座標
+	constexpr float kSpikeReturnY = 618.0f; // トゲが戻る位置のY座標
+	constexpr float kSpikeMaxY = 523.0f; // トゲが上昇する最大Y座標
 }
 
 MoveSpike::MoveSpike() :
@@ -64,7 +64,7 @@ void MoveSpike::Draw()
 	DrawRotaGraph(
 		static_cast<int>(m_pos.x),
 		static_cast<int>(m_pos.y),
-		1.0f, 0.0f,
+		1.5f, 0.0f,
 		m_handle, true);
 }
 

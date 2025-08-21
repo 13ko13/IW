@@ -27,6 +27,18 @@ private:
 	void DeleteShot(int index); //弾削除
 
 private:
+	//シーケンス
+	enum Seq
+	{
+		SeqFadeIn,	//フェードイン
+		SeqGame,	//ゲームプレイ
+		SeqClear,	//クリア
+		SeqGameOver,//ゲームオーバー
+
+		SeqNum	//シーケンスの数
+	};
+
+private:
 	//使用するグラフィック
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
 	int m_playerWalkGraphHandle;	//プレイヤーの歩きグラフィック

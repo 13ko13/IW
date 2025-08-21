@@ -230,11 +230,12 @@ void SceneMain::Update()
 	if (!m_isMoveSpikeSpawned)
 	{
 		//移動トゲを生成
-		m_moveSpikeMgr.SpawnSpike({ 400.0f, 360.0f }, { 0.0f, 0.0f }); // 初期位置と速度
+		m_moveSpikeMgr.SpawnSpike({ 400.0f, 363.0f }, { 0.0f, 0.0f }); // 初期位置と速度
 
-		m_moveSpikeMgr.SpawnSpike({ 700.0f, 632.0f }, { 0.0f, 1.0f }); // 初期位置と速度
+		m_moveSpikeMgr.SpawnSpike({ 630.0f, 518.0f }, { 0.0f, 1.0f }); // 初期位置と速度
 
-		m_moveSpikeMgr.SpawnSpike({ 652.0f, 520.0f }, { 0.0f, 1.0f }); // 初期位置と速度
+		m_moveSpikeMgr.SpawnSpike({ 700.0f, 630.0f }, { 0.0f, 1.0f }); // 初期位置と速度
+
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
