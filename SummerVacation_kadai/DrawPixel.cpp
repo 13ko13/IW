@@ -9,6 +9,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 	SetGraphMode(Game::kScreenWidth, Game::kScreenHeight,0);
 
+	SetMainWindowText("TrapGame");
+
 	SetWindowSizeChangeEnableFlag(TRUE);
 
 	if (DxLib_Init() == -1)		// ‚c‚wƒ‰ƒCƒuƒ‰ƒŠ‰Šú‰»ˆ—
