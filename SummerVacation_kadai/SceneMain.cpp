@@ -11,6 +11,7 @@
 namespace
 {
 	constexpr int kShotMax = 5;	//1度に撃てる最大弾数
+	constexpr int kFadeFrame = 30; //フェードにかかるフレーム数
 }
 
 SceneMain::SceneMain() :
@@ -32,7 +33,10 @@ SceneMain::SceneMain() :
 	m_isPlatformSpawned(false),
 	m_isUtrapSpawned(false),
 	m_isLtrapSpawned(false),
-	m_isMoveSpikeSpawned(false)
+	m_isMoveSpikeSpawned(false),
+	m_gameSeq(SeqFadeIn),
+	m_frameCount(0),
+	m_fadeFrame(0)
 	//m_pShot(nullptr)
 {
 	m_pPlayer = new Player;
@@ -52,6 +56,13 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	//初期シーケンスの決定
+	m_gameSeq = SeqFadeIn;
+	m_frameCount = 0;
+
+	//フェード状態の初期化
+	m_fadeFrame = 0;
+
 	//グラフィックをロードする
 	m_playerIdleGraphHandle = LoadGraph("data/idle.png");
 	m_playerWalkGraphHandle = LoadGraph("data/Run.png");
@@ -126,122 +137,23 @@ void SceneMain::End()
 
 void SceneMain::Update()
 {
-	m_pPlayer->Update();
-	m_trapManager.Update();
-	m_platformManager.Update(m_pPlayer->GetColRect());
-	m_moveSpikeMgr.Update();
-	m_pShuriken->Update();
-
-	//トゲ発射イベント(X:1000,Y:300を越えたら)
-	if (m_pPlayer->GetPos().x > 1100.0f &&
-		m_pPlayer->GetPos().y > 200.0f &&
-		m_pPlayer->GetPos().y <= 300.0f &&
-		!m_isRtrapFired)
+	//現在のシーケンスの経過フレーム数をカウント
+	m_frameCount++;
+	switch (m_gameSeq)
 	{
-		m_trapManager.SpawnTrap(
-			{   0.0f, 300.0f }, { -15.0f,-15.0f },
-			{ -15.0f, -15.0f }, { -15.0f,-15.0f },
-			{  40.0f,   0.0f }); //右に飛ぶトゲ
-
-		m_trapManager.SpawnTrap(
-			{   0.0f, 280.0f }, { -15.0f,-15.0f },
-			{ -15.0f, -15.0f }, { -15.0f,-15.0f },
-			{  40.0f,   0.0f }); //右に飛ぶトゲ
-
-		m_isRtrapFired = true; // トゲを発射済みフラグを立てる
+	case SeqFadeIn:
+		UpdateFadeIn();
+		break;
+	case SeqGame:
+		UpdateGame();
+		break;
+	case SeqClear:
+		UpdateClear();
+		break;
+	case SeqGameOver:
+		UpdateGameOver();
+		break;
 	}
-
-	//上向きトゲを設置
-	if (!m_isUtrapSpawned)
-	{
-		m_trapManager.SpawnTrap(
-			{ -15.0f, -15.0f }, { 848.0f, 304.0f },
-			{ -15.0f, -15.0f }, { -15.0f, -15.0f } ,
-			{   0.0f,   0.0f }); // 上向きトゲ
-
-		m_trapManager.SpawnTrap(
-			{ -15.0f, -15.0f }, { 176.0f, 624.0f },
-			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{   0.0f,   0.0f }); // 上向きトゲ
-
-		m_isUtrapSpawned = true; // トゲを設置済みフラグを立てる
-	}
-
-	//左向きトゲを設置
-	if (!m_isLtrapSpawned)
-	{
-		m_trapManager.SpawnTrap(
-			{  -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ 1233.0f, 368.0f }, { -15.0f, -15.0f },
-			{    0.0f,   0.0f }); // 左向きトゲ
-
-		m_trapManager.SpawnTrap(
-			{  -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ 1233.0f, 400.0f }, { -15.0f, -15.0f },
-			{    0.0f,   0.0f }); // 左向きトゲ
-
-		m_trapManager.SpawnTrap(
-			{  -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ 1233.0f, 432.0f }, { -15.0f, -15.0f } ,
-			{    0.0f,   0.0f }); // 左向きトゲ
-
-		m_trapManager.SpawnTrap(
-			{  -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ 1233.0f, 464.0f }, { -15.0f, -15.0f } ,
-			{    0.0f,   0.0f }); // 左向きトゲ
-
-		m_trapManager.SpawnTrap(
-			{  -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ 1233.0f, 492.0f }, { -15.0f, -15.0f } ,
-			{    0.0f,   0.0f }); // 左向きトゲ
-
-		m_isLtrapSpawned = true; // トゲを設置済みフラグを立てる
-	}
-
-	//下向きトゲを設置
-	if (!m_isBtrapSpawned)
-	{
-		m_trapManager.SpawnTrap(
-			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
-			{ -15.0f,  632.0f }, {  240.0f,  528.0f },
-			{   0.0f,   0.0f }); // 下向きトゲ
-
-		m_isBtrapSpawned = true; // トゲを設置済みフラグを立てる
-	}
-
-	//プレイヤーとの当たり判定
-	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()) ||
-		m_moveSpikeMgr.CheckCollision(m_pPlayer->GetColRect()) ||
-		m_pShuriken->CheckCollision(m_pPlayer->GetColRect()))
-	{
-		//プレイヤーがトゲに当たった場合の処理
-		printfDx("トゲに当たった！\n");
-	}
-
-	//プラットフォーム生成
-	if (!m_isPlatformSpawned)
-	{
-		//プラットフォームを生成
-		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 10.0f); // 60フレーム後に落下開始
-		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
-	}
-
-	//移動トゲ生成
-	if (!m_isMoveSpikeSpawned)
-	{
-		//移動トゲを生成
-		m_moveSpikeMgr.SpawnSpike({ 400.0f, 363.0f }, { 0.0f, 0.0f }); // 初期位置と速度
-
-		m_moveSpikeMgr.SpawnSpike({ 630.0f, 518.0f }, { 0.0f, 1.0f }); // 初期位置と速度
-
-		m_moveSpikeMgr.SpawnSpike({ 700.0f, 630.0f }, { 0.0f, 1.0f }); // 初期位置と速度
-
-		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
-	}
-
-	if (!m_pShot) return;
-
-	UpdateShot();
 }
 
 void SceneMain::Draw()
@@ -267,6 +179,20 @@ void SceneMain::Draw()
 	m_trapManager.Draw();
 	m_platformManager.Draw();
 	m_moveSpikeMgr.Draw();
+
+	// フェードの描画
+	int fadeAlpha = 0;
+
+	//フレームカウントをフェードの進行度（割合)に変換
+	float fadeProgress = static_cast<float>(m_fadeFrame) / kFadeFrame;
+	//255 -> 0 に変化させたいので割合を逆転させる
+	fadeProgress = 1.0f - fadeProgress;
+	//割合をかけることで現在のフェード値を決定する
+	fadeAlpha = 255 * fadeProgress;
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0,0,0), true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
 }
 
 void SceneMain::UpdateShot()
@@ -306,4 +232,164 @@ void SceneMain::DeleteShot(int index)
 
 	delete m_pShot[index];
 	m_pShot[index] = nullptr;
+}
+
+void SceneMain::UpdateFadeIn()
+{
+	//フェードインの進行
+	m_fadeFrame++;
+	if (m_fadeFrame > kFadeFrame)
+	{
+		//フェードイン完了
+		m_fadeFrame = kFadeFrame;
+		m_gameSeq = SeqGame; //シーケンスをゲームプレイに変更
+		m_frameCount = 0; //フレームカウントをリセット
+	}
+}
+
+void SceneMain::UpdateGame()
+{
+#ifdef _DEBUG
+	//ボタン一発でクリアできるデバッグ機能
+
+	//Xボタンを押したらクリアする
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	//padのXボタンもしくはキーボードのCを押したとき
+	if ((pad & PAD_INPUT_3) != 0)
+	{
+		//勝利条件を満たすような処理を書く
+		m_gameSeq = SeqClear; //シーケンスをクリアに変更
+	}
+#endif // _DEBUG
+
+	m_pPlayer->Update();
+	m_trapManager.Update();
+	m_platformManager.Update(m_pPlayer->GetColRect());
+	m_moveSpikeMgr.Update();
+	m_pShuriken->Update();
+
+	//トゲ発射イベント(X:1000,Y:300を越えたら)
+	if (m_pPlayer->GetPos().x > 1100.0f &&
+		m_pPlayer->GetPos().y > 200.0f &&
+		m_pPlayer->GetPos().y <= 300.0f &&
+		!m_isRtrapFired)
+	{
+		m_trapManager.SpawnTrap(
+			{ 0.0f, 300.0f }, { -15.0f,-15.0f },
+			{ -15.0f, -15.0f }, { -15.0f,-15.0f },
+			{ 40.0f,   0.0f }); //右に飛ぶトゲ
+
+		m_trapManager.SpawnTrap(
+			{ 0.0f, 280.0f }, { -15.0f,-15.0f },
+			{ -15.0f, -15.0f }, { -15.0f,-15.0f },
+			{ 40.0f,   0.0f }); //右に飛ぶトゲ
+
+		m_isRtrapFired = true; // トゲを発射済みフラグを立てる
+	}
+
+	//上向きトゲを設置
+	if (!m_isUtrapSpawned)
+	{
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 848.0f, 304.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 176.0f, 624.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_isUtrapSpawned = true; // トゲを設置済みフラグを立てる
+	}
+
+	//左向きトゲを設置
+	if (!m_isLtrapSpawned)
+	{
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 368.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 400.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 432.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 464.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 左向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 1233.0f, 492.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 左向きトゲ
+
+		m_isLtrapSpawned = true; // トゲを設置済みフラグを立てる
+	}
+
+	//下向きトゲを設置
+	if (!m_isBtrapSpawned)
+	{
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ -15.0f,  632.0f }, { 240.0f,  528.0f },
+			{ 0.0f,   0.0f }); // 下向きトゲ
+
+		m_isBtrapSpawned = true; // トゲを設置済みフラグを立てる
+	}
+
+	//プレイヤーとの当たり判定
+	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()) ||
+		m_moveSpikeMgr.CheckCollision(m_pPlayer->GetColRect()) ||
+		m_pShuriken->CheckCollision(m_pPlayer->GetColRect()))
+	{
+		//プレイヤーがトゲに当たった場合の処理
+		printfDx("トゲに当たった！\n");
+	}
+
+	//プラットフォーム生成
+	if (!m_isPlatformSpawned)
+	{
+		//プラットフォームを生成
+		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 10.0f); // 60フレーム後に落下開始
+		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
+	}
+
+	//移動トゲ生成
+	if (!m_isMoveSpikeSpawned)
+	{
+		//移動トゲを生成
+		m_moveSpikeMgr.SpawnSpike({ 400.0f, 363.0f }, { 0.0f, 0.0f }); // 初期位置と速度
+
+		m_moveSpikeMgr.SpawnSpike({ 630.0f, 518.0f }, { 0.0f, 1.0f }); // 初期位置と速度
+
+		m_moveSpikeMgr.SpawnSpike({ 700.0f, 630.0f }, { 0.0f, 1.0f }); // 初期位置と速度
+
+		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
+	}
+
+	if (!m_pShot) return;
+
+	UpdateShot();
+}
+
+void SceneMain::UpdateClear()
+{
+	m_pPlayer->Update();
+}
+
+void SceneMain::UpdateGameOver()
+{
+	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
+	if ((pad & PAD_INPUT_1) != 0)
+	{
+		//タイトルへ戻る処理
+	}
 }

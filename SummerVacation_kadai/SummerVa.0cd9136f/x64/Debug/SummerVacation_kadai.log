@@ -1,2 +1,5 @@
-﻿  MoveSpike.cpp
+﻿  DrawPixel.cpp
+  SceneMain.cpp
+  コードを生成中...
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\SceneMain.cpp(225,55): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   SummerVacation_kadai.vcxproj -> C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\x64\Debug\SummerVacation_kadai.exe

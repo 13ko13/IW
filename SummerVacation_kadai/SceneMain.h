@@ -25,6 +25,13 @@ public:
 private:
 	void UpdateShot(); //弾更新
 	void DeleteShot(int index); //弾削除
+	
+	//シーケンスごとにUpdate処理を切り替える
+	void UpdateFadeIn();	//フェードイン
+	void UpdateGame();		//ゲームプレイ
+
+	void UpdateClear();		//クリア
+	void UpdateGameOver();	//ゲームオーバー
 
 private:
 	//シーケンス
@@ -66,6 +73,13 @@ private:
 	bool m_isBtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
 	//移動トゲフラグ
 	bool m_isMoveSpikeSpawned;		//一度だけ生成するフラグ
+
+	//現在のシーケンス
+	Seq m_gameSeq;
+	int m_frameCount;
+
+	//フェードのフレーム数 0:真っ暗
+	int m_fadeFrame;
 
 	//プレイヤー
 	Player* m_pPlayer;
