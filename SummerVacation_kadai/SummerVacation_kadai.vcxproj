@@ -139,6 +139,7 @@
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="DrawPixel.cpp" />
     <ClCompile Include="FallPlatTrap.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="MoveSpike.cpp" />
     <ClCompile Include="MoveSpikeMgr.cpp" />
     <ClCompile Include="PlatformManager.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Character.h" />
     <ClInclude Include="FallPlatTrap.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="MoveSpike.h" />
     <ClInclude Include="MoveSpikeMgr.h" />
     <ClInclude Include="PlatformManager.h" />

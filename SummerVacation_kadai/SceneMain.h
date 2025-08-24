@@ -6,6 +6,7 @@
 #include "PlatformManager.h"
 #include "MoveSpikeMgr.h"
 #include "Shuriken.h"
+#include "Goal.h"
 
 class Player;
 class Shot;
@@ -62,6 +63,7 @@ private:
 	int m_platformGraphHandle;		//プラットフォームのグラフィック
 	int m_moveSpikeGraphHandle;		//移動トゲのグラフィック
 	int m_shurikenGraphHandle;		//手裏剣のグラフィック
+	int m_goalGraphHandle;			//ゴールのグラフィック
 
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
@@ -95,4 +97,6 @@ private:
 	PlatformManager m_platformManager;
 	//移動トゲマネージャー
 	MoveSpikeMgr m_moveSpikeMgr;
+	//ゴール
+	Goal m_goal;
 };

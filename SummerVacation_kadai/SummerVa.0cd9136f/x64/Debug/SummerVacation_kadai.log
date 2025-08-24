@@ -1,5 +1,7 @@
-﻿  DrawPixel.cpp
-  SceneMain.cpp
-  コードを生成中...
-C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\SceneMain.cpp(225,55): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+﻿  Goal.cpp
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Goal.cpp(66,11): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Goal.cpp(72,15): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Goal.cpp(72,3): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Goal.cpp(70,17): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Goal.cpp(70,8): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
   SummerVacation_kadai.vcxproj -> C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\x64\Debug\SummerVacation_kadai.exe

@@ -27,8 +27,6 @@ private:
 	void Jump();
 	//弾のクールタイム
 	void ShotCT(); 
-	//ジャンプの描画
-	void DrawJump();
 
 private:
 	//プレイヤー関連

@@ -55,8 +55,6 @@ void Character::Draw()
 {
 	float drawX = m_pos.x - kCharaSize * 0.5f;
 	float drawY = m_pos.y - kCharaSize * 0.5f;
-
-	
 }
 
 void Character::Gravity()

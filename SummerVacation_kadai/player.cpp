@@ -7,7 +7,7 @@
 //定数定義
 namespace
 {
-	const Vec2 kInitPos = { 110.0f,200.0f };	//初期位置
+	const Vec2 kInitPos = { 110.0f,144.0f };	//初期位置
 
 	//グラフィックのサイズ
 	constexpr int kGraphWidth = 32;
