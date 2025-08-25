@@ -6,7 +6,7 @@ namespace
 	{
 	// Vec2関係の定数定義
 	const Vec2 kInitPos = { 1280.0f, 460.0f }; // 手裏剣の初期位置
-	constexpr  float kSpeed = 20.0f; // 手裏剣の移動速度
+	constexpr  float kSpeed = 25.0f; // 手裏剣の移動速度
 
 	// 手裏剣の定数定義
 	constexpr float kShurikenSize = 32.0f; // 手裏剣のサイズ

@@ -65,6 +65,9 @@ private:
 	int m_shurikenGraphHandle;		//手裏剣のグラフィック
 	int m_goalGraphHandle;			//ゴールのグラフィック
 
+	//フォントハンドル
+	int m_clearFontHandle;		//クリア表示用フォントハンドル
+
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ

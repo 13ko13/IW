@@ -31,6 +31,7 @@ SceneMain::SceneMain() :
 	m_moveSpikeGraphHandle(-1),
 	m_shurikenGraphHandle(-1),
 	m_goalGraphHandle(-1),
+	m_clearFontHandle(-1),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
 	m_isUtrapSpawned(false),
@@ -80,6 +81,9 @@ void SceneMain::Init()
 	m_moveSpikeGraphHandle = LoadGraph("data/MoveSpike.png");
 	m_shurikenGraphHandle = LoadGraph("data/Shuriken.png");
 	m_goalGraphHandle = LoadGraph("data/Goal.png");
+
+	//フォントのロード
+	m_clearFontHandle = CreateFontToHandle("HGP創英角ﾎﾟｯﾌﾟ体", 120, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	//プレイヤーの初期化
 	m_pPlayer->Init(
@@ -249,6 +253,9 @@ void SceneMain::End()
 	DeleteGraph(m_moveSpikeGraphHandle);
 	DeleteGraph(m_shurikenGraphHandle);
 	DeleteGraph(m_goalGraphHandle);
+
+	//フォントの削除
+	DeleteFontToHandle(m_clearFontHandle);
 }
 
 void SceneMain::Update()
@@ -312,6 +319,22 @@ void SceneMain::Draw()
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
 	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
+
+	//文字を中央に表示する
+	int strWidth = GetDrawFormatStringWidthToHandle(
+					m_clearFontHandle,
+					"CLEAR!");
+
+	//クリア表示
+	if (m_goal.IsClear())
+	{
+		int x = (Game::kScreenWidth / 2 - strWidth / 2);
+		int y = (Game::kScreenHeight / 2 - 60);
+		DrawStringToHandle(
+			x, y, "CLEAR!",
+			GetColor(255, 1, 1),
+			m_clearFontHandle);
+	}
 }
 
 void SceneMain::UpdateShot()
@@ -377,6 +400,7 @@ void SceneMain::UpdateGame()
 	if ((pad & PAD_INPUT_3) != 0)
 	{
 		//勝利条件を満たすような処理を書く
+		m_goal.m_isClear = true;
 		m_gameSeq = SeqClear; //シーケンスをクリアに変更
 	}
 #endif // _DEBUG
@@ -510,6 +534,7 @@ void SceneMain::UpdateGame()
 void SceneMain::UpdateClear()
 {
 	//クリアしたときの処理
+	//クリア表示
 	m_pPlayer->Update();
 }
 

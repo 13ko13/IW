@@ -22,9 +22,6 @@ private:
 	//ハンドル関係
 	int m_handle;		// ゴールのグラフィックハンドル
 
-	//フラグ関係
-	bool m_isClear;
-
 	//アニメーション関係
 	int m_animFrame;	// ゴールのアニメーションフレーム
 
@@ -36,4 +33,8 @@ private:
 
 	//プレイヤー
 	Player* m_pPlayer;	// プレイヤーのポインタ
+
+public:
+	//フラグ関係
+	bool m_isClear;
 };
