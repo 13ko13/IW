@@ -24,7 +24,8 @@ Goal::Goal() :
 	m_handle(-1),
 	m_isClear(false),
 	m_animFrame(0),
-	m_pos({ kGoalPosX, kGoalPosY })
+	m_pos({ kGoalPosX, kGoalPosY }),
+	m_pPlayer(nullptr)
 
 {
 }

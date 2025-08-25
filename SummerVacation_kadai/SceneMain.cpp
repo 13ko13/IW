@@ -310,7 +310,7 @@ void SceneMain::Draw()
 	fadeAlpha = 255 * fadeProgress;
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
-	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0,0,0), true);
+	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
 }
 
@@ -495,6 +495,13 @@ void SceneMain::UpdateGame()
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
+	//クリアしたかどうか
+	if (m_goal.IsClear())
+	{
+		m_gameSeq = SeqClear; //シーケンスをクリアに変更
+		m_frameCount = 0; //フレームカウントをリセット
+	}
+
 	if (!m_pShot) return;
 
 	UpdateShot();
@@ -502,6 +509,7 @@ void SceneMain::UpdateGame()
 
 void SceneMain::UpdateClear()
 {
+	//クリアしたときの処理
 	m_pPlayer->Update();
 }
 
