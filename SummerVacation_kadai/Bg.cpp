@@ -49,7 +49,7 @@ Bg::Bg():
 	m_graphChipNumX(0),
 	m_graphChipNumY(0)
 {
-	m_bgHandle = LoadGraph("data/3-bg-full.png");
+	m_bgHandle = LoadGraph("data/BackGround.png");
 	m_mapHandle = LoadGraph("data/tileset.png");
 
 	//画像のマップチップ数を数える
@@ -89,7 +89,7 @@ void Bg::Draw()
 
 void Bg::DrawBg()
 {
-	DrawRotaGraph3(m_pos.x, m_pos.y,0,0,2,2,0, m_bgHandle, true,false);
+	DrawRotaGraph3(m_pos.x, m_pos.y,0,0,1.0f,1.0f,0, m_bgHandle, true,false);
 }
 
 void Bg::DrawMapChip()

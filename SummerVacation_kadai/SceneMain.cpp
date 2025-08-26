@@ -12,6 +12,7 @@ namespace
 {
 	constexpr int kShotMax = 5;	//1度に撃てる最大弾数
 	constexpr int kFadeFrame = 30; //フェードにかかるフレーム数
+	constexpr int kMainBgmVolume = 70; //BGMの音量
 }
 
 SceneMain::SceneMain() :
@@ -32,6 +33,8 @@ SceneMain::SceneMain() :
 	m_shurikenGraphHandle(-1),
 	m_goalGraphHandle(-1),
 	m_clearFontHandle(-1),
+	m_mainBgmHandle(-1),
+	m_mainBgmVolume(0),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
 	m_isUtrapSpawned(false),
@@ -72,7 +75,7 @@ void SceneMain::Init()
 	m_playerJumpGraphHandle = LoadGraph("data/Jump.png");
 	m_playerDJumpGraphHandle = LoadGraph("data/Jump.png");
 	m_tileGraphHandle = LoadGraph("data/tileset.png");
-	m_bgGraphHandle = LoadGraph("data/3-bg-full.png");
+	m_bgGraphHandle = LoadGraph("data/BackGround.png");
 	m_RtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_UtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
 	m_LtrapGraphHandle = LoadGraph("data/SpikeTrap.png");
@@ -83,7 +86,17 @@ void SceneMain::Init()
 	m_goalGraphHandle = LoadGraph("data/Goal.png");
 
 	//フォントのロード
-	m_clearFontHandle = CreateFontToHandle("HGP創英角ﾎﾟｯﾌﾟ体", 120, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_clearFontHandle = CreateFontToHandle("x10y12pxDonguriDuel", 120, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
+	//サウンドのロード
+	m_mainBgmHandle = LoadSoundMem("data/MainBgm.mp3");
+
+	//BGMの再生開始
+	m_mainBgmVolume = kMainBgmVolume; //BGMの音量設定
+
+	//BGMの再生
+	PlaySoundMem(m_mainBgmHandle, DX_PLAYTYPE_LOOP);
+	ChangeVolumeSoundMem(m_mainBgmVolume, m_mainBgmHandle);
 
 	//プレイヤーの初期化
 	m_pPlayer->Init(
@@ -210,7 +223,7 @@ void SceneMain::Init()
 	if (!m_isPlatformSpawned)
 	{
 		//プラットフォームを生成
-		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 10.0f); // 60フレーム後に落下開始
+		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 0.5f); // 5フレーム後に落下開始
 		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
 	}
 
@@ -229,11 +242,13 @@ void SceneMain::Init()
 
 	//初期シーケンスの決定
 	m_gameSeq = SeqFadeIn;
-
 }
 
 void SceneMain::End()
 {
+	//BGMの停止
+	StopSoundMem(m_mainBgmHandle);
+
 	m_pPlayer->End();
 	m_pBg->End();
 	//グラフィックを開放
@@ -256,6 +271,9 @@ void SceneMain::End()
 
 	//フォントの削除
 	DeleteFontToHandle(m_clearFontHandle);
+
+	//サウンドの削除
+	DeleteSoundMem(m_mainBgmHandle);
 }
 
 void SceneMain::Update()
@@ -332,7 +350,7 @@ void SceneMain::Draw()
 		int y = (Game::kScreenHeight / 2 - 60);
 		DrawStringToHandle(
 			x, y, "CLEAR!",
-			GetColor(255, 1, 1),
+			GetColor(2, 155, 1),
 			m_clearFontHandle);
 	}
 }

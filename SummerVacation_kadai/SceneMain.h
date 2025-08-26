@@ -68,6 +68,12 @@ private:
 	//フォントハンドル
 	int m_clearFontHandle;		//クリア表示用フォントハンドル
 
+	//サウンドハンドル
+	int m_mainBgmHandle;		//メインBGMハンドル
+
+	//サウンドの音量
+	int m_mainBgmVolume; //メインBGMの音量
+
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ
