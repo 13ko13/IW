@@ -35,13 +35,14 @@ SceneMain::SceneMain() :
 	m_clearFontHandle(-1),
 	m_mainBgmHandle(-1),
 	m_mainBgmVolume(0),
+	m_isStartPressed(false),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
 	m_isUtrapSpawned(false),
 	m_isLtrapSpawned(false),
 	m_isBtrapSpawned(false),
 	m_isMoveSpikeSpawned(false),
-	m_gameSeq(SeqFadeIn),
+	m_gameSeq(SeqTitle),
 	m_frameCount(0),
 	m_fadeFrame(0)
 {
@@ -62,6 +63,8 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	//初期シーケンスの決定
+	m_gameSeq = SeqTitle;
 
 	m_frameCount = 0;
 
@@ -135,7 +138,7 @@ void SceneMain::Init()
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f &&
-		m_pPlayer->GetPos().y > 200.0f &&
+		m_pPlayer->GetPos().y >  200.0f &&
 		m_pPlayer->GetPos().y <= 300.0f &&
 		!m_isRtrapFired)
 	{
@@ -240,8 +243,7 @@ void SceneMain::Init()
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
-	//初期シーケンスの決定
-	m_gameSeq = SeqFadeIn;
+	
 }
 
 void SceneMain::End()
@@ -282,6 +284,9 @@ void SceneMain::Update()
 	m_frameCount++;
 	switch (m_gameSeq)
 	{
+		case SeqTitle:
+		UpdateTitle();
+		break;
 	case SeqFadeIn:
 		UpdateFadeIn();
 		break;
@@ -392,6 +397,16 @@ void SceneMain::DeleteShot(int index)
 
 	delete m_pShot[index];
 	m_pShot[index] = nullptr;
+}
+
+void SceneMain::UpdateTitle()
+{
+	//タイトルシーケンスの更新処理
+	if (m_isStartPressed)
+	{
+		m_gameSeq = SeqFadeIn; //シーケンスをフェードインに変更
+	}	
+	m_isStartPressed = false; //スタートボタンが押されたかのフラグをリセット
 }
 
 void SceneMain::UpdateFadeIn()

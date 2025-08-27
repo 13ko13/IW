@@ -146,6 +146,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
     <ClCompile Include="SceneMain.cpp" />
+    <ClCompile Include="SceneTitle.cpp" />
     <ClCompile Include="Shot.cpp" />
     <ClCompile Include="Shuriken.cpp" />
     <ClCompile Include="Trap.cpp" />
@@ -163,6 +164,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />
     <ClInclude Include="SceneMain.h" />
+    <ClInclude Include="SceneTitle.h" />
     <ClInclude Include="Shot.h" />
     <ClInclude Include="Shuriken.h" />
     <ClInclude Include="Trap.h" />

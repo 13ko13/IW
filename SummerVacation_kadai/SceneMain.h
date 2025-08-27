@@ -28,6 +28,7 @@ private:
 	void DeleteShot(int index); //弾削除
 	
 	//シーケンスごとにUpdate処理を切り替える
+	void UpdateTitle();		//タイトル
 	void UpdateFadeIn();	//フェードイン
 	void UpdateGame();		//ゲームプレイ
 
@@ -38,6 +39,7 @@ private:
 	//シーケンス
 	enum Seq
 	{
+		SeqTitle,	//タイトル
 		SeqFadeIn,	//フェードイン
 		SeqGame,	//ゲームプレイ
 		SeqClear,	//クリア
@@ -74,6 +76,10 @@ private:
 	//サウンドの音量
 	int m_mainBgmVolume; //メインBGMの音量
 
+	//フラグ関係
+	
+	//スタートを押したかどうかのフラグ
+	bool m_isStartPressed;
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ
