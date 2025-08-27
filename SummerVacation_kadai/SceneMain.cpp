@@ -93,19 +93,15 @@ void SceneMain::Init()
 
 	//サウンドのロード
 	m_mainBgmHandle = LoadSoundMem("data/MainBgm.mp3");
-
-	//BGMの再生開始
-	m_mainBgmVolume = kMainBgmVolume; //BGMの音量設定
-
-	//BGMの再生
-	PlaySoundMem(m_mainBgmHandle, DX_PLAYTYPE_LOOP);
-	ChangeVolumeSoundMem(m_mainBgmVolume, m_mainBgmHandle);
-
+	
 	//プレイヤーの初期化
 	m_pPlayer->Init(
 		m_playerIdleGraphHandle, m_playerIdleGraphHandle,
 		m_playerWalkGraphHandle, m_playerShotGraphHnadle,
 		m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
+
+	//タイトルシーンの初期化
+	m_sceneTitle.Init();
 
 	//背景の初期化
 	m_pBg->Init();
@@ -123,6 +119,9 @@ void SceneMain::Init()
 
 	//プレイヤーのポインタを取得
 	m_goal.SetPlayer(m_pPlayer);
+
+	//このシーンのポインタを渡す
+	m_sceneTitle.SetSceneMain(this);
 
 	//移動トゲの初期化
 	m_moveSpikeMgr.Init(m_moveSpikeGraphHandle);
@@ -253,6 +252,7 @@ void SceneMain::End()
 
 	m_pPlayer->End();
 	m_pBg->End();
+	m_sceneTitle.End();
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
 	DeleteGraph(m_playerWalkGraphHandle);
@@ -280,6 +280,7 @@ void SceneMain::End()
 
 void SceneMain::Update()
 {
+	/*printfDx("現在のシーン:%d\n", m_gameSeq);*/
 	//現在のシーケンスの経過フレーム数をカウント
 	m_frameCount++;
 	switch (m_gameSeq)
@@ -304,59 +305,70 @@ void SceneMain::Update()
 
 void SceneMain::Draw()
 {
-	// 背景の描画
-	m_pBg->Draw();
-
-	// ゴールの描画
-	m_goal.Draw();
-
-	// プレイヤーの描画
-	m_pPlayer->Draw();
-
-	//手裏剣の描画
-	m_pShuriken->Draw();
-
-	// 弾の描画
-	if (!m_pShot) return;
-	for (int i = 0; i < kShotMax; i++)
+	switch (m_gameSeq)
 	{
-		if (!m_pShot[i]) continue;
-		m_pShot[i]->Draw();
-	}
+		case SeqTitle:
+			m_sceneTitle.Draw();
+			break;
+		case SeqFadeIn:
+		case SeqGame:
+		case SeqClear:
+		case SeqGameOver:
+			// 背景の描画
+			m_pBg->Draw();
 
-	// トラップの描画
-	m_trapManager.Draw();
-	m_platformManager.Draw();
-	m_moveSpikeMgr.Draw();
+			// ゴールの描画
+			m_goal.Draw();
 
-	// フェードの描画
-	int fadeAlpha = 0;
+			// プレイヤーの描画
+			m_pPlayer->Draw();
 
-	//フレームカウントをフェードの進行度（割合)に変換
-	float fadeProgress = static_cast<float>(m_fadeFrame) / kFadeFrame;
-	//255 -> 0 に変化させたいので割合を逆転させる
-	fadeProgress = 1.0f - fadeProgress;
-	//割合をかけることで現在のフェード値を決定する
-	fadeAlpha = 255 * fadeProgress;
+			//手裏剣の描画
+			m_pShuriken->Draw();
 
-	SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
-	DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
-	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
+			// 弾の描画
+			if (!m_pShot) return;
+			for (int i = 0; i < kShotMax; i++)
+			{
+				if (!m_pShot[i]) continue;
+				m_pShot[i]->Draw();
+			}
 
-	//文字を中央に表示する
-	int strWidth = GetDrawFormatStringWidthToHandle(
-					m_clearFontHandle,
-					"CLEAR!");
+			// トラップの描画
+			m_trapManager.Draw();
+			m_platformManager.Draw();
+			m_moveSpikeMgr.Draw();
 
-	//クリア表示
-	if (m_goal.IsClear())
-	{
-		int x = (Game::kScreenWidth / 2 - strWidth / 2);
-		int y = (Game::kScreenHeight / 2 - 60);
-		DrawStringToHandle(
-			x, y, "CLEAR!",
-			GetColor(2, 155, 1),
-			m_clearFontHandle);
+			// フェードの描画
+			int fadeAlpha = 0;
+
+			//フレームカウントをフェードの進行度（割合)に変換
+			float fadeProgress = static_cast<float>(m_fadeFrame) / kFadeFrame;
+			//255 -> 0 に変化させたいので割合を逆転させる
+			fadeProgress = 1.0f - fadeProgress;
+			//割合をかけることで現在のフェード値を決定する
+			fadeAlpha = 255 * fadeProgress;
+
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
+			DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
+
+			//文字を中央に表示する
+			int strWidth = GetDrawFormatStringWidthToHandle(
+				m_clearFontHandle,
+				"CLEAR!");
+
+			//クリア表示
+			if (m_goal.IsClear())
+			{
+				int x = (Game::kScreenWidth / 2 - strWidth / 2);
+				int y = (Game::kScreenHeight / 2 - 60);
+				DrawStringToHandle(
+					x, y, "CLEAR!",
+					GetColor(2, 155, 1),
+					m_clearFontHandle);
+			}
+			break;
 	}
 }
 
@@ -401,6 +413,8 @@ void SceneMain::DeleteShot(int index)
 
 void SceneMain::UpdateTitle()
 {
+	m_sceneTitle.Update();
+
 	//タイトルシーケンスの更新処理
 	if (m_isStartPressed)
 	{
@@ -419,6 +433,19 @@ void SceneMain::UpdateFadeIn()
 		m_fadeFrame = kFadeFrame;
 		m_gameSeq = SeqGame; //シーケンスをゲームプレイに変更
 		m_frameCount = 0; //フレームカウントをリセット
+
+		if (CheckSoundMem(m_mainBgmHandle) == 0)
+		{
+			//BGMの再生開始
+			m_mainBgmVolume = kMainBgmVolume; //BGMの音量設定
+
+			if (m_gameSeq == SeqGame)
+			{
+				//BGMの再生
+				PlaySoundMem(m_mainBgmHandle, DX_PLAYTYPE_LOOP);
+				ChangeVolumeSoundMem(m_mainBgmVolume, m_mainBgmHandle);
+			}
+		}
 	}
 }
 

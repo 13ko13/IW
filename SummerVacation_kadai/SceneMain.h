@@ -7,6 +7,7 @@
 #include "MoveSpikeMgr.h"
 #include "Shuriken.h"
 #include "Goal.h"
+#include "SceneTitle.h"
 
 class Player;
 class Shot;
@@ -48,6 +49,10 @@ private:
 		SeqNum	//シーケンスの数
 	};
 
+public:
+	//スタートを押したかどうかのフラグ
+	bool m_isStartPressed;
+
 private:
 	//使用するグラフィック
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
@@ -78,8 +83,6 @@ private:
 
 	//フラグ関係
 	
-	//スタートを押したかどうかのフラグ
-	bool m_isStartPressed;
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ
@@ -114,4 +117,6 @@ private:
 	MoveSpikeMgr m_moveSpikeMgr;
 	//ゴール
 	Goal m_goal;
+	//タイトルシーン
+	SceneTitle m_sceneTitle;
 };

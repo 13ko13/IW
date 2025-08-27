@@ -1,4 +1,7 @@
 #pragma once
+
+class SceneMain;
+
 class SceneTitle
 {
 public:
@@ -9,6 +12,12 @@ public:
 	void End();
 	void Update();
 	void Draw();
+
+	void SetSceneMain(SceneMain* pSceneMain);
+
+	void UpdateTitle();		//タイトル
+	void UpdateFadeIn();	//フェードイン
+	void UpdateFadeOut();	//フェードアウト
 
 	//シーケンス
 	enum Seq
@@ -24,7 +33,10 @@ private:
 
 	//使用するグラフィック
 	int m_titleGraphHandle; //タイトルのグラフィックハンドル
-	int m_pressGraphHandle; //PressStartのグラフィックハンドル
+	int m_bgGraphHandle;    //背景のグラフィックハンドル
+	
+	//フォントハンドル
+	int m_startFontHandle; //PressStartのグラフィックハンドル
 	
 	//シーケンス管理
 	int m_currentSeq;	//現在のシーケンス
@@ -38,5 +50,8 @@ private:
 
 	//アニメーション関係
 	int m_pressFrame;   //PressStartの点滅用フレームカウント
+
+	//シーンメイン
+	SceneMain* m_pSceneMain;
 };
 
