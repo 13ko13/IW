@@ -12,7 +12,7 @@ namespace
 {
 	constexpr int kShotMax = 5;	//1度に撃てる最大弾数
 	constexpr int kFadeFrame = 30; //フェードにかかるフレーム数
-	constexpr int kMainBgmVolume = 70; //BGMの音量
+	constexpr int kMainBgmVolume = 50; //BGMの音量
 }
 
 SceneMain::SceneMain() :
@@ -119,6 +119,7 @@ void SceneMain::Init()
 
 	//プレイヤーのポインタを取得
 	m_goal.SetPlayer(m_pPlayer);
+	m_trapManager.SetPlayer(m_pPlayer);
 
 	//このシーンのポインタを渡す
 	m_sceneTitle.SetSceneMain(this);
@@ -159,6 +160,16 @@ void SceneMain::Init()
 	{
 		m_trapManager.SpawnTrap(
 			{ -15.0f, -15.0f }, { 848.0f, 304.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 670.0f, 304.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 900.0f, 304.0f },
 			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
 			{ 0.0f,   0.0f }); // 上向きトゲ
 
@@ -207,7 +218,7 @@ void SceneMain::Init()
 		m_trapManager.SpawnTrap(
 			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
 			{ -15.0f,  632.0f }, { 240.0f,  528.0f },
-			{ 0.0f,   0.0f }); // 下向きトゲ
+			{ 0.0f,   9.0f }); // 下向きトゲ
 
 		m_isBtrapSpawned = true; // トゲを設置済みフラグを立てる
 	}
@@ -225,7 +236,7 @@ void SceneMain::Init()
 	if (!m_isPlatformSpawned)
 	{
 		//プラットフォームを生成
-		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 0.5f); // 5フレーム後に落下開始
+		m_platformManager.SpawnPlatform({ 736.0f, 168.0f }, 0.1f); // 0.1フレーム後に落下開始
 		m_isPlatformSpawned = true; // プラットフォームを生成済みフラグを立てる
 	}
 
@@ -252,7 +263,7 @@ void SceneMain::End()
 
 	m_pPlayer->End();
 	m_pBg->End();
-	m_sceneTitle.End();
+
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
 	DeleteGraph(m_playerWalkGraphHandle);
@@ -418,6 +429,7 @@ void SceneMain::UpdateTitle()
 	//タイトルシーケンスの更新処理
 	if (m_isStartPressed)
 	{
+		m_sceneTitle.End();
 		m_gameSeq = SeqFadeIn; //シーケンスをフェードインに変更
 	}	
 	m_isStartPressed = false; //スタートボタンが押されたかのフラグをリセット
@@ -500,11 +512,20 @@ void SceneMain::UpdateGame()
 			{ 0.0f,   0.0f }); // 上向きトゲ
 
 		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 670.0f, 304.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_trapManager.SpawnTrap(
+			{ -15.0f, -15.0f }, { 900.0f, 304.0f },
+			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
+			{ 0.0f,   0.0f }); // 上向きトゲ
+
+		m_trapManager.SpawnTrap(
 			{ -15.0f, -15.0f }, { 176.0f, 624.0f },
 			{ -15.0f, -15.0f }, { -15.0f, -15.0f },
 			{ 0.0f,   0.0f }); // 上向きトゲ
 
-		m_isUtrapSpawned = true; // トゲを設置済みフラグを立てる
 	}
 
 	//左向きトゲを設置

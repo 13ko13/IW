@@ -3,15 +3,23 @@
 #include "Game.h"
 #include "SceneMain.h"
 
+namespace
+{
+	constexpr int kTitleBgmVolume = 100;	//タイトルBGMの音量
+}
+
 SceneTitle::SceneTitle() :
 	m_titleGraphHandle(-1),
 	m_bgGraphHandle(-1),
 	m_startFontHandle(-1),
+	m_titleBgmHandle(-1),
+	m_titleBgmVolume(0),
 	m_currentSeq(Seq::SeqFadeIn),
 	m_fadeAlpha(0),
 	m_isFadeIn(false),
 	m_isFadeOut(false),
-	m_pressFrame(0)
+	m_pressFrame(0),
+	m_pSceneMain(nullptr)
 {
 
 }
@@ -30,16 +38,25 @@ void SceneTitle::Init()
 	m_startFontHandle = CreateFontToHandle(
 		"x10y12pxDonguriDuel", 60, -1,
 		DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+
+	//サウンド読み込み
+	m_titleBgmHandle = LoadSoundMem("data/TitleBgm.mp3");
 }
 
 void SceneTitle::End()
 {
+	//BGMの停止
+	StopSoundMem(m_titleBgmHandle);
+
 	//グラフィック削除
 	DeleteGraph(m_titleGraphHandle);
 	DeleteGraph(m_bgGraphHandle);
 
 	//フォント削除
 	DeleteFontToHandle(m_startFontHandle);
+
+	//サウンド削除
+	DeleteSoundMem(m_titleBgmHandle);
 }
 
 void SceneTitle::Update()
@@ -48,6 +65,14 @@ void SceneTitle::Update()
 	{
 	case Seq::SeqTitle:
 		UpdateTitle();
+		if (CheckSoundMem(m_titleBgmHandle) == 0)
+		{
+			//BGMの再生開始
+			m_titleBgmVolume = kTitleBgmVolume; //音量を設定
+			//BGMの再生
+			PlaySoundMem(m_titleBgmHandle, DX_PLAYTYPE_LOOP);
+			ChangeVolumeSoundMem(m_titleBgmVolume, m_titleBgmHandle);
+		}
 		break;
 	case Seq::SeqFadeIn:
 		UpdateFadeIn();

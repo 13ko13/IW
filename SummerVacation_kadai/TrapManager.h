@@ -3,6 +3,9 @@
 #include <vector>
 #include "Trap.h"
 #include "Player.h"
+
+class Player;
+
 class TrapManager
 {
 public:
@@ -17,6 +20,7 @@ public:
 	void Update();
 	void Draw();
 
+	void SetPlayer(Player* pPlayer);
 	void SpawnTrap(
 		const Vec2& RtrapPos,const Vec2& UtrapPos,
 		const Vec2& LtrapPos,const Vec2& BtrapPos,
@@ -32,5 +36,8 @@ private:
 	int m_UtrapGraphHandle;	// 上向きトラップのグラフィックハンドル
 	int m_LtrapGraphHandle;	// 左向きトラップのグラフィックハンドル
 	int m_BtrapGraphHandle;	// 下向きトラップのグラフィックハンドル
+
+	//プレイヤーのポインタ
+	Player* m_pPlayer;
 };
 

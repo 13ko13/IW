@@ -50,8 +50,13 @@ void TrapManager::Update()
 	//非アクティブなトゲを削除
 	m_Rtraps.erase(
 		std::remove_if(m_Rtraps.begin(), m_Rtraps.end(),
-			[](const Trap& Rtrap) { return !Rtrap.IsActive(); }),
+			[](const Trap& Rtrap) { return !Rtrap.IsRtrapActive(); }),
 		m_Rtraps.end());
+
+	m_Btraps.erase(
+		std::remove_if(m_Btraps.begin(), m_Btraps.end(),
+			[](const Trap& Btrap) { return !Btrap.IsBtrapActive(); }),
+		m_Btraps.end());
 }
 
 void TrapManager::Draw()
@@ -77,6 +82,11 @@ void TrapManager::Draw()
 	}
 }
 
+void TrapManager::SetPlayer(Player* pPlayer)
+{
+	m_pPlayer = pPlayer;
+}
+
 void TrapManager::SpawnTrap(
 	const Vec2& RtrapPos, const Vec2& UtrapPos,
 	const Vec2& LtrapPos, const Vec2& BtrapPos,
@@ -92,6 +102,7 @@ void TrapManager::SpawnTrap(
 		m_LtrapGraphHandle,
 		m_BtrapGraphHandle
 	);
+	newTrap.SetPlayer(m_pPlayer);
 	m_Rtraps.push_back(newTrap); // トラップをリストに追加
 	m_Utraps.push_back(newTrap); // 上向きトラップも同様に追加
 	m_Ltraps.push_back(newTrap); // 左向きトラップも同様に追加
@@ -102,7 +113,7 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 {
 	for (auto& trap : m_Rtraps)
 	{
-		if (trap.IsActive() && trap.GetRightRect().IsCollision(playerRect))
+		if (trap.IsRtrapActive() && trap.GetRightRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}
@@ -110,7 +121,7 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 
 	for (auto& trap : m_Utraps)
 	{
-		if (trap.IsActive() && trap.GetUpRect().IsCollision(playerRect))
+		if (trap.IsRtrapActive() && trap.GetUpRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}
@@ -118,7 +129,7 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 
 	for (auto& trap : m_Ltraps)
 	{
-		if (trap.IsActive() && trap.GetLeftRect().IsCollision(playerRect))
+		if (trap.IsRtrapActive() && trap.GetLeftRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}
@@ -126,7 +137,7 @@ bool TrapManager::CheckCollision(const Rect& playerRect)
 
 	for (auto& trap : m_Btraps)
 	{
-		if (trap.IsActive() && trap.GetBottomRect().IsCollision(playerRect))
+		if (trap.IsBtrapActive() && trap.GetBottomRect().IsCollision(playerRect))
 		{
 			return true; // プレイヤーとトラップが衝突
 		}

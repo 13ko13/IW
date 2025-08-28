@@ -3,6 +3,8 @@
 #include "Character.h"
 #include "Shot.h"
 #include "Bg.h"
+#include "Trap.h"
+#include "TrapManager.h"
 
 //’è”’è‹`
 namespace
@@ -64,6 +66,10 @@ void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot,
 	m_animFrame = 0;
 	m_shotAnimTime = 0;
 	m_time = 0;
+
+	m_trap.SetPlayer(this);
+	m_pTrapManager = new TrapManager();
+	m_pTrapManager->SetPlayer(this);
 }
 
 void Player::End()

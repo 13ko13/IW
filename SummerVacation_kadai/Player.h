@@ -4,8 +4,10 @@
 #include "Shot.h"
 #include "Bg.h"
 #include "PlatformManager.h"
+#include "Trap.h"
 
 class Shot;
+class TrapManager;
 
 class Player : public Character
 {
@@ -48,4 +50,9 @@ private:
 
 	//時間関連
 	int m_time;	//時間を計測
+
+	//トラップ
+	Trap m_trap;
+	//トラップマネージャー
+	TrapManager* m_pTrapManager;
 };

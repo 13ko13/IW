@@ -37,6 +37,12 @@ private:
 	
 	//フォントハンドル
 	int m_startFontHandle; //PressStartのグラフィックハンドル
+
+	//サウンドハンドル
+	int m_titleBgmHandle;
+
+	//サウンドの音量
+	int m_titleBgmVolume;	//BGMの音量
 	
 	//シーケンス管理
 	int m_currentSeq;	//現在のシーケンス

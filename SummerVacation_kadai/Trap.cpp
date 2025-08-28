@@ -1,6 +1,7 @@
 #include "Trap.h"
 #include "DxLib.h"
 #include "Game.h"
+#include "Player.h"
 
 namespace
 {
@@ -22,7 +23,9 @@ Trap::Trap():
 	m_Uhandle(-1),
 	m_Lhandle(-1),
 	m_BtrapHandle(-1),
-	m_isActive(false)
+	m_isRtrapActive(false),
+	m_isBtrapActive(false),
+	m_pPlayer(nullptr)
 {
 }
 
@@ -46,7 +49,8 @@ void Trap::Init(
 	m_Uhandle = UgraphHandle;
 	m_Lhandle = LgraphHandle;
 	m_BtrapHandle = BgraphHandle;
-	m_isActive = true;
+	m_isRtrapActive = true;
+	m_isBtrapActive = true;
 
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
@@ -61,40 +65,64 @@ void Trap::End()
 
 void Trap::Update()
 {
-	if (!m_isActive) return;	//トラップがアクティブでない場合は更新しない
-
-	m_RtrapPos += m_velocity;
-
-	//画面外に出たら非アクティブにする
-	if(m_RtrapPos.x < -kTrapSize || m_RtrapPos.x > Game::kScreenWidth ||
-	   m_RtrapPos.y < -kTrapSize || m_RtrapPos.y > Game::kScreenHeight)
+	if (m_isRtrapActive)
 	{
-		m_isActive = false;
-		return;
+		m_RtrapPos += m_velocity;
+
+		//画面外に出たら非アクティブにする
+		if (m_RtrapPos.x < -kTrapSize || m_RtrapPos.x > Game::kScreenWidth ||
+			m_RtrapPos.y < -kTrapSize || m_RtrapPos.y > Game::kScreenHeight)
+		{
+			m_isRtrapActive = false;
+			return;
+		}
+
+		m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	}
 
-	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
-	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
-	m_LtrapColRect.SetCenter(m_LtrapPos.x, m_LtrapPos.y, kTrapSize, kTrapSize);
-	m_BtrapColRect.SetCenter(m_BtrapPos.x, m_BtrapPos.y, kTrapSize, kTrapSize);
+	if (m_isBtrapActive)
+	{
+		if (m_pPlayer->GetPos().x < 255 && m_pPlayer->GetPos().y > 500)
+		{
+			m_BtrapPos += m_velocity;
+		}
+
+		if (m_BtrapPos.y > Game::kScreenHeight)
+		{
+			m_isBtrapActive = false;
+			return;
+		}
+		m_BtrapColRect.SetCenter(
+			m_BtrapPos.x, m_BtrapPos.y,
+			kTrapSize, kTrapSize);
+	}
+	
+	m_UtrapColRect.SetCenter(
+		m_UtrapPos.x, m_UtrapPos.y,
+		kTrapSize, kTrapSize);
+
+	m_LtrapColRect.SetCenter(
+		m_LtrapPos.x, m_LtrapPos.y,
+		kTrapSize, kTrapSize);
 }
 
 void Trap::Draw()
 {
-	if (!m_isActive) return; //トラップがアクティブでない場合は描画しない
+	if (m_isRtrapActive)
+	{
+		int RtrapSrcX = kTrapSize * kRightSpikeIndex; // 右向きトラップの切り取り位置
+		int RtrapSrcY = 0;
 
-	int RtrapSrcX = kTrapSize * kRightSpikeIndex; // 右向きトラップの切り取り位置
-	int RtrapSrcY = 0;
-
-	DrawRectRotaGraph(
-		m_RtrapPos.x, m_RtrapPos.y,
-		RtrapSrcX, RtrapSrcY,
-		kTrapSize, kTrapSize,
-		kScale, 0.0f,
-		m_Rhandle,
-		true
+		DrawRectRotaGraph(
+			m_RtrapPos.x, m_RtrapPos.y,
+			RtrapSrcX, RtrapSrcY,
+			kTrapSize, kTrapSize,
+			kScale, 0.0f,
+			m_Rhandle,
+			true
 		);
-
+	}
+	
 	int UtrapSrcX = kTrapSize * kUpSpikeIndex; // 上向きトラップの切り取り位置
 	int UtrapSrcY = 0;
 
@@ -119,22 +147,36 @@ void Trap::Draw()
 		true
 	);
 
-	int BtrapSrcX = kTrapSize * kBottomSpikeIndex; // 下向きトラップの切り取り位置
-	int BtrapSrcY = 0;
 
-	DrawRectRotaGraph(
-		m_BtrapPos.x, m_BtrapPos.y,
-		BtrapSrcX, BtrapSrcY,
-		kTrapSize, kTrapSize,
-		kScale, 0.0f,
-		m_BtrapHandle,
-		true
-	);
+	if (m_isBtrapActive)
+	{
+		int BtrapSrcX = kTrapSize * kBottomSpikeIndex; // 下向きトラップの切り取り位置
+		int BtrapSrcY = 0;
+
+		DrawRectRotaGraph(
+			m_BtrapPos.x, m_BtrapPos.y,
+			BtrapSrcX, BtrapSrcY,
+			kTrapSize, kTrapSize,
+			kScale, 0.0f,
+			m_BtrapHandle,
+			true
+		);
+	}
 }
 
-bool Trap::IsActive() const
+void Trap::SetPlayer(Player* pPlayer)
 {
-	return m_isActive;
+	m_pPlayer = pPlayer;
+}
+
+bool Trap::IsRtrapActive() const
+{
+	return m_isRtrapActive;
+}
+
+bool Trap::IsBtrapActive() const
+{
+	return m_isBtrapActive;
 }
 
 Rect Trap::GetRightRect() const
