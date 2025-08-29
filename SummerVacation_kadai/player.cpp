@@ -21,16 +21,24 @@ namespace
 	constexpr int kShotAnimFrame = 10;//弾を撃ってるときのグラフィック表示時間
 	constexpr int kJumpAnimNum = 2;
 
-	constexpr float kSpeed = 4.0f;		//移動速度
+	constexpr float kSpeed = 6.0f;		//移動速度
 	constexpr float kJumpPower = 10.0f;	//ジャンプ力
 
 	constexpr float kCharaSize = 32.0f;	//キャラクターサイズ
 
 	//弾の情報
 	constexpr int kShotCoolTime = 50;	//弾のクールタイム
+
+	//音量
+	constexpr int kJumpSeVolume = 70;	//ジャンプの音量
+	constexpr int kShotSeVolume = 70;	//弾発射の音量
 }
 
 Player::Player() :
+	m_jumpSeHandle(-1),
+	m_shotSeHandle(-1),
+	m_jumpSeVolume(0),
+	m_shotSeVolume(0),
 	m_prevInput(0),
 	m_jumpNum(0),
 	m_isInput(false),
@@ -67,6 +75,8 @@ void Player::Init(int handle, int handleIdle, int handleWalk, int handleShot,
 	m_shotAnimTime = 0;
 	m_time = 0;
 
+	m_jumpSeHandle = LoadSoundMem("data/Jump.mp3");
+	m_shotSeHandle = LoadSoundMem("data/ShotSe.mp3");
 	m_trap.SetPlayer(this);
 	m_pTrapManager = new TrapManager();
 	m_pTrapManager->SetPlayer(this);
@@ -96,6 +106,11 @@ void Player::Update()
 			m_isInput = true;
 			m_state = PlayerState::Shot;
 			m_animFrame = 0;
+
+			//弾発射音
+			m_shotSeVolume = kShotSeVolume; //音量を設定
+			PlaySoundMem(m_shotSeHandle, DX_PLAYTYPE_BACK);
+			ChangeVolumeSoundMem(m_shotSeVolume, m_shotSeHandle);
 		}
 	}
 
@@ -253,12 +268,16 @@ void Player::Jump()
 	if (m_isDoubleJump) return;
 
 	int currentPadInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((currentPadInput & PAD_INPUT_1) && !(m_prevInput & PAD_INPUT_1) && m_jumpNum <= 2)
+	if ((currentPadInput & PAD_INPUT_3) && !(m_prevInput & PAD_INPUT_3) && m_jumpNum <= 2)
 	{
 		m_state = PlayerState::Jump;
 		m_jumpNum++;
 		m_move.y = -kJumpPower;
 		m_isGround = false;
+		//ジャンプ音
+		m_jumpSeVolume = kJumpSeVolume; //音量を設定
+		PlaySoundMem(m_jumpSeHandle, DX_PLAYTYPE_BACK);
+		ChangeVolumeSoundMem(m_jumpSeVolume, m_jumpSeHandle);
 	}
 	if (m_jumpNum == 2)
 	{

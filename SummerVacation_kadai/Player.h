@@ -31,7 +31,14 @@ private:
 	void ShotCT(); 
 
 private:
-	//プレイヤー関連
+	//ハンドル
+	int m_jumpSeHandle;		//ジャンプ音
+	int m_shotSeHandle;		//弾発射音
+
+	//音量
+	int m_jumpSeVolume;		//ジャンプ音量
+	int m_shotSeVolume;		//弾発射音量
+
 	//押された瞬間だけをとるための前回の入力状態
 	int m_prevInput = 0;
 	//現在のジャンプした回数(二段ジャンプ用)

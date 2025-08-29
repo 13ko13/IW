@@ -15,6 +15,9 @@ namespace
 	// アニメーション情報
 	constexpr int kAnimNum = 8; // 手裏剣のアニメーションフレーム数
 	constexpr int kAnimWaitFrame = 2; // 手裏剣のアニメーション1フレームあたりの待機時間
+
+	//音量
+	constexpr int kFireSeVolume = 80;	//手裏剣発射時SE音量
 }
 
 Shuriken::Shuriken() :
@@ -43,6 +46,9 @@ void Shuriken::Init(int graphHandle)
 	m_isFired = false; 
 	m_animFrame = 0;
 
+	//音をロード
+	m_fireSeHandle = LoadSoundMem("data/SpikeFireSe.mp3");
+
 	// 当たり判定用の矩形を初期化
 	m_colRect.SetCenter(m_pos.x, m_pos.y, kShurikenSize, kShurikenSize);
 }
@@ -55,6 +61,11 @@ void Shuriken::Update()
 	{
 		m_isActive = true; // プレイヤーが特定の位置に到達したら手裏剣をアクティブにする
 		m_isFired = true; // 手裏剣が発射されたフラグを立てる
+
+		//手裏剣発射音
+		m_fireSeVolume = kFireSeVolume; //音量を設定
+		PlaySoundMem(m_fireSeHandle, DX_PLAYTYPE_BACK);
+		ChangeVolumeSoundMem(m_fireSeVolume, m_fireSeHandle);
 	}
 
 	if (!m_isActive) return; // 手裏剣がアクティブでない場合は更新しない

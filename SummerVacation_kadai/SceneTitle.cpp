@@ -6,6 +6,7 @@
 namespace
 {
 	constexpr int kTitleBgmVolume = 100;	//タイトルBGMの音量
+	constexpr int kStartSeVolume = 70;	//ゲームスタートの音量
 }
 
 SceneTitle::SceneTitle() :
@@ -13,7 +14,9 @@ SceneTitle::SceneTitle() :
 	m_bgGraphHandle(-1),
 	m_startFontHandle(-1),
 	m_titleBgmHandle(-1),
+	m_startGameSeHandle(-1),
 	m_titleBgmVolume(0),
+	m_startSeVolume(0),
 	m_currentSeq(Seq::SeqFadeIn),
 	m_fadeAlpha(0),
 	m_isFadeIn(false),
@@ -41,6 +44,7 @@ void SceneTitle::Init()
 
 	//サウンド読み込み
 	m_titleBgmHandle = LoadSoundMem("data/TitleBgm.mp3");
+	m_startGameSeHandle = LoadSoundMem("data/StartGame.mp3");
 }
 
 void SceneTitle::End()
@@ -57,6 +61,7 @@ void SceneTitle::End()
 
 	//サウンド削除
 	DeleteSoundMem(m_titleBgmHandle);
+	DeleteSoundMem(m_startGameSeHandle);
 }
 
 void SceneTitle::Update()
@@ -98,7 +103,7 @@ void SceneTitle::Draw()
 	//文字列の幅を取得
 	int strWidth = GetDrawFormatStringWidthToHandle(
 		m_startFontHandle,
-		"Press AnyButton to Start"
+		"Press A to Start"
 	);
 
 	//PressStartの点滅
@@ -111,7 +116,7 @@ void SceneTitle::Draw()
 				int x = (Game::kScreenWidth * 0.5f - strWidth * 0.5f);
 				int y = (Game::kScreenHeight * 0.7f);
 				DrawStringToHandle(
-					x, y, "Press AnyButton to Start",
+					x, y, "Press A to Start",
 					GetColor(205, 195, 1),
 					m_startFontHandle);
 			}
@@ -130,8 +135,13 @@ void SceneTitle::UpdateTitle()
 {
 	m_pressFrame++;
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_1) != 0)//&演算:ビット単位の演算
+	if ((pad & PAD_INPUT_3) != 0)//&演算:ビット単位の演算
 	{
+		//ゲームスタートSE
+		m_startSeVolume = kStartSeVolume; //音量を設定
+		PlaySoundMem(m_startGameSeHandle, DX_PLAYTYPE_NORMAL);
+		ChangeVolumeSoundMem(m_startSeVolume, m_startGameSeHandle);
+
 		m_pSceneMain->m_isStartPressed= true;
 		m_currentSeq = Seq::SeqFadeOut;
 		m_isFadeOut = true;

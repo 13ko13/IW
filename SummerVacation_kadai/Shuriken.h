@@ -23,6 +23,10 @@ public:
 private:
 	//ハンドル関係
 	int m_handle;		// 手裏剣のグラフィックハンドル
+	int m_fireSeHandle;	//手裏剣発射SE
+
+	//音量
+	int m_fireSeVolume;	//手裏剣発射SEの音量
 
 	//フラグ関係
 	bool m_isActive;	// 手裏剣がアクティブかどうか

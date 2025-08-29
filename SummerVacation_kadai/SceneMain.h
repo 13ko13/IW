@@ -77,9 +77,15 @@ private:
 
 	//サウンドハンドル
 	int m_mainBgmHandle;		//メインBGMハンドル
+	int m_clearSeHandle;		//クリアSEハンドル
+	int m_fireSpikeSeHandle;	//トゲ発射時SE
+	int m_deadSeHandle;			//死亡時SE
 
 	//サウンドの音量
-	int m_mainBgmVolume; //メインBGMの音量
+	int m_mainBgmVolume;			//メインBGMの音量
+	int m_clearSeVolume;			//クリアSE音量
+	int m_fireSpikeSeVolume;		//トゲ発射時SE音量
+	int m_deadSeVolume;				//死亡時SE音量
 
 	//フラグ関係
 	

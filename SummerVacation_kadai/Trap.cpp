@@ -25,6 +25,7 @@ Trap::Trap():
 	m_BtrapHandle(-1),
 	m_isRtrapActive(false),
 	m_isBtrapActive(false),
+	m_isBtrapFire(false),
 	m_pPlayer(nullptr)
 {
 }
@@ -51,6 +52,7 @@ void Trap::Init(
 	m_BtrapHandle = BgraphHandle;
 	m_isRtrapActive = true;
 	m_isBtrapActive = true;
+	m_isBtrapFire = false;
 
 	m_RtrapColRect.SetCenter(m_RtrapPos.x, m_RtrapPos.y, kTrapSize, kTrapSize);
 	m_UtrapColRect.SetCenter(m_UtrapPos.x, m_UtrapPos.y, kTrapSize, kTrapSize);
@@ -82,7 +84,9 @@ void Trap::Update()
 
 	if (m_isBtrapActive)
 	{
-		if (m_pPlayer->GetPos().x < 255 && m_pPlayer->GetPos().y > 500)
+		IsFireBtrap();
+
+		if (m_isBtrapFire)
 		{
 			m_BtrapPos += m_velocity;
 		}
@@ -177,6 +181,15 @@ bool Trap::IsRtrapActive() const
 bool Trap::IsBtrapActive() const
 {
 	return m_isBtrapActive;
+}
+
+bool Trap::IsFireBtrap()
+{
+	if (m_pPlayer->GetPos().x < 255 && m_pPlayer->GetPos().y > 500)
+	{
+		m_isBtrapFire = true;
+	}
+	return m_isBtrapFire;
 }
 
 Rect Trap::GetRightRect() const

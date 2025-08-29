@@ -13,6 +13,10 @@ namespace
 	constexpr int kShotMax = 5;	//1度に撃てる最大弾数
 	constexpr int kFadeFrame = 30; //フェードにかかるフレーム数
 	constexpr int kMainBgmVolume = 50; //BGMの音量
+	constexpr int kClearSeVolume = 60;	//クリアの音量
+	constexpr int kFireSpikeSeVolume = 100;	//トゲ発射時音量
+	constexpr int kDeadSeVolume = 100;	//死亡時音量
+
 }
 
 SceneMain::SceneMain() :
@@ -34,7 +38,11 @@ SceneMain::SceneMain() :
 	m_goalGraphHandle(-1),
 	m_clearFontHandle(-1),
 	m_mainBgmHandle(-1),
+	m_clearSeHandle(-1),
+	m_deadSeHandle(-1),
 	m_mainBgmVolume(0),
+	m_clearSeVolume(0),
+	m_deadSeVolume(0),
 	m_isStartPressed(false),
 	m_isRtrapFired(false),
 	m_isPlatformSpawned(false),
@@ -93,7 +101,10 @@ void SceneMain::Init()
 
 	//サウンドのロード
 	m_mainBgmHandle = LoadSoundMem("data/MainBgm.mp3");
-	
+	m_clearSeHandle = LoadSoundMem("data/ClearSe.mp3");
+	m_fireSpikeSeHandle = LoadSoundMem("data/SpikeFireSe.mp3");
+	m_deadSeHandle = LoadSoundMem("data/DeadSe.mp3");
+
 	//プレイヤーの初期化
 	m_pPlayer->Init(
 		m_playerIdleGraphHandle, m_playerIdleGraphHandle,
@@ -138,7 +149,7 @@ void SceneMain::Init()
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f &&
-		m_pPlayer->GetPos().y >  200.0f &&
+		m_pPlayer->GetPos().y > 200.0f &&
 		m_pPlayer->GetPos().y <= 300.0f &&
 		!m_isRtrapFired)
 	{
@@ -253,7 +264,7 @@ void SceneMain::Init()
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
-	
+
 }
 
 void SceneMain::End()
@@ -296,7 +307,7 @@ void SceneMain::Update()
 	m_frameCount++;
 	switch (m_gameSeq)
 	{
-		case SeqTitle:
+	case SeqTitle:
 		UpdateTitle();
 		break;
 	case SeqFadeIn:
@@ -307,6 +318,8 @@ void SceneMain::Update()
 		break;
 	case SeqClear:
 		UpdateClear();
+		//BGMの停止
+		StopSoundMem(m_mainBgmHandle);
 		break;
 	case SeqGameOver:
 		UpdateGameOver();
@@ -318,68 +331,68 @@ void SceneMain::Draw()
 {
 	switch (m_gameSeq)
 	{
-		case SeqTitle:
-			m_sceneTitle.Draw();
-			break;
-		case SeqFadeIn:
-		case SeqGame:
-		case SeqClear:
-		case SeqGameOver:
-			// 背景の描画
-			m_pBg->Draw();
+	case SeqTitle:
+		m_sceneTitle.Draw();
+		break;
+	case SeqFadeIn:
+	case SeqGame:
+	case SeqClear:
+	case SeqGameOver:
+		// 背景の描画
+		m_pBg->Draw();
 
-			// ゴールの描画
-			m_goal.Draw();
+		// ゴールの描画
+		m_goal.Draw();
 
-			// プレイヤーの描画
-			m_pPlayer->Draw();
+		// プレイヤーの描画
+		m_pPlayer->Draw();
 
-			//手裏剣の描画
-			m_pShuriken->Draw();
+		//手裏剣の描画
+		m_pShuriken->Draw();
 
-			// 弾の描画
-			if (!m_pShot) return;
-			for (int i = 0; i < kShotMax; i++)
-			{
-				if (!m_pShot[i]) continue;
-				m_pShot[i]->Draw();
-			}
+		// 弾の描画
+		if (!m_pShot) return;
+		for (int i = 0; i < kShotMax; i++)
+		{
+			if (!m_pShot[i]) continue;
+			m_pShot[i]->Draw();
+		}
 
-			// トラップの描画
-			m_trapManager.Draw();
-			m_platformManager.Draw();
-			m_moveSpikeMgr.Draw();
+		// トラップの描画
+		m_trapManager.Draw();
+		m_platformManager.Draw();
+		m_moveSpikeMgr.Draw();
 
-			// フェードの描画
-			int fadeAlpha = 0;
+		// フェードの描画
+		int fadeAlpha = 0;
 
-			//フレームカウントをフェードの進行度（割合)に変換
-			float fadeProgress = static_cast<float>(m_fadeFrame) / kFadeFrame;
-			//255 -> 0 に変化させたいので割合を逆転させる
-			fadeProgress = 1.0f - fadeProgress;
-			//割合をかけることで現在のフェード値を決定する
-			fadeAlpha = 255 * fadeProgress;
+		//フレームカウントをフェードの進行度（割合)に変換
+		float fadeProgress = static_cast<float>(m_fadeFrame) / kFadeFrame;
+		//255 -> 0 に変化させたいので割合を逆転させる
+		fadeProgress = 1.0f - fadeProgress;
+		//割合をかけることで現在のフェード値を決定する
+		fadeAlpha = 255 * fadeProgress;
 
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
-			DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, fadeAlpha);
+		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0); // ブレンドモードを元に戻す
 
-			//文字を中央に表示する
-			int strWidth = GetDrawFormatStringWidthToHandle(
-				m_clearFontHandle,
-				"CLEAR!");
+		//文字を中央に表示する
+		int strWidth = GetDrawFormatStringWidthToHandle(
+			m_clearFontHandle,
+			"CLEAR!");
 
-			//クリア表示
-			if (m_goal.IsClear())
-			{
-				int x = (Game::kScreenWidth / 2 - strWidth / 2);
-				int y = (Game::kScreenHeight / 2 - 60);
-				DrawStringToHandle(
-					x, y, "CLEAR!",
-					GetColor(2, 155, 1),
-					m_clearFontHandle);
-			}
-			break;
+		//クリア表示
+		if (m_goal.IsClear())
+		{
+			int x = (Game::kScreenWidth / 2 - strWidth / 2);
+			int y = (Game::kScreenHeight / 2 - 60);
+			DrawStringToHandle(
+				x, y, "CLEAR!",
+				GetColor(2, 155, 1),
+				m_clearFontHandle);
+		}
+		break;
 	}
 }
 
@@ -431,7 +444,7 @@ void SceneMain::UpdateTitle()
 	{
 		m_sceneTitle.End();
 		m_gameSeq = SeqFadeIn; //シーケンスをフェードインに変更
-	}	
+	}
 	m_isStartPressed = false; //スタートボタンが押されたかのフラグをリセット
 }
 
@@ -469,7 +482,7 @@ void SceneMain::UpdateGame()
 	//Xボタンを押したらクリアする
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
 	//padのXボタンもしくはキーボードのCを押したとき
-	if ((pad & PAD_INPUT_3) != 0)
+	if ((pad & PAD_INPUT_4) != 0)
 	{
 		//勝利条件を満たすような処理を書く
 		m_goal.m_isClear = true;
@@ -490,6 +503,11 @@ void SceneMain::UpdateGame()
 		m_pPlayer->GetPos().y <= 300.0f &&
 		!m_isRtrapFired)
 	{
+		//トゲ発射音
+		m_fireSpikeSeVolume = kFireSpikeSeVolume; //音量を設定
+		PlaySoundMem(m_fireSpikeSeHandle, DX_PLAYTYPE_BACK);
+		ChangeVolumeSoundMem(m_fireSpikeSeVolume, m_fireSpikeSeHandle);
+
 		m_trapManager.SpawnTrap(
 			{ 0.0f, 300.0f }, { -15.0f,-15.0f },
 			{ -15.0f, -15.0f }, { -15.0f,-15.0f },
@@ -577,6 +595,11 @@ void SceneMain::UpdateGame()
 	{
 		//プレイヤーがトゲに当たった場合の処理
 		printfDx("トゲに当たった！\n");
+
+		//死亡時音
+		m_deadSeVolume = kDeadSeVolume; //音量を設定
+		PlaySoundMem(m_deadSeHandle, DX_PLAYTYPE_BACK);
+		ChangeVolumeSoundMem(m_deadSeVolume, m_deadSeHandle);
 	}
 
 	//プラットフォーム生成
@@ -605,6 +628,11 @@ void SceneMain::UpdateGame()
 	{
 		m_gameSeq = SeqClear; //シーケンスをクリアに変更
 		m_frameCount = 0; //フレームカウントをリセット
+
+		//クリア音
+		m_clearSeVolume = kClearSeVolume; //音量を設定
+		PlaySoundMem(m_clearSeHandle, DX_PLAYTYPE_BACK);
+		ChangeVolumeSoundMem(m_clearSeVolume, m_clearSeHandle);
 	}
 
 	if (!m_pShot) return;

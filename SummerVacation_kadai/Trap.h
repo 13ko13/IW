@@ -24,6 +24,7 @@ public:
 
 	bool IsRtrapActive() const;
 	bool IsBtrapActive() const;
+	bool IsFireBtrap() ;
 
 	Rect GetRightRect() const;	// 右向きトラップの当たり判定矩形
 	Rect GetUpRect() const;		// 上向きトラップの当たり判定矩形
@@ -40,6 +41,7 @@ private:
 	//フラグ関係
 	bool m_isRtrapActive;		// 右向きトラップがアクティブかどうか
 	bool m_isBtrapActive;		//下向きトラップがアクティブかどうか
+	bool m_isBtrapFire;			//下向きトラップを発射するかどうか
 
 	Vec2 m_RtrapPos;        // 右向きトラップの位置
 	Vec2 m_UtrapPos;        // 上向きトラップの位置
