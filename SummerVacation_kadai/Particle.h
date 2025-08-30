@@ -7,13 +7,21 @@ public:
 	Particle();
 	~Particle();
 
-	void Init(Vec2 startPos, Vec2 Velocity);
+	void Init(const Vec2& pos, const Vec2& velocity, int life);
 	void Update();
-	void Draw();
-	bool IsAlive() const;
+	void Draw() const;
+	bool IsDead() const;
+
 
 private:
-	Vec2 m_pos;
-	Vec2 m_velocity;
+	//情報
+	int m_life;			//寿命
+
+	//フラグ
+	bool m_active;		//使用中フラグ
+
+	//インスタンス
+	Vec2 m_pos;			//位置
+	Vec2 m_velocity;	//速度
 };
 

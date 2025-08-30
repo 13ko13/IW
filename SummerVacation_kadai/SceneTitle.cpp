@@ -6,7 +6,7 @@
 namespace
 {
 	constexpr int kTitleBgmVolume = 100;	//タイトルBGMの音量
-	constexpr int kStartSeVolume = 70;	//ゲームスタートの音量
+	constexpr int kStartSeVolume = 140;	//ゲームスタートの音量
 }
 
 SceneTitle::SceneTitle() :
@@ -18,9 +18,10 @@ SceneTitle::SceneTitle() :
 	m_titleBgmVolume(0),
 	m_startSeVolume(0),
 	m_currentSeq(Seq::SeqFadeIn),
-	m_fadeAlpha(0),
+	m_fadeAlpha(255),
+	m_time(0),
 	m_isFadeIn(false),
-	m_isFadeOut(false),
+	m_isPressStart(false),
 	m_pressFrame(0),
 	m_pSceneMain(nullptr)
 {
@@ -82,9 +83,6 @@ void SceneTitle::Update()
 	case Seq::SeqFadeIn:
 		UpdateFadeIn();
 		break;
-	case Seq::SeqFadeOut:
-		UpdateFadeOut();
-		break;
 	default:
 		break;
 	}
@@ -94,8 +92,8 @@ void SceneTitle::Draw()
 {
 	//背景
 	DrawRotaGraph3(
-		0 , 0 ,
-		0, 0, 1.0f, 1.0f, 0, 
+		0, 0,
+		0, 0, 1.0f, 1.0f, 0,
 		m_bgGraphHandle, true, false);
 
 	DrawGraph(160, 0, m_titleGraphHandle, true);
@@ -122,8 +120,8 @@ void SceneTitle::Draw()
 			}
 		}
 	}
-	//フェードイン・アウト
-	if (m_isFadeIn || m_isFadeOut)
+	//フェードイン
+	if (m_isFadeIn)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, m_fadeAlpha);
 		DrawBox(0, 0, Game::kScreenWidth, Game::kScreenHeight, GetColor(0, 0, 0), true);
@@ -135,16 +133,24 @@ void SceneTitle::UpdateTitle()
 {
 	m_pressFrame++;
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_3) != 0)//&演算:ビット単位の演算
+	if (((pad & PAD_INPUT_3) != 0) && !m_isPressStart)//&演算:ビット単位の演算
 	{
 		//ゲームスタートSE
 		m_startSeVolume = kStartSeVolume; //音量を設定
-		PlaySoundMem(m_startGameSeHandle, DX_PLAYTYPE_NORMAL);
+		PlaySoundMem(m_startGameSeHandle, DX_PLAYTYPE_BACK);
 		ChangeVolumeSoundMem(m_startSeVolume, m_startGameSeHandle);
 
-		m_pSceneMain->m_isStartPressed= true;
-		m_currentSeq = Seq::SeqFadeOut;
-		m_isFadeOut = true;
+		m_isPressStart = true;
+	}
+
+	if (m_isPressStart)
+	{
+		m_time++;
+	}
+
+	if (m_time >= 120)
+	{
+		m_pSceneMain->m_isStartPressed = true;
 		m_fadeAlpha = 0;
 	}
 }
@@ -158,17 +164,6 @@ void SceneTitle::UpdateFadeIn()
 		m_fadeAlpha = 0;
 		m_isFadeIn = false;
 		m_currentSeq = Seq::SeqTitle;
-	}
-}
-
-void SceneTitle::UpdateFadeOut()
-{
-	m_fadeAlpha += 5;
-	if (m_fadeAlpha >= 255)
-	{
-		m_fadeAlpha = 255;
-		m_isFadeOut = false;
-		//シーン切り替え
 	}
 }
 

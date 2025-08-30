@@ -8,6 +8,7 @@
 #include "Shuriken.h"
 #include "Goal.h"
 #include "SceneTitle.h"
+#include "ParticleMgr.h"
 
 class Player;
 class Shot;
@@ -27,7 +28,7 @@ public:
 private:
 	void UpdateShot(); //弾更新
 	void DeleteShot(int index); //弾削除
-	
+
 	//シーケンスごとにUpdate処理を切り替える
 	void UpdateTitle();		//タイトル
 	void UpdateFadeIn();	//フェードイン
@@ -54,6 +55,9 @@ public:
 	bool m_isStartPressed;
 
 private:
+	//フレーム
+	int m_frame;	//フレームを計測
+
 	//使用するグラフィック
 	int m_playerIdleGraphHandle;	//プレイヤーのアイドルグラフィック
 	int m_playerWalkGraphHandle;	//プレイヤーの歩きグラフィック
@@ -88,7 +92,7 @@ private:
 	int m_deadSeVolume;				//死亡時SE音量
 
 	//フラグ関係
-	
+
 	//トゲ発射済みフラグ
 	bool m_isRtrapFired;			// 一度だけ生成するフラグ(右向きトゲ)
 	//プラットフォームフラグ
@@ -99,6 +103,10 @@ private:
 	bool m_isBtrapSpawned;			//一度だけ生成するフラグ(下向きトゲ)
 	//移動トゲフラグ
 	bool m_isMoveSpikeSpawned;		//一度だけ生成するフラグ
+	//プレイヤー死亡フラグ
+	bool m_isDead;					//死んでいるか死んでいないか
+	//死亡処理を行ったかどうか
+	bool m_isDeadActive;
 
 	//現在のシーケンス
 	Seq m_gameSeq;
@@ -125,4 +133,6 @@ private:
 	Goal m_goal;
 	//タイトルシーン
 	SceneTitle m_sceneTitle;
+	//パーティクルマネージャー
+	ParticleMgr m_particleMgr;
 };

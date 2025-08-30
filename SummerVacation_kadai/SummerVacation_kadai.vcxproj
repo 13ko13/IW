@@ -143,6 +143,7 @@
     <ClCompile Include="MoveSpike.cpp" />
     <ClCompile Include="MoveSpikeMgr.cpp" />
     <ClCompile Include="Particle.cpp" />
+    <ClCompile Include="ParticleMgr.cpp" />
     <ClCompile Include="PlatformManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Rect.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="MoveSpike.h" />
     <ClInclude Include="MoveSpikeMgr.h" />
     <ClInclude Include="Particle.h" />
+    <ClInclude Include="ParticleMgr.h" />
     <ClInclude Include="PlatformManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Rect.h" />

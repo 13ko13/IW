@@ -16,10 +16,10 @@ namespace
 	constexpr int kClearSeVolume = 60;	//クリアの音量
 	constexpr int kFireSpikeSeVolume = 100;	//トゲ発射時音量
 	constexpr int kDeadSeVolume = 100;	//死亡時音量
-
 }
 
 SceneMain::SceneMain() :
+	m_frame(0),
 	m_playerIdleGraphHandle(-1),
 	m_playerWalkGraphHandle(-1),
 	m_playerShotGraphHnadle(-1),
@@ -39,9 +39,11 @@ SceneMain::SceneMain() :
 	m_clearFontHandle(-1),
 	m_mainBgmHandle(-1),
 	m_clearSeHandle(-1),
+	m_fireSpikeSeHandle(-1),
 	m_deadSeHandle(-1),
 	m_mainBgmVolume(0),
 	m_clearSeVolume(0),
+	m_fireSpikeSeVolume(0),
 	m_deadSeVolume(0),
 	m_isStartPressed(false),
 	m_isRtrapFired(false),
@@ -50,6 +52,8 @@ SceneMain::SceneMain() :
 	m_isLtrapSpawned(false),
 	m_isBtrapSpawned(false),
 	m_isMoveSpikeSpawned(false),
+	m_isDead(false),
+	m_isDeadActive(false),
 	m_gameSeq(SeqTitle),
 	m_frameCount(0),
 	m_fadeFrame(0)
@@ -71,6 +75,9 @@ SceneMain::~SceneMain()
 
 void SceneMain::Init()
 {
+	//フレーム数の初期化
+	m_frame = 0;
+
 	//初期シーケンスの決定
 	m_gameSeq = SeqTitle;
 
@@ -146,6 +153,17 @@ void SceneMain::Init()
 
 	//手裏剣のポインタをプレイヤーにセット
 	m_pShuriken->SetPlayer(m_pPlayer);
+
+	//フラグの初期化
+	m_isStartPressed = (false);
+	m_isRtrapFired = (false);
+	m_isPlatformSpawned = (false);
+	m_isUtrapSpawned = (false);
+	m_isLtrapSpawned = (false);
+	m_isBtrapSpawned = (false);
+	m_isMoveSpikeSpawned = (false);
+	m_isDead = (false);
+	m_isDeadActive = (false);
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f &&
@@ -345,7 +363,10 @@ void SceneMain::Draw()
 		m_goal.Draw();
 
 		// プレイヤーの描画
-		m_pPlayer->Draw();
+		if (!m_isDead)
+		{
+			m_pPlayer->Draw();
+		}
 
 		//手裏剣の描画
 		m_pShuriken->Draw();
@@ -362,6 +383,9 @@ void SceneMain::Draw()
 		m_trapManager.Draw();
 		m_platformManager.Draw();
 		m_moveSpikeMgr.Draw();
+
+		//パーティクルの描画
+		m_particleMgr.Draw();
 
 		// フェードの描画
 		int fadeAlpha = 0;
@@ -490,12 +514,16 @@ void SceneMain::UpdateGame()
 	}
 #endif // _DEBUG
 
-	m_pPlayer->Update();
+	if (!m_isDead)
+	{
+		m_pPlayer->Update();
+	}
 	m_trapManager.Update();
 	m_platformManager.Update(m_pPlayer->GetColRect());
 	m_moveSpikeMgr.Update();
 	m_pShuriken->Update();
 	m_goal.Update();
+	m_particleMgr.Update();
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f &&
@@ -593,13 +621,23 @@ void SceneMain::UpdateGame()
 		m_moveSpikeMgr.CheckCollision(m_pPlayer->GetColRect()) ||
 		m_pShuriken->CheckCollision(m_pPlayer->GetColRect()))
 	{
-		//プレイヤーがトゲに当たった場合の処理
-		printfDx("トゲに当たった！\n");
+		if (!m_isDeadActive)
+		{
+			//プレイヤーがトゲに当たった場合の処理
+			printfDx("トゲに当たった！\n");
+			//死亡時音
+			m_deadSeVolume = kDeadSeVolume; //音量を設定
+			PlaySoundMem(m_deadSeHandle, DX_PLAYTYPE_BACK);
+			ChangeVolumeSoundMem(m_deadSeVolume, m_deadSeHandle);
+			m_isDeadActive = true;
+			m_isDead = true;
+		}
 
-		//死亡時音
-		m_deadSeVolume = kDeadSeVolume; //音量を設定
-		PlaySoundMem(m_deadSeHandle, DX_PLAYTYPE_BACK);
-		ChangeVolumeSoundMem(m_deadSeVolume, m_deadSeHandle);
+		if (m_frame <= 1.0f)
+		{
+			//死亡演出継続
+			m_particleMgr.Spawn(m_pPlayer->GetPos(), 200);
+		}
 	}
 
 	//プラットフォーム生成
@@ -635,6 +673,20 @@ void SceneMain::UpdateGame()
 		ChangeVolumeSoundMem(m_clearSeVolume, m_clearSeHandle);
 	}
 
+	if (m_isDead)
+	{
+		m_frame++;
+		printfDx("%d", m_frame);
+	}
+	//2秒経ったらシーン変更
+	if (m_frame >= 120.0f)
+	{
+		printfDx("a");
+		m_frame = 0;
+		//シーンをゲームオーバーに変更
+		m_gameSeq = SeqGameOver;
+	}
+
 	if (!m_pShot) return;
 
 	UpdateShot();
@@ -649,19 +701,13 @@ void SceneMain::UpdateClear()
 
 void SceneMain::UpdateGameOver()
 {
-	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((pad & PAD_INPUT_1) != 0)
-	{
-		m_pPlayer->Init(
-			m_playerIdleGraphHandle, m_playerIdleGraphHandle,
-			m_playerWalkGraphHandle, m_playerShotGraphHnadle,
-			m_playerJumpGraphHandle, m_playerDJumpGraphHandle);
+	//すべてをリセットする
+	m_isDead = false;
+	m_isDeadActive = false;
+	End();
+	Init();
 
-		m_pBg->Init();
+	//最初から
+	m_gameSeq = SeqFadeIn;
 
-		m_goal.Init(m_goalGraphHandle);
-
-		m_gameSeq = SeqGame;
-		m_frameCount = 0;
-	}
 }

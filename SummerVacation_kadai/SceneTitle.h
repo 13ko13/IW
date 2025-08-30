@@ -17,14 +17,12 @@ public:
 
 	void UpdateTitle();		//タイトル
 	void UpdateFadeIn();	//フェードイン
-	void UpdateFadeOut();	//フェードアウト
 
 	//シーケンス
 	enum Seq
 	{
 		SeqTitle,	//タイトル
 		SeqFadeIn,	//フェードイン
-		SeqFadeOut,	//フェードアウト
 
 		SeqNum	//シーケンスの数
 	};
@@ -52,9 +50,12 @@ private:
 	//フェード関係
 	int m_fadeAlpha;	//フェード用のアルファ値
 
+	//時間
+	int m_time;			//時間を計測
+
 	//フラグ関係
 	bool m_isFadeIn;	//フェードイン中かどうかのフラグ
-	bool m_isFadeOut;	//フェードアウト中かどうかのフラグ
+	bool m_isPressStart;//スタートを押したかどうか
 
 	//アニメーション関係
 	int m_pressFrame;   //PressStartの点滅用フレームカウント
