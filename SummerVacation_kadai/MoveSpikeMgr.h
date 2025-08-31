@@ -14,6 +14,7 @@ public:
 	void Init(int graphHandle);
 	void Update();
 	void Draw();
+	void End();
 
 	void SpawnSpike(const Vec2& pos, const Vec2& velocity); // トゲを生成
 	bool CheckCollision(const Rect& playerRect) const;	//プレイヤーの当たり判定

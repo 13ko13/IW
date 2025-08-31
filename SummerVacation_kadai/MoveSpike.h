@@ -12,6 +12,7 @@ public:
 	void Init(const Vec2& pos, const Vec2& velocity, int graphHandle);
 	void Update();
 	void Draw();
+	void End();
 
 	void IsReturn(); // トゲが戻るタイミングかどうかを判定する
 	bool IsActive() const;

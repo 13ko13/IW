@@ -166,6 +166,13 @@ void Trap::Draw()
 			true
 		);
 	}
+#ifdef _DEBUG
+	//“–‚½‚è”»’è‚ð•\Ž¦
+	m_RtrapColRect.Draw(0x0000ff, false);
+	m_LtrapColRect.Draw(0x0000ff, false);
+	m_UtrapColRect.Draw(0x0000ff, false);
+	m_BtrapColRect.Draw(0x0000ff, false);
+#endif
 }
 
 void Trap::SetPlayer(Player* pPlayer)

@@ -29,7 +29,7 @@ private:
 	int m_fireSeVolume;	//手裏剣発射SEの音量
 
 	//フラグ関係
-	bool m_isActive;	// 手裏剣がアクティブかどうか
+	bool m_isActive;	// 手裏剣がアクティブかどうか1
 	bool m_isFired;	// 手裏剣が発射されたかどうか
 
 	//アニメーション関係

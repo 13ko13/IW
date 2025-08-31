@@ -37,6 +37,11 @@ void MoveSpike::Init(const Vec2& pos, const Vec2& velocity, int graphHandle)
 	m_colRect.SetCenter(m_pos.x, m_pos.y, kSpikeWidth, kSpikeHeight); // “–‚½‚è”»’è—p‚Ì‹éŒ`‚ğİ’è
 }
 
+void MoveSpike::End()
+{
+	m_pos = { NULL, NULL };
+}
+
 void MoveSpike::Update()
 {
 	//printfDx("%d", m_isActive);
@@ -66,6 +71,11 @@ void MoveSpike::Draw()
 		static_cast<int>(m_pos.y),
 		1.5f, 0.0f,
 		m_handle, true);
+
+#ifdef _DEBUG
+	//“–‚½‚è”»’è‚ğ•\¦
+	m_colRect.Draw(0x0000ff, false);
+#endif
 }
 
 bool MoveSpike::IsActive() const

@@ -252,15 +252,6 @@ void SceneMain::Init()
 		m_isBtrapSpawned = true; // トゲを設置済みフラグを立てる
 	}
 
-	//プレイヤーとの当たり判定
-	if (m_trapManager.CheckCollision(m_pPlayer->GetColRect()) ||
-		m_moveSpikeMgr.CheckCollision(m_pPlayer->GetColRect()) ||
-		m_pShuriken->CheckCollision(m_pPlayer->GetColRect()))
-	{
-		//プレイヤーがトゲに当たった場合の処理
-		printfDx("トゲに当たった！\n");
-	}
-
 	//プラットフォーム生成
 	if (!m_isPlatformSpawned)
 	{
@@ -292,6 +283,7 @@ void SceneMain::End()
 
 	m_pPlayer->End();
 	m_pBg->End();
+	m_moveSpikeMgr.End();
 
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
@@ -624,7 +616,10 @@ void SceneMain::UpdateGame()
 		if (!m_isDeadActive)
 		{
 			//プレイヤーがトゲに当たった場合の処理
+#ifdef _DEBUG
+
 			printfDx("トゲに当たった！\n");
+#endif
 			//死亡時音
 			m_deadSeVolume = kDeadSeVolume; //音量を設定
 			PlaySoundMem(m_deadSeHandle, DX_PLAYTYPE_BACK);
@@ -676,12 +671,13 @@ void SceneMain::UpdateGame()
 	if (m_isDead)
 	{
 		m_frame++;
-		printfDx("%d", m_frame);
+#ifdef _DEBUG
+		printfDx("%d\n", m_frame);
+#endif
 	}
 	//2秒経ったらシーン変更
 	if (m_frame >= 120.0f)
 	{
-		printfDx("a");
 		m_frame = 0;
 		//シーンをゲームオーバーに変更
 		m_gameSeq = SeqGameOver;

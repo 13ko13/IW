@@ -110,6 +110,11 @@ void Shuriken::Draw()
 		srcX, srcY, 
 		kShurikenSize, kShurikenSize,
 		m_handle, true, false);
+
+#ifdef _DEBUG
+	//“–‚½‚è”»’è‚ð•\Ž¦
+	m_colRect.Draw(0x0000ff, false);
+#endif
 }
 
 bool Shuriken::IsActive() const

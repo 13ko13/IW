@@ -15,6 +15,15 @@ void MoveSpikeMgr::Init(int graphHandle)
 	m_graphHandle = graphHandle;
 }
 
+void MoveSpikeMgr::End()
+{
+	for (auto& spike : m_spikes)
+	{
+		spike.End();
+	}
+	m_spikes.clear(); // トゲのリストをクリア
+}
+
 void MoveSpikeMgr::Update()
 {
 	for (auto& spike : m_spikes)
