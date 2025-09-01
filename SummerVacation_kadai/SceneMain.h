@@ -78,6 +78,8 @@ private:
 
 	//フォントハンドル
 	int m_clearFontHandle;		//クリア表示用フォントハンドル
+	int m_backTitleFontHandle;	//タイトル背景用フォントハンドル
+	int m_gameoverFontHandle; //ゲームオーバー用フォントハンドル
 
 	//サウンドハンドル
 	int m_mainBgmHandle;		//メインBGMハンドル

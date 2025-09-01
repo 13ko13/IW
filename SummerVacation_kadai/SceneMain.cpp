@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "TrapManager.h"
 #include "Shuriken.h"
+#include <dinput.h>
 
 namespace
 {
@@ -37,6 +38,7 @@ SceneMain::SceneMain() :
 	m_shurikenGraphHandle(-1),
 	m_goalGraphHandle(-1),
 	m_clearFontHandle(-1),
+	m_backTitleFontHandle(-1),
 	m_mainBgmHandle(-1),
 	m_clearSeHandle(-1),
 	m_fireSpikeSeHandle(-1),
@@ -105,6 +107,8 @@ void SceneMain::Init()
 
 	//フォントのロード
 	m_clearFontHandle = CreateFontToHandle("x10y12pxDonguriDuel", 120, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_backTitleFontHandle = CreateFontToHandle("x10y12pxDonguriDuel", 20, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
+	m_gameoverFontHandle = CreateFontToHandle("x10y12pxDonguriDuel", 140, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
 
 	//サウンドのロード
 	m_mainBgmHandle = LoadSoundMem("data/MainBgm.mp3");
@@ -273,7 +277,12 @@ void SceneMain::Init()
 		m_isMoveSpikeSpawned = true; // 移動トゲを生成済みフラグを立てる
 	}
 
-
+	int x = 20;
+	int y = 3;
+	DrawStringToHandle(
+		x, y, "OPSIONでタイトルに戻る",
+		GetColor(255, 255, 255),
+		m_backTitleFontHandle);
 }
 
 void SceneMain::End()
@@ -305,6 +314,8 @@ void SceneMain::End()
 
 	//フォントの削除
 	DeleteFontToHandle(m_clearFontHandle);
+	DeleteFontToHandle(m_backTitleFontHandle);
+	DeleteFontToHandle(m_gameoverFontHandle);
 
 	//サウンドの削除
 	DeleteSoundMem(m_mainBgmHandle);
@@ -347,7 +358,7 @@ void SceneMain::Draw()
 	case SeqFadeIn:
 	case SeqGame:
 	case SeqClear:
-	case SeqGameOver:
+	{
 		// 背景の描画
 		m_pBg->Draw();
 
@@ -401,13 +412,68 @@ void SceneMain::Draw()
 		//クリア表示
 		if (m_goal.IsClear())
 		{
-			int x = (Game::kScreenWidth / 2 - strWidth / 2);
-			int y = (Game::kScreenHeight / 2 - 60);
+			int clearX = (Game::kScreenWidth / 2 - strWidth / 2);
+			int clearY = (Game::kScreenHeight / 2 - 60);
 			DrawStringToHandle(
-				x, y, "CLEAR!",
+				clearX, clearY, "CLEAR!",
 				GetColor(2, 155, 1),
 				m_clearFontHandle);
 		}
+
+		//タイトルに戻る表示
+		int titleX = 3;
+		int titleY = 3;
+		DrawStringToHandle(
+			titleX, titleY, "OPSIONでタイトルに戻る",
+			GetColor(255, 255, 255),
+			m_backTitleFontHandle);
+		break;
+	}
+	case SeqGameOver:
+		// 背景の描画
+		m_pBg->Draw();
+
+		// ゴールの描画
+		m_goal.Draw();
+
+		// プレイヤーの描画
+		if (!m_isDead)
+		{
+			m_pPlayer->Draw();
+		}
+
+		//手裏剣の描画
+		m_pShuriken->Draw();
+
+		// 弾の描画
+		if (!m_pShot) return;
+		for (int i = 0; i < kShotMax; i++)
+		{
+			if (!m_pShot[i]) continue;
+			m_pShot[i]->Draw();
+		}
+
+		// トラップの描画
+		m_trapManager.Draw();
+		m_platformManager.Draw();
+		m_moveSpikeMgr.Draw();
+
+		//パーティクルの描画
+		m_particleMgr.Draw();
+
+		//ゲームオーバー表示
+		//文字を中央に表示する
+		int strGameoverWidth = GetDrawFormatStringWidthToHandle
+		(
+			m_gameoverFontHandle,
+			"GAMEOVER");
+
+			int gameoverX = (Game::kScreenWidth / 2 - strGameoverWidth / 2);
+			int gameoverY = (Game::kScreenHeight / 2 - 60);
+			DrawStringToHandle(
+				gameoverX, gameoverY, "GAMEOVER",
+				GetColor(255, 3, 1),
+				m_gameoverFontHandle);
 		break;
 	}
 }
@@ -492,6 +558,20 @@ void SceneMain::UpdateFadeIn()
 
 void SceneMain::UpdateGame()
 {
+	DINPUT_JOYSTATE joyState{};
+
+	//PADのOPSIONボタンでタイトルに戻る
+	if (GetJoypadDirectInputState(DX_INPUT_KEY_PAD1, &joyState) == 0)
+	{
+		if (((joyState.Buttons[9]) != 0) || (joyState.Buttons[7]) != 0) // OPTIONボタンが押されたら(コントローラーが2つある場合を考慮)
+		{
+			//BGMの停止
+			StopSoundMem(m_mainBgmHandle);
+			m_sceneTitle.Init();
+			m_gameSeq = SeqTitle; //シーケンスをタイトルに変更
+		}
+	}
+	
 #ifdef _DEBUG
 	//ボタン一発でクリアできるデバッグ機能
 

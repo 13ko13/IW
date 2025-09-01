@@ -46,6 +46,14 @@ void SceneTitle::Init()
 	//ƒTƒEƒ“ƒh“Ç‚İ‚İ
 	m_titleBgmHandle = LoadSoundMem("data/TitleBgm.mp3");
 	m_startGameSeHandle = LoadSoundMem("data/StartGame.mp3");
+
+	//‰Šú‰»
+	m_time = 0;
+	m_isFadeIn = (false);
+	m_isPressStart = (false);
+	m_currentSeq = Seq::SeqFadeIn;
+	m_fadeAlpha = 255; 
+	m_pressFrame = 0;
 }
 
 void SceneTitle::End()
