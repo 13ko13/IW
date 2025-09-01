@@ -1,5 +1,22 @@
-﻿  SceneMain.cpp
-E:\GitHub\IW\SummerVacation_kadai\SceneMain.cpp(263,55): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-E:\GitHub\IW\SummerVacation_kadai\SceneMain.cpp(401,19): warning C4244: '=': 'float' から 'int' への変換です。データが失われる可能性があります。
-E:\GitHub\IW\SummerVacation_kadai\SceneMain.cpp(722,55): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
-  SummerVacation_kadai.vcxproj -> E:\GitHub\IW\SummerVacation_kadai\x64\Debug\SummerVacation_kadai.exe
+﻿  Trap.cpp
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(120,17): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(126,15): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(126,4): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(124,28): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(124,14): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(133,16): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(139,14): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(139,3): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(137,27): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(137,13): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(145,16): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(151,14): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(151,3): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(149,27): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(149,13): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(160,17): warning C4244: '初期化中': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(166,15): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(166,4): warning C4244: '引数': 'const float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(164,28): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\Trap.cpp(164,14): warning C4244: '引数': 'float' から 'int' への変換です。データが失われる可能性があります。
+  SummerVacation_kadai.vcxproj -> C:\Users\Admin\Documents\GitHub\IW\SummerVacation_kadai\x64\Debug\SummerVacation_kadai.exe

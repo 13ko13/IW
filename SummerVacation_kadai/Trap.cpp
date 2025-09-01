@@ -62,7 +62,10 @@ void Trap::Init(
 
 void Trap::End()
 {
-
+	m_RtrapPos = { NULL,NULL };
+	m_UtrapPos = { NULL,NULL };
+	m_LtrapPos = { NULL,NULL };
+	m_BtrapPos = { NULL,NULL };
 }
 
 void Trap::Update()

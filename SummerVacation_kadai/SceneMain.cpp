@@ -280,7 +280,7 @@ void SceneMain::Init()
 	int x = 20;
 	int y = 3;
 	DrawStringToHandle(
-		x, y, "OPSIONでタイトルに戻る",
+		x, y, "OPSIONでタイトルにもどる",
 		GetColor(255, 255, 255),
 		m_backTitleFontHandle);
 }
@@ -424,7 +424,7 @@ void SceneMain::Draw()
 		int titleX = 3;
 		int titleY = 3;
 		DrawStringToHandle(
-			titleX, titleY, "OPSIONでタイトルに戻る",
+			titleX, titleY, "OPSIONでタイトルにもどる",
 			GetColor(255, 255, 255),
 			m_backTitleFontHandle);
 		break;
