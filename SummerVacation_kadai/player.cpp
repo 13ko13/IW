@@ -268,7 +268,7 @@ void Player::Jump()
 	if (m_isDoubleJump) return;
 
 	int currentPadInput = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if ((currentPadInput & PAD_INPUT_3) && !(m_prevInput & PAD_INPUT_3) && m_jumpNum <= 2)
+	if ((currentPadInput & PAD_INPUT_A) && !(m_prevInput & PAD_INPUT_A) && m_jumpNum <= 2)
 	{
 		m_state = PlayerState::Jump;
 		m_jumpNum++;

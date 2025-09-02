@@ -13,6 +13,7 @@
 class Player;
 class Shot;
 class Bg;
+class Rock;
 
 class SceneMain
 {
@@ -75,6 +76,7 @@ private:
 	int m_moveSpikeGraphHandle;		//移動トゲのグラフィック
 	int m_shurikenGraphHandle;		//手裏剣のグラフィック
 	int m_goalGraphHandle;			//ゴールのグラフィック
+	int m_rockGraphHandle;			//岩のグラフィック
 
 	//フォントハンドル
 	int m_clearFontHandle;		//クリア表示用フォントハンドル
@@ -109,6 +111,8 @@ private:
 	bool m_isDead;					//死んでいるか死んでいないか
 	//死亡処理を行ったかどうか
 	bool m_isDeadActive;
+	//岩発動済みフラグ
+	bool m_isRockFired;				//一度だけ生成するフラグ
 
 	//現在のシーケンス
 	Seq m_gameSeq;
@@ -137,4 +141,6 @@ private:
 	SceneTitle m_sceneTitle;
 	//パーティクルマネージャー
 	ParticleMgr m_particleMgr;
+	//岩
+	Rock* m_pRock;
 };

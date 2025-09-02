@@ -7,6 +7,7 @@
 #include "Game.h"
 #include "TrapManager.h"
 #include "Shuriken.h"
+#include "Rock.h"
 #include <dinput.h>
 
 namespace
@@ -39,6 +40,7 @@ SceneMain::SceneMain() :
 	m_goalGraphHandle(-1),
 	m_clearFontHandle(-1),
 	m_backTitleFontHandle(-1),
+	m_gameoverFontHandle(-1),
 	m_mainBgmHandle(-1),
 	m_clearSeHandle(-1),
 	m_fireSpikeSeHandle(-1),
@@ -56,6 +58,7 @@ SceneMain::SceneMain() :
 	m_isMoveSpikeSpawned(false),
 	m_isDead(false),
 	m_isDeadActive(false),
+	m_isRockFired(false),
 	m_gameSeq(SeqTitle),
 	m_frameCount(0),
 	m_fadeFrame(0)
@@ -69,6 +72,8 @@ SceneMain::SceneMain() :
 	m_pShuriken = new Shuriken;
 
 	m_pBg = new Bg;
+
+	//m_pRock = new Rock;
 }
 
 SceneMain::~SceneMain()
@@ -104,6 +109,7 @@ void SceneMain::Init()
 	m_moveSpikeGraphHandle = LoadGraph("data/MoveSpike.png");
 	m_shurikenGraphHandle = LoadGraph("data/Shuriken.png");
 	m_goalGraphHandle = LoadGraph("data/Goal.png");
+	m_rockGraphHandle = LoadGraph("data/Rock.png");
 
 	//フォントのロード
 	m_clearFontHandle = CreateFontToHandle("x10y12pxDonguriDuel", 120, -1, DX_FONTTYPE_ANTIALIASING_EDGE_8X8);
@@ -155,8 +161,14 @@ void SceneMain::Init()
 	//ゴールの初期化
 	m_goal.Init(m_goalGraphHandle);
 
+	//岩の初期化
+	//m_pRock->Init(m_rockGraphHandle);
+
 	//手裏剣のポインタをプレイヤーにセット
 	m_pShuriken->SetPlayer(m_pPlayer);
+
+	//岩にプレイヤーのポインタをセット
+	//m_pRock->SetPlayer(m_pPlayer);
 
 	//フラグの初期化
 	m_isStartPressed = (false);
@@ -168,6 +180,7 @@ void SceneMain::Init()
 	m_isMoveSpikeSpawned = (false);
 	m_isDead = (false);
 	m_isDeadActive = (false);
+	m_isRockFired = false;
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)
 	if (m_pPlayer->GetPos().x > 1100.0f &&
@@ -293,6 +306,7 @@ void SceneMain::End()
 	m_pPlayer->End();
 	m_pBg->End();
 	m_moveSpikeMgr.End();
+	//m_pRock->End();
 
 	//グラフィックを開放
 	DeleteGraph(m_playerIdleGraphHandle);
@@ -311,6 +325,7 @@ void SceneMain::End()
 	DeleteGraph(m_moveSpikeGraphHandle);
 	DeleteGraph(m_shurikenGraphHandle);
 	DeleteGraph(m_goalGraphHandle);
+	DeleteGraph(m_rockGraphHandle);
 
 	//フォントの削除
 	DeleteFontToHandle(m_clearFontHandle);
@@ -386,9 +401,11 @@ void SceneMain::Draw()
 		m_trapManager.Draw();
 		m_platformManager.Draw();
 		m_moveSpikeMgr.Draw();
+		//m_pRock->Draw();
 
 		//パーティクルの描画
 		m_particleMgr.Draw();
+
 
 		// フェードの描画
 		int fadeAlpha = 0;
@@ -457,6 +474,7 @@ void SceneMain::Draw()
 		m_trapManager.Draw();
 		m_platformManager.Draw();
 		m_moveSpikeMgr.Draw();
+		//m_pRock->Draw();
 
 		//パーティクルの描画
 		m_particleMgr.Draw();
@@ -595,6 +613,7 @@ void SceneMain::UpdateGame()
 	m_moveSpikeMgr.Update();
 	m_pShuriken->Update();
 	m_goal.Update();
+	//m_pRock->Update();
 	m_particleMgr.Update();
 
 	//トゲ発射イベント(X:1000,Y:300を越えたら)

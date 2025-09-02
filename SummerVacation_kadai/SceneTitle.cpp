@@ -141,7 +141,7 @@ void SceneTitle::UpdateTitle()
 {
 	m_pressFrame++;
 	int pad = GetJoypadInputState(DX_INPUT_KEY_PAD1);
-	if (((pad & PAD_INPUT_3) != 0) && !m_isPressStart)//&演算:ビット単位の演算
+	if (((pad & PAD_INPUT_A) != 0) && !m_isPressStart)//&演算:ビット単位の演算
 	{
 		//ゲームスタートSE
 		m_startSeVolume = kStartSeVolume; //音量を設定
