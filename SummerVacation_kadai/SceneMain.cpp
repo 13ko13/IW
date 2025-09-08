@@ -481,8 +481,7 @@ void SceneMain::Draw()
 
 		//ゲームオーバー表示
 		//文字を中央に表示する
-		int strGameoverWidth = GetDrawFormatStringWidthToHandle
-		(
+		int strGameoverWidth = GetDrawFormatStringWidthToHandle(
 			m_gameoverFontHandle,
 			"GAMEOVER");
 
@@ -789,9 +788,19 @@ void SceneMain::UpdateGame()
 
 void SceneMain::UpdateClear()
 {
+	m_pPlayer->Update();
+	float time = 0; //クリア表示時間(フレーム数)
+	time = time + 1.0f;
+	printfDx("%d", time);
 	//クリアしたときの処理
 	//クリア表示
-	m_pPlayer->Update();
+	if (time > 180)
+	{
+		//シーンをタイトルに変更
+		m_sceneTitle.Init();
+		m_gameSeq = SeqTitle;
+		time = 0;
+	}
 }
 
 void SceneMain::UpdateGameOver()
