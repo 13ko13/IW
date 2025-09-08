@@ -22,6 +22,7 @@ namespace
 
 SceneMain::SceneMain() :
 	m_frame(0),
+	m_clearFrame(0),
 	m_playerIdleGraphHandle(-1),
 	m_playerWalkGraphHandle(-1),
 	m_playerShotGraphHnadle(-1),
@@ -789,17 +790,15 @@ void SceneMain::UpdateGame()
 void SceneMain::UpdateClear()
 {
 	m_pPlayer->Update();
-	float time = 0; //クリア表示時間(フレーム数)
-	time = time + 1.0f;
-	printfDx("%d", time);
+	m_clearFrame++;
 	//クリアしたときの処理
 	//クリア表示
-	if (time > 180)
+	if (m_clearFrame > 180)
 	{
 		//シーンをタイトルに変更
 		m_sceneTitle.Init();
 		m_gameSeq = SeqTitle;
-		time = 0;
+		m_clearFrame = 0;
 	}
 }
 
